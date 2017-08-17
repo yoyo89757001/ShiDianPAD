@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="500dp"
+        android:layout_height="300dp">
+        <TextView
+            android:textColor="@color/lanse33"
+            android:text="温馨提示"
+            android:textSize="26sp"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:id="@+id/a1"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_below="@+id/a1"
+            android:id="@+id/a2"
+            android:background="@color/black"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="1dp"/>
+
+
+
+        <TextView
+            android:layout_below="@+id/a2"
+            android:id="@+id/a3"
+            android:textSize="20sp"
+            android:textColor="@color/lanse33"
+            android:gravity="center"
+            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="120dp"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:layout_marginRight="20dp"
+                android:id="@+id/a5"
+                android:background="@drawable/jiaohu3"
+                android:text="确 定"
+                android:gravity="center"
+                android:layout_height="50dp" />
+
+            <Button
+                android:layout_width="120dp"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:visibility="gone"
+                android:id="@+id/a6"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/jiaohu3"
+                android:text="取消登记"
+                android:gravity="center"
+                android:layout_height="50dp" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>
