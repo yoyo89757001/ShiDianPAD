@@ -33,6 +33,7 @@ import android.widget.Toast;
 
 import com.anupcowkur.reservoir.Reservoir;
 import com.anupcowkur.reservoir.ReservoirGetCallback;
+import com.example.xiaojun.shidianpad.MyAppLaction;
 import com.example.xiaojun.shidianpad.R;
 import com.example.xiaojun.shidianpad.beans.Photos;
 import com.example.xiaojun.shidianpad.beans.ShiBieBean;
@@ -56,6 +57,8 @@ import com.google.gson.reflect.TypeToken;
 import com.kaeridcard.tools.Tool;
 import com.lzw.qlhs.Wlt2bmp;
 import com.sdsmdg.tastytoast.TastyToast;
+import com.tzutalin.dlib.FaceDet;
+import com.tzutalin.dlib.VisionDetRet;
 
 
 import org.videolan.libvlc.IVLCVout;
@@ -69,6 +72,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -135,6 +139,7 @@ public class InFoActivity2 extends Activity {
     private String shengfenzhengPath=null;
     private LinearLayout jiemian;
     private RelativeLayout shipingRL;
+    private FaceDet mFaceDet;
     private float    mRelativeFaceSize   = 0.2f;
     private int      mAbsoluteFaceSize   = 0;
     private static int lian=0;
@@ -194,6 +199,9 @@ public class InFoActivity2 extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.zhujiemian2);
+
+        mFaceDet= MyAppLaction.mFaceDet;
+
         Type resultType2 = new TypeToken<String>() {
         }.getType();
         Reservoir.getAsync("zhuji", resultType2, new ReservoirGetCallback<String>() {
@@ -466,9 +474,6 @@ public class InFoActivity2 extends Activity {
                        Toast tastyToast= TastyToast.makeText(InFoActivity2.this,"请先设置摄像头IP",TastyToast.LENGTH_LONG,TastyToast.ERROR);
                        tastyToast.setGravity(Gravity.CENTER,0,0);
                        tastyToast.show();
-                       Toast tastyToast2= TastyToast.makeText(InFoActivity2.this,"请先设置摄像头IP",TastyToast.LENGTH_LONG,TastyToast.ERROR);
-                       tastyToast2.setGravity(Gravity.CENTER,0,0);
-                       tastyToast2.show();
                    }
                });
 
@@ -479,8 +484,8 @@ public class InFoActivity2 extends Activity {
 
         userInfoBena=new UserInfoBena();
 
-        ip = Utils.getIp(this);
-        String source = Utils.getPassword(this);
+       // ip = Utils.getIp(this);
+        //String source = Utils.getPassword(this);
 
         ImageView imageView= (ImageView) findViewById(R.id.dd);
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -519,7 +524,7 @@ public class InFoActivity2 extends Activity {
             // //【功能】探测身份证卡片是否存在
 
              int iRfidCardIsFind = myJni.Mini_rfid_card_is_find (600);
-            Log.d("InFoActivity2", "iRfidCardIsFind:" + iRfidCardIsFind);
+           // Log.d("InFoActivity2", "iRfidCardIsFind:" + iRfidCardIsFind);
             if (iRfidCardIsFind==1){
                 //读卡
                 ReadRfidCardThread readSimCardThread = new ReadRfidCardThread();
@@ -597,10 +602,9 @@ public class InFoActivity2 extends Activity {
 
                         zhengjianzhao.setImageBitmap(bitmap1);
 
-
-                                String fn="aaaa.jpg";
-                                FileUtil.isExists(FileUtil.PATH,fn);
-                                saveBitmap2File(bitmap1.copy(Bitmap.Config.ARGB_8888, true), FileUtil.SDPATH+ File.separator+FileUtil.PATH+File.separator+fn,100);
+                        String fn="aaaa.jpg";
+                        FileUtil.isExists(FileUtil.PATH,fn);
+                        saveBitmap2File(bitmap1.copy(Bitmap.Config.ARGB_8888, true), FileUtil.SDPATH+ File.separator+FileUtil.PATH+File.separator+fn,100);
 
 
                     } catch (Exception e) {
@@ -628,10 +632,10 @@ public class InFoActivity2 extends Activity {
         byte[] tmp_data = new byte[40 * 1024];
         int result = 0;
         try {
-            System.out.println("before unpack");
+           // System.out.println("before unpack");
             // Wlt2bmp.kaerunpack();
             result = Wlt2bmp.picUnpack(pic_src, tmp_data);
-            System.out.println("after unpack");
+           // System.out.println("after unpack");
 
         } catch (Exception e) {
 
@@ -851,7 +855,7 @@ public class InFoActivity2 extends Activity {
                             isPaiZhao2 = false;
 
                             try {
-                                Thread.sleep(800);
+                                Thread.sleep(15000);
                                 if (mediaPlayer.isPlaying()) {
 
                                     startThread();
@@ -860,7 +864,7 @@ public class InFoActivity2 extends Activity {
 
                                     cishu++;
                                     Log.d("InFoActivity", "444444   " + cishu);
-                                    if (cishu == 6) {
+                                    if (cishu == 2) {
 
                                         isPaiZhao2=false;
                                         isPaiZhao = false;
@@ -1093,95 +1097,147 @@ public class InFoActivity2 extends Activity {
 
                                     bitmapBig=videoView.getBitmap();
 
-                                    if (bitmapBig!=null){
-
-                                       new Thread(new Runnable() {
-                                           @Override
-                                           public void run() {
-
-                                               Bitmap bmpf = bitmapBig.copy(Bitmap.Config.RGB_565, true);
-
-                                               //返回识别的人脸数
-                                               //	int faceCount = new FaceDetector(bmpf.getWidth(), bmpf.getHeight(), 1).findFaces(bmpf, facess);
-                                               //	FaceDetector faceCount2 = new FaceDetector(bmpf.getWidth(), bmpf.getHeight(), 2);
-
-                                               myFace = new FaceDetector.Face[numberOfFace];       //分配人脸数组空间
-                                               myFaceDetect = new FaceDetector(bmpf.getWidth(), bmpf.getHeight(), numberOfFace);
-                                               numberOfFaceDetected = myFaceDetect.findFaces(bmpf, myFace);    //FaceDetector 构造实例并解析人脸
-
-                                               if (numberOfFaceDetected > 0) {
-
-                                                   FaceDetector.Face face;
-                                                   if (numberOfFaceDetected>count-1){
-                                                       face = myFace[count-1];
-
-                                                   }else {
-                                                       face = myFace[0];
-
-                                                   }
-
-                                                   PointF pointF = new PointF();
-                                                   face.getMidPoint(pointF);
-
-
-                                                 //  myEyesDistance = (int)face.eyesDistance();
-
-                                                   int xx=0;
-                                                   int yy=0;
-                                                   int xx2=0;
-                                                   int yy2=0;
-
-                                                   if ((int)pointF.x-200>=0){
-                                                       xx=(int)pointF.x-200;
-                                                   }else {
-                                                       xx=0;
-                                                   }
-                                                   if ((int)pointF.y-320>=0){
-                                                       yy=(int)pointF.y-320;
-                                                   }else {
-                                                       yy=0;
-                                                   }
-                                                   if (xx+350 >=bitmapBig.getWidth()){
-                                                       xx2=bitmapBig.getWidth()-xx;
-
-                                                   }else {
-                                                       xx2=350;
-                                                   }
-                                                   if (yy+500>=bitmapBig.getHeight()){
-                                                       yy2=bitmapBig.getHeight()-yy;
-
-                                                   }else {
-                                                       yy2=500;
-                                                   }
-
-
-                                                   Bitmap bitmap = Bitmap.createBitmap(bitmapBig,xx,yy,xx2,yy2);
-
-                                                 //  Bitmap bitmap = Bitmap.createBitmap(bitmapBig,0,0,bitmapBig.getWidth(),bitmapBig.getHeight());
-
-                                                   Message message=Message.obtain();
-                                                   message.what=MESSAGE_QR_SUCCESS;
-                                                   message.obj=bitmap;
-                                                   mHandler2.sendMessage(message);
-
-                                                   String fn="bbbb.jpg";
-                                                   FileUtil.isExists(FileUtil.PATH,fn);
-                                                   saveBitmap2File2(bitmap, FileUtil.SDPATH+ File.separator+FileUtil.PATH+File.separator+fn,100);
-
-
-                                               }else {
-                                                   isTrue4=true;
-                                               }
-
-                                               bmpf.recycle();
-                                               bmpf = null;
-                                           }
-                                       }).start();
-
-
-                                    }
                                 }
                             });
+                            try {
+                                Thread.sleep(100);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                            if (bitmapBig!=null){
+
+                                List<VisionDetRet> results = mFaceDet.detect(bitmapBig);
+
+
+                                if (results != null) {
+
+                                    int s = results.size();
+
+                                    VisionDetRet face;
+                                    if (s > 0) {
+
+                                        if (s > count - 1) {
+
+                                            face = results.get(count - 1);
+
+                                        } else {
+
+                                            face = results.get(0);
+
+                                        }
+
+                                        int xx = 0;
+                                        int yy = 0;
+                                        int xx2 = 0;
+                                        int yy2 = 0;
+                                        int ww = bitmapBig.getWidth();
+                                        int hh = bitmapBig.getHeight();
+                                        if (face.getRight() - 300 >= 0) {
+                                            xx = face.getRight() - 300;
+                                        } else {
+                                            xx = 0;
+                                        }
+                                        if (face.getTop() - 220 >= 0) {
+                                            yy = face.getTop() - 220;
+                                        } else {
+                                            yy = 0;
+                                        }
+                                        if (xx + 430 <= ww) {
+                                            xx2 = 430;
+                                        } else {
+                                            xx2 = ww - xx - 1;
+                                        }
+                                        if (yy + 430 <= hh) {
+                                            yy2 = 430;
+                                        } else {
+                                            yy2 = hh - yy - 1;
+                                        }
+
+//                                               Bitmap bmpf = bitmapBig.copy(Bitmap.Config.RGB_565, true);
+//
+//                                               //返回识别的人脸数
+//                                               //	int faceCount = new FaceDetector(bmpf.getWidth(), bmpf.getHeight(), 1).findFaces(bmpf, facess);
+//                                               //	FaceDetector faceCount2 = new FaceDetector(bmpf.getWidth(), bmpf.getHeight(), 2);
+//
+//                                               myFace = new FaceDetector.Face[numberOfFace];       //分配人脸数组空间
+//                                               myFaceDetect = new FaceDetector(bmpf.getWidth(), bmpf.getHeight(), numberOfFace);
+//                                               numberOfFaceDetected = myFaceDetect.findFaces(bmpf, myFace);    //FaceDetector 构造实例并解析人脸
+//
+//                                               if (numberOfFaceDetected > 0) {
+//
+//                                                   FaceDetector.Face face;
+//                                                   if (numberOfFaceDetected>count-1){
+//                                                       face = myFace[count-1];
+//
+//                                                   }else {
+//                                                       face = myFace[0];
+//
+//                                                   }
+//
+//                                                   PointF pointF = new PointF();
+//                                                   face.getMidPoint(pointF);
+//
+//
+//                                                 //  myEyesDistance = (int)face.eyesDistance();
+//
+//                                                   int xx=0;
+//                                                   int yy=0;
+//                                                   int xx2=0;
+//                                                   int yy2=0;
+//
+//                                                   if ((int)pointF.x-200>=0){
+//                                                       xx=(int)pointF.x-200;
+//                                                   }else {
+//                                                       xx=0;
+//                                                   }
+//                                                   if ((int)pointF.y-320>=0){
+//                                                       yy=(int)pointF.y-320;
+//                                                   }else {
+//                                                       yy=0;
+//                                                   }
+//                                                   if (xx+350 >=bitmapBig.getWidth()){
+//                                                       xx2=bitmapBig.getWidth()-xx;
+//
+//                                                   }else {
+//                                                       xx2=350;
+//                                                   }
+//                                                   if (yy+500>=bitmapBig.getHeight()){
+//                                                       yy2=bitmapBig.getHeight()-yy;
+//
+//                                                   }else {
+//                                                       yy2=500;
+//                                                   }
+
+                                        Bitmap bitmap = Bitmap.createBitmap(bitmapBig, xx, yy, xx2, yy2);
+
+                                        // Bitmap bitmap = Bitmap.createBitmap(bitmapBig,0,0,bitmapBig.getWidth(),bitmapBig.getHeight());
+
+                                        Message message3 = Message.obtain();
+                                        message3.what = MESSAGE_QR_SUCCESS;
+                                        message3.obj = bitmap;
+                                        mHandler2.sendMessage(message3);
+
+
+                                        String fn = "bbbb.jpg";
+                                        FileUtil.isExists(FileUtil.PATH, fn);
+                                        saveBitmap2File2(bitmap, FileUtil.SDPATH + File.separator + FileUtil.PATH + File.separator + fn, 100);
+
+
+                                    } else {
+                                        isTrue4 = true;
+                                    }
+
+                                    //  bmpf.recycle();
+                                    //  bmpf = null;
+                                }else {
+                                    isTrue4 = true;
+                                }
+
+
+                            }else {
+                                isTrue4 = true;
+                            }
 
                         }catch (IllegalStateException e){
                             Log.d("InFoActivity2", e.getMessage()+"");

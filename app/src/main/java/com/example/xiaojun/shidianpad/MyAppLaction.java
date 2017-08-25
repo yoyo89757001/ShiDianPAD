@@ -5,7 +5,6 @@ import android.app.Application;
 import android.util.Log;
 
 import com.anupcowkur.reservoir.Reservoir;
-import com.example.xiaojun.shidianpad.dialog.JiaZaiDialog;
 import com.tencent.smtt.sdk.QbSdk;
 import com.tzutalin.dlib.Constants;
 import com.tzutalin.dlib.FaceDet;

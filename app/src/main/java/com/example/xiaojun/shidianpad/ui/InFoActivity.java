@@ -508,6 +508,7 @@ public class InFoActivity extends Activity implements OnClientCallback {
                             link_save();
                         }else {
                             final QueRenDialog dialog=new QueRenDialog(InFoActivity.this,"比对不通过,你确定要进行下一步");
+                            dialog.setCanceledOnTouchOutside(false);// 设置点击屏幕Dialog不消失
                             dialog.setOnPositiveListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {

@@ -24,6 +24,15 @@ public class ShouYeActivity extends Activity {
                 startActivity(new Intent(ShouYeActivity.this,InFoActivity2.class));
             }
         });
+
+        TextView imageView22= (TextView) findViewById(R.id.fuwu);
+        imageView22.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ShouYeActivity.this,RenGongFuWuActivity.class));
+            }
+        });
+
         ImageView imageView2= (ImageView) findViewById(R.id.shezhi);
         imageView2.setOnClickListener(new View.OnClickListener() {
             @Override

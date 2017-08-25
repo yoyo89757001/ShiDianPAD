@@ -90,14 +90,21 @@
             android:name=".ui.DatePickActivity"
             android:theme="@style/MyDialogStyleBottom" />
         <activity
+            android:name=".ui.DatePickActivity2"
+            android:theme="@style/MyDialogStyleBottom" />
+        <activity
             android:name=".ui.JiaZaiActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-
-        <activity android:name=".ui.DaYingActivity"
+        <activity
+            android:name=".ui.DaYingActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".ui.RenGongFuWuActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateHidden"
             />
     </application>
 

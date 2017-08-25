@@ -25,10 +25,16 @@
         <!--android:layout_below="@+id/d1"-->
         <!--android:layout_centerHorizontal="true" />-->
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
         <TextView
             android:background="@drawable/jiaohu7"
             android:layout_width="380dp"
-            android:text="预约来访登记"
+            android:text="来访登记"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:gravity="center"
@@ -36,7 +42,24 @@
             android:layout_height="100dp"
             android:id="@+id/dengji"
             android:src="@drawable/anniu"
-            android:layout_centerInParent="true" />
+            />
+
+
+        <TextView
+            android:background="@drawable/jiaohu7"
+            android:layout_width="380dp"
+            android:text="人工服务"
+            android:layout_marginTop="40dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:layout_height="100dp"
+            android:id="@+id/fuwu"
+            android:src="@drawable/anniu"/>
+
+    </LinearLayout>
+
 
 
 
