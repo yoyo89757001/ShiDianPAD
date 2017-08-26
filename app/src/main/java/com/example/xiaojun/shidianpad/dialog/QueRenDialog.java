@@ -23,7 +23,7 @@ public class QueRenDialog extends Dialog {
     private TextView shuoming;
     private View quxiao_v;
     public QueRenDialog(Context context, String ss) {
-        super(context, R.style.dialog_style);
+        super(context, R.style.dialog_style5);
         setCustomDialog(ss);
     }
 

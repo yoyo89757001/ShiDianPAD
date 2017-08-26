@@ -46,6 +46,18 @@ public class ShouYeActivity extends Activity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK ) {
+            // 选择预约时间的页面被关闭
+            startActivity(new Intent(ShouYeActivity.this,InFoActivity2.class));
+
+        }
+
+    }
+
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
             System.out.println("按下了back键   onKeyDown()");

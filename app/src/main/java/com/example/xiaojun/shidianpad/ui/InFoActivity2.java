@@ -372,6 +372,11 @@ public class InFoActivity2 extends Activity {
                             if (jiaZaiDialog!=null && jiaZaiDialog.isShowing()){
                                 jiaZaiDialog.setText("开启摄像失败,返回后重试");
                             }
+                            Intent intent=new Intent();
+                            intent.putExtra("date", "1");
+                            setResult(Activity.RESULT_OK, intent);
+
+                            finish();
 
                             break;
                     }
@@ -390,6 +395,8 @@ public class InFoActivity2 extends Activity {
 
         videoView= (AutoFitTextureView) findViewById(R.id.fff);
         videoView.setAspectRatio(5,3);
+
+
         imageView= (ImageView) findViewById(R.id.ffff);
 
         jiemian= (LinearLayout) findViewById(R.id.jiemian);
@@ -420,7 +427,7 @@ public class InFoActivity2 extends Activity {
                             mediaPlayer.setMedia(media);
                             videoView.setKeepScreenOn(true);
                             mediaPlayer.play();
-                            Log.d("InFoActivity", "播放");
+                          //  Log.d("InFoActivity", "播放");
 
                         }
 
@@ -440,7 +447,7 @@ public class InFoActivity2 extends Activity {
                     @Override
                     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
                         vlcVout.attachViews();
-                        Log.d("InFoActivity", "播放222");
+                       // Log.d("InFoActivity", "播放222");
                     }
 
                     @Override
@@ -507,14 +514,7 @@ public class InFoActivity2 extends Activity {
         connectDevice();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
 
-
-
-
-    }
 
     private Handler handlerGongGao = new Handler();
     private Runnable runnableGongGao = new Runnable() {
@@ -855,7 +855,7 @@ public class InFoActivity2 extends Activity {
                             isPaiZhao2 = false;
 
                             try {
-                                Thread.sleep(15000);
+                                Thread.sleep(13000);
                                 if (mediaPlayer.isPlaying()) {
 
                                     startThread();
@@ -863,8 +863,8 @@ public class InFoActivity2 extends Activity {
                                 } else {
 
                                     cishu++;
-                                    Log.d("InFoActivity", "444444   " + cishu);
-                                    if (cishu == 2) {
+
+                                    if (cishu == 1) {
 
                                         isPaiZhao2=false;
                                         isPaiZhao = false;
@@ -875,6 +875,15 @@ public class InFoActivity2 extends Activity {
                                         mhandler.sendMessage(message3);
 
                                     } else {
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                final Uri uri=Uri.parse("rtsp://"+ip+"/user=admin&password=&channel=1&stream=0.sdp");
+                                                media = new Media(libvlc, uri);
+                                                mediaPlayer.setMedia(media);
+                                                mediaPlayer.play();
+                                            }
+                                        });
 
                                         isPaiZhao2=true;
 
@@ -897,15 +906,33 @@ public class InFoActivity2 extends Activity {
     protected void onPause() {
         super.onPause();
 
-        Log.d("InFoActivity2", "暂停");
+        if (mediaPlayer!=null){
+            mediaPlayer=null;
+            media=null;
+        }
+        if (vlcVout!=null){
+            vlcVout.detachViews();
+            vlcVout.removeCallback(callback);
+            callback=null;
+            vlcVout=null;
+        }
+        if (videoView!=null){
+            videoView.setSurfaceTextureListener(null);
+        }
+        if (libvlc!=null){
+            libvlc.release();
+        }
+        if (myJni!=null){
+            myJni.Mini_release();
+            myJni=null;
+        }
+
 
         if (handlerGongGao!=null){
             handlerGongGao.removeCallbacks(runnableGongGao);
             handlerGongGao=null;
         }
 
-        if (myJni!=null)
-            myJni.Mini_release();
 
         count=1;
 
@@ -914,6 +941,7 @@ public class InFoActivity2 extends Activity {
         cishu=0;
         isPaiZhao=false;
         isPaiZhao2=false;
+
             if (_beepManager!=null){
                 _beepManager.close();
                 _beepManager=null;
@@ -923,6 +951,7 @@ public class InFoActivity2 extends Activity {
         if (jiaZaiDialog!=null && jiaZaiDialog.isShowing()){
             jiaZaiDialog.dismiss();
         }
+
 
     }
 
@@ -1599,14 +1628,28 @@ public class InFoActivity2 extends Activity {
             @Override
             public void run() {
 
+                if (mediaPlayer!=null){
+                    mediaPlayer=null;
+                    media=null;
+                }
                 if (vlcVout!=null){
                     vlcVout.detachViews();
                     vlcVout.removeCallback(callback);
+                    callback=null;
                     vlcVout=null;
                 }
                 if (videoView!=null){
                     videoView.setSurfaceTextureListener(null);
                 }
+                if (libvlc!=null){
+                    libvlc.release();
+                }
+
+                if (myJni!=null){
+                    myJni.Mini_release();
+                    myJni=null;
+                }
+
 
             }
         }).start();
