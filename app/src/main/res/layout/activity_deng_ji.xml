@@ -16,21 +16,20 @@
             android:layout_height="0dp">
 
             <LinearLayout
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
                     android:id="@+id/touxiang"
-                    android:layout_width="220dp"
-                    android:layout_height="220dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:scaleType="fitXY" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:id="@+id/bidui_tv"
-                    android:ems="1"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="6dp"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:layout_height="wrap_content" />
@@ -42,12 +41,12 @@
 
 
         <LinearLayout
-            android:layout_weight="1.8"
+            android:layout_weight="2.4"
             android:background="@drawable/baisetouming"
             android:layout_width="match_parent"
             android:layout_marginBottom="16dp"
-            android:layout_marginLeft="60dp"
-            android:layout_marginRight="60dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:orientation="vertical"
             android:layout_height="0dp">
 
@@ -55,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:text="填写个人信息"
                 android:textSize="20sp"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="14dp"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@color/white"
                 android:layout_height="wrap_content" />
@@ -69,7 +68,7 @@
                 android:layout_marginRight="20dp"
                 android:orientation="horizontal"
                 android:background="@drawable/huiseyuanjiao"
-                android:layout_height="60dp">
+                android:layout_height="48dp">
 
                 <TextView
                     android:id="@+id/textView5"
@@ -78,13 +77,13 @@
                     android:text="姓名："
                     android:layout_marginLeft="20dp"
                     android:textColor="@color/blake"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/editText"
                     android:gravity="center_vertical"
                     android:layout_width="wrap_content"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textColor="@color/blake2"
                     android:layout_height="match_parent"
                     />
@@ -94,15 +93,15 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="14dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/huiseyuanjiao"
-                android:layout_height="60dp">
+                android:layout_height="48dp">
                 <TextView
                     android:text="来访日期："
                     android:textColor="@color/blake"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:gravity="center_vertical"
                     android:layout_marginLeft="20dp"
                     android:layout_width="wrap_content"
@@ -114,7 +113,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:id="@+id/riqi"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:gravity="center_vertical"
                     android:textColor="@color/blake2"
                     android:layout_height="match_parent"
@@ -130,9 +129,9 @@
 
                 <ImageView
                     android:src="@drawable/xjt"
-                    android:layout_width="50dp"
+                    android:layout_width="48dp"
                     android:layout_height="match_parent"
-                    android:padding="18dp"
+                    android:padding="16dp"
                     android:layout_centerVertical="true"
                     android:layout_alignParentEnd="true"
                     android:id="@+id/imageView" />
@@ -142,15 +141,15 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="14dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/huiseyuanjiao"
-                android:layout_height="60dp">
+                android:layout_height="48dp">
                 <TextView
                     android:text="受访部门(或楼层)："
                     android:textColor="@color/blake"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:layout_marginLeft="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -162,7 +161,7 @@
                     android:layout_width="match_parent"
                     android:id="@+id/bumen"
                     android:imeOptions="actionNext"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:maxLength="16"
                     android:singleLine="true"
                     android:inputType="text"
@@ -197,16 +196,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:gravity="center_vertical"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="14dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:orientation="horizontal"
                 android:background="@drawable/huiseyuanjiao"
-                android:layout_height="60dp">
+                android:layout_height="48dp">
                 <TextView
                     android:text="受访人："
                     android:textColor="@color/blake"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:layout_marginLeft="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -214,7 +213,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:background="@null"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:singleLine="true"
                     android:inputType="text"
                     android:imeOptions="actionNext"
@@ -229,16 +228,16 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:gravity="center_vertical"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="14dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:orientation="horizontal"
                 android:background="@drawable/huiseyuanjiao"
-                android:layout_height="60dp">
+                android:layout_height="48dp">
                 <TextView
                     android:text="来访人数："
                     android:textColor="@color/blake"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:layout_marginLeft="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -246,7 +245,7 @@
                 <EditText
                     android:layout_width="match_parent"
                     android:background="@null"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:text="1"
                     android:singleLine="true"
                     android:maxLength="10"
@@ -269,7 +268,7 @@
                 android:id="@+id/queren2"
                 android:gravity="center"
                 android:background="@drawable/jiaohu6"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_height="44dp" />
 

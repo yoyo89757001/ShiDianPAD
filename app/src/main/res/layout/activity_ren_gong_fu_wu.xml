@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
 
+
     <RelativeLayout
         android:visibility="visible"
         android:id="@+id/shiping_rl"
@@ -17,9 +18,9 @@
             android:layout_height="match_parent" />
 
         <Button
-            android:layout_width="120dp"
+            android:layout_width="116dp"
             android:background="@drawable/jiaohu"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:id="@+id/paizhao"
             android:textColor="@color/white"
             android:layout_centerHorizontal="true"
@@ -32,7 +33,7 @@
 
     <RelativeLayout
         android:id="@+id/ggg"
-        android:background="@color/QUATER_CLEAR_WHITE"
+        android:background="#eeeeee"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
@@ -43,15 +44,14 @@
        android:background="@color/colorBar_bg"
        android:orientation="vertical"
        android:layout_width="match_parent"
-       android:layout_height="300dp">
-
+       android:layout_height="wrap_content">
 
        <ImageView
           android:layout_centerInParent="true"
            android:background="@drawable/yuan"
-           android:layout_width="160dp"
+           android:layout_width="100dp"
            android:id="@+id/touxiang"
-           android:layout_height="160dp" />
+           android:layout_height="100dp" />
 
        <ImageView
            android:layout_centerInParent="true"
@@ -64,13 +64,13 @@
        <TextView
            android:text="点击拍照"
            android:layout_below="@+id/touxiang"
-           android:layout_marginTop="10dp"
-           android:textSize="18sp"
+           android:layout_marginTop="30dp"
+           android:textSize="16sp"
            android:textColor="@color/white"
+           android:layout_marginBottom="10dp"
            android:layout_centerHorizontal="true"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content" />
-
 
 
    </RelativeLayout>
@@ -83,7 +83,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textColor="@color/black"
             android:text="填写信息"
             android:layout_marginLeft="16dp"
@@ -93,17 +93,17 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="66dp"
+            android:layout_height="48dp"
             android:gravity="center_vertical"
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/zidonghuoqu10"
             android:orientation="horizontal">
 
             <TextView
                 android:text="来访人:"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:layout_marginLeft="16dp"
                 android:textColor="@color/igray_et"
                 android:layout_width="wrap_content"
@@ -113,7 +113,7 @@
                 android:background="@null"
                 android:layout_width="match_parent"
                 android:textColor="@color/igray_et"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:id="@+id/name"
                 android:imeOptions="actionNext"
                 android:singleLine="true"
@@ -125,18 +125,18 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/zidonghuoqu10"
             android:layout_width="match_parent"
             android:layout_marginLeft="32dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:layout_marginRight="32dp"
-            android:layout_height="66dp">
+            android:layout_height="48dp">
 
             <TextView
                 android:text="来访人手机:"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:layout_marginLeft="16dp"
                 android:textColor="@color/igray_et"
                 android:layout_width="wrap_content"
@@ -147,7 +147,7 @@
                 android:id="@+id/shoujihao"
                 android:layout_width="match_parent"
                 android:textColor="@color/igray_et"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:imeOptions="actionNext"
                 android:singleLine="true"
                 android:maxLength="11"
@@ -160,17 +160,17 @@
 
         <LinearLayout
             android:id="@+id/riqill"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/zidonghuoqu10"
             android:layout_width="match_parent"
             android:layout_marginLeft="32dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_marginRight="32dp"
-            android:layout_height="66dp">
+            android:layout_height="48dp">
             <TextView
                 android:text="预约来访日期:"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:layout_marginLeft="16dp"
                 android:textColor="@color/igray_et"
                 android:layout_width="wrap_content"
@@ -180,36 +180,36 @@
                 android:background="@null"
                 android:layout_width="match_parent"
                 android:textColor="@color/igray_et"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:gravity="center_vertical"
                 android:id="@+id/riqi"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="60dp"
+                android:layout_marginRight="48dp"
                 android:layout_height="match_parent" />
 
             <ImageView
                 android:id="@+id/imageView2"
-                android:layout_width="60dp"
+                android:layout_width="48dp"
                 android:focusable="false"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="-60dp"
-                android:padding="22dp"
+                android:layout_marginLeft="-48dp"
+                android:padding="16dp"
                 android:src="@drawable/xjt" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/zidonghuoqu10"
             android:layout_width="match_parent"
             android:gravity="center_vertical"
             android:layout_marginLeft="32dp"
             android:orientation="horizontal"
             android:layout_marginRight="32dp"
-            android:layout_height="66dp">
+            android:layout_height="48dp">
             <TextView
                 android:text="被访人:"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:layout_marginLeft="16dp"
                 android:textColor="@color/igray_et"
                 android:layout_width="wrap_content"
@@ -219,7 +219,7 @@
                 android:background="@null"
                 android:layout_width="match_parent"
                 android:textColor="@color/igray_et"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:imeOptions="actionNext"
                 android:singleLine="true"
                 android:id="@+id/yuyueren"
@@ -229,17 +229,17 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/zidonghuoqu10"
             android:layout_width="match_parent"
             android:layout_marginLeft="32dp"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_marginRight="32dp"
-            android:layout_height="66dp">
+            android:layout_height="48dp">
             <TextView
                 android:text="被访人手机:"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:layout_marginLeft="16dp"
                 android:textColor="@color/igray_et"
                 android:layout_width="wrap_content"
@@ -249,7 +249,7 @@
                 android:background="@null"
                 android:layout_width="match_parent"
                 android:textColor="@color/igray_et"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:maxLength="11"
                 android:imeOptions="actionNext"
                 android:singleLine="true"
@@ -260,17 +260,17 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="12dp"
             android:background="@drawable/zidonghuoqu10"
             android:layout_width="match_parent"
             android:layout_marginLeft="32dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:layout_marginRight="32dp"
-            android:layout_height="66dp">
+            android:layout_height="48dp">
             <TextView
                 android:text="来访人数:"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:layout_marginLeft="16dp"
                 android:textColor="@color/igray_et"
                 android:layout_width="wrap_content"
@@ -280,7 +280,7 @@
                 android:background="@null"
                 android:layout_width="match_parent"
                 android:textColor="@color/igray_et"
-                android:textSize="18sp"
+                android:textSize="14sp"
                 android:inputType="number"
                 android:id="@+id/yuyuerenshu"
                 android:textStyle="bold"
@@ -292,16 +292,16 @@
         </LinearLayout>
 
         <Button
-            android:textSize="18sp"
-            android:text="确认预约"
+            android:textSize="14sp"
+            android:text="确认登记"
             android:id="@+id/baocun"
             android:gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:layout_gravity="center_horizontal"
             android:textColor="@color/white"
             android:background="@drawable/jiaohu"
-            android:layout_width="120dp"
-            android:layout_height="50dp" />
+            android:layout_width="116dp"
+            android:layout_height="44dp" />
 
 
     </LinearLayout>

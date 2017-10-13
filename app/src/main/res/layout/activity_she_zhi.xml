@@ -11,7 +11,6 @@
 
     <LinearLayout
         android:gravity="center"
-        android:layout_marginTop="50dp"
         android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="65dp">
@@ -21,8 +20,8 @@
             android:textSize="14sp"
             android:textColor="@color/write"
             android:layout_width="wrap_content"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
             android:id="@+id/shezhiip"
             android:background="@drawable/jiaohu3"
             android:layout_height="38dp" />
@@ -32,7 +31,7 @@
     <View
         android:background="@color/bg_color"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        android:layout_height="0.8dp"/>
     <LinearLayout
         android:gravity="center"
         android:orientation="vertical"
@@ -72,7 +71,7 @@
     <View
         android:background="@color/bg_color"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        android:layout_height="0.8dp"/>
 
     <View
         android:background="@color/bg_color"
@@ -99,7 +98,7 @@
     <View
         android:background="@color/bg_color"
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"/>
+        android:layout_height="0.8dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -110,15 +109,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="中国电信广州分公司"
+            android:layout_marginTop="20dp"
+            android:text="V1.1.0"
             android:textColor="@color/sbc_header_text"
             android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="V1.0.0"
+            android:text="中国电信"
             android:textColor="@color/sbc_header_text"
             android:textSize="18sp" />
     </LinearLayout>

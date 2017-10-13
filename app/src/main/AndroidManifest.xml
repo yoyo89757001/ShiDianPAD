@@ -45,13 +45,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--<activity-->
+            <!--android:name=".ui.InFoActivity"-->
+            <!--android:screenOrientation="landscape"-->
+            <!--android:theme="@android:style/Theme.NoTitleBar.Fullscreen"-->
+            <!--android:windowSoftInputMode="stateHidden" />-->
         <activity
-            android:name=".ui.InFoActivity"
-            android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateHidden" />
-        <activity
-            android:name=".ui.InFoActivity2"
+            android:name=".ui.InFoActivity3"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateHidden" />
@@ -67,11 +67,6 @@
             android:name=".ui.CameraActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity
-            android:name=".ui.InFoActivity3"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.ChaXunActivity"
             android:screenOrientation="portrait"
@@ -92,10 +87,10 @@
         <activity
             android:name=".ui.DatePickActivity2"
             android:theme="@style/MyDialogStyleBottom" />
-        <activity
-            android:name=".ui.JiaZaiActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <!--<activity-->
+            <!--android:name=".ui.JiaZaiActivity"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />-->
         <activity
             android:name=".ui.DaYingActivity"
             android:screenOrientation="portrait"

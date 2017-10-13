@@ -5,9 +5,13 @@ import android.app.Application;
 import android.util.Log;
 
 import com.anupcowkur.reservoir.Reservoir;
+import com.example.xiaojun.shidianpad.utils.LibVLCUtil;
 import com.tencent.smtt.sdk.QbSdk;
 import com.tzutalin.dlib.Constants;
 import com.tzutalin.dlib.FaceDet;
+
+import org.videolan.libvlc.LibVLC;
+
 import java.io.File;
 
 import java.io.IOException;
@@ -20,6 +24,7 @@ import java.io.IOException;
 public class MyAppLaction extends Application{
     private File mCascadeFile;
     public static FaceDet mFaceDet;
+    public static LibVLC libvlc;
 
    // public static CascadeClassifier mJavaDetector;
 
@@ -59,7 +64,7 @@ public class MyAppLaction extends Application{
             Log.d("gggg", e.getMessage());
 
         }
-
+        libvlc = LibVLCUtil.getLibVLC(getApplicationContext());
 
 
 

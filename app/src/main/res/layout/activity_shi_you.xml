@@ -3,14 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bj"
-    tools:context="com.example.xiaojun.shidianpad.ui.DengJiActivity">
+    android:background="@drawable/posbg">
 
     <TextView
         android:layout_width="wrap_content"
         android:text="来访事由"
-        android:layout_marginTop="80dp"
-        android:textSize="40sp"
+        android:layout_marginTop="40dp"
+        android:textSize="26sp"
         android:id="@+id/dddd"
 
         android:layout_centerHorizontal="true"
@@ -20,10 +19,8 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_below="@+id/dddd"
-        android:layout_marginTop="180dp"
-        android:layout_marginBottom="180dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginRight="60dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="140dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -35,6 +32,8 @@
 
             <LinearLayout
                 android:id="@+id/l1"
+                android:layout_marginRight="-20dp"
+                android:layout_marginBottom="-20dp"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1">
@@ -42,12 +41,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="30dp"
+                    android:layout_margin="40dp"
                     android:background="@drawable/lfsy"
                     android:gravity="center"
                     android:text="业务"
                     android:textColor="@color/huang"
-                    android:textSize="44sp" />
+                    android:textSize="22sp" />
 
 
             </LinearLayout>
@@ -55,6 +54,8 @@
             <LinearLayout
                 android:layout_weight="1"
                 android:id="@+id/l3"
+                android:layout_marginTop="-20dp"
+                android:layout_marginRight="-20dp"
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
 
@@ -62,8 +63,9 @@
                     android:text="面试"
                     android:textColor="@color/huang"
                     android:gravity="center"
-                    android:textSize="44sp"
-                    android:layout_margin="30dp"
+                    android:textSize="22sp"
+
+                    android:layout_margin="40dp"
                     android:background="@drawable/lfsy"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
@@ -81,14 +83,16 @@
             <LinearLayout
                 android:layout_weight="1"
                 android:id="@+id/l2"
+                android:layout_marginBottom="-20dp"
+                android:layout_marginLeft="-20dp"
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
                 <TextView
                     android:text="合作"
                     android:textColor="@color/huang"
                     android:gravity="center"
-                    android:textSize="44sp"
-                    android:layout_margin="30dp"
+                    android:textSize="22sp"
+                    android:layout_margin="40dp"
                     android:background="@drawable/lfsy"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
@@ -97,6 +101,8 @@
             <LinearLayout
                 android:layout_weight="1"
                 android:id="@+id/l4"
+                android:layout_marginLeft="-20dp"
+                android:layout_marginTop="-20dp"
                 android:layout_width="match_parent"
                 android:layout_height="0dp">
 
@@ -104,8 +110,8 @@
                     android:text="其它"
                     android:textColor="@color/huang"
                     android:gravity="center"
-                    android:textSize="44sp"
-                    android:layout_margin="30dp"
+                    android:textSize="22sp"
+                    android:layout_margin="40dp"
                     android:background="@drawable/lfsy"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />

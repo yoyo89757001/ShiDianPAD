@@ -60,7 +60,7 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
     private EditText shoufangren,shoufangrenshu,bumen_ET;
 //    private Myadapter myadapter;
     private List<String> stringList;
-    private String[] datas = {"后勤", "人事部", "生产部", "部门4", "部门666"};
+   // private String[] datas = {"后勤", "人事部", "生产部", "部门4", "部门666"};
     private int xuanzhong;
     private  PopupWindow window;
     private Button wancheng;
@@ -343,7 +343,9 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
                 .add("visitPerson",shoufangren.getText().toString().trim()+"")
                 .add("visitNum",shoufangrenshu.getText().toString().trim()+"")
                 .build();
-        Log.d("DengJiActivity", DateUtils.dataOne(riqi_tv.getText().toString().trim()));
+
+      //  Log.d("DengJiActivity", DateUtils.dataOne(riqi_tv.getText().toString().trim()));
+
         Request.Builder requestBuilder = new Request.Builder()
                 // .header("Content-Type", "application/json")
                 .post(body)

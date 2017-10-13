@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:gravity="center"
     android:background="@color/CLEAR"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -22,15 +23,13 @@
             android:layout_marginTop="10dp"
             android:background="@color/lanse33"
             android:text="请把身份证放入读卡区"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:gravity="center"
             android:id="@+id/a1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/progressBar"
-            android:layout_centerHorizontal="true" />
-
-
+            android:layout_centerInParent="true" />
 
     </RelativeLayout>
 

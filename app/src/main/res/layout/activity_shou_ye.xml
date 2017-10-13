@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@drawable/bj"
+    android:background="@drawable/posbg"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 <ImageView
     android:layout_width="160dp"
-    android:layout_marginTop="26dp"
+    android:layout_marginTop="30dp"
     android:id="@+id/d1"
     android:src="@drawable/logo"
     android:layout_centerHorizontal="true"
@@ -33,13 +33,15 @@
 
         <TextView
             android:background="@drawable/jiaohu7"
-            android:layout_width="380dp"
+            android:layout_width="match_parent"
             android:text="来访登记"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:gravity="center"
-            android:textSize="30sp"
-            android:layout_height="100dp"
+            android:textSize="22sp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_height="80dp"
             android:id="@+id/dengji"
             android:src="@drawable/anniu"
             />
@@ -47,14 +49,16 @@
 
         <TextView
             android:background="@drawable/jiaohu7"
-            android:layout_width="380dp"
+            android:layout_width="match_parent"
             android:text="人工服务"
-            android:layout_marginTop="40dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="50dp"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:gravity="center"
-            android:textSize="30sp"
-            android:layout_height="100dp"
+            android:textSize="22sp"
+            android:layout_height="80dp"
             android:id="@+id/fuwu"
             android:src="@drawable/anniu"/>
 
