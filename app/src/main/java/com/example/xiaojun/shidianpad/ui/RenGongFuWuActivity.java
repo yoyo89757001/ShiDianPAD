@@ -535,6 +535,7 @@ public class RenGongFuWuActivity extends Activity {
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                      .transform(new GlideCircleTransform(RenGongFuWuActivity.this,1, Color.parseColor("#ffffffff")))
                     .into(touxiang);
+
             jiahao.setVisibility(View.GONE);
             isA=true;
 
@@ -686,6 +687,7 @@ public class RenGongFuWuActivity extends Activity {
 
         if (tiJIaoDialog==null){
             tiJIaoDialog=new TiJIaoDialog(RenGongFuWuActivity.this);
+            if (!RenGongFuWuActivity.this.isFinishing())
             tiJIaoDialog.show();
         }
         //final MediaType JSON=MediaType.parse("application/json; charset=utf-8");
@@ -766,6 +768,7 @@ public class RenGongFuWuActivity extends Activity {
             public void run() {
                 if (tiJIaoDialog==null && !RenGongFuWuActivity.this.isFinishing()){
                     tiJIaoDialog=new TiJIaoDialog(RenGongFuWuActivity.this);
+                    if (!RenGongFuWuActivity.this.isFinishing())
                     tiJIaoDialog.show();
                 }
             }

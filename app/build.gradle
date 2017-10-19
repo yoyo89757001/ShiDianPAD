@@ -43,4 +43,6 @@ dependencies {
     compile 'com.anupcowkur:reservoir:3.1.0'
     compile 'com.tzutalin.dlib-android-app:dlib:1.0.4'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.tencent.bugly:crashreport_upgrade:latest.release'
+    compile 'com.tencent.bugly:nativecrashreport:latest.release'
 }

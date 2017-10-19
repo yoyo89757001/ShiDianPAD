@@ -283,6 +283,7 @@ public class InFoActivity3 extends Activity {
 
         jiaZaiDialog=new JiaZaiDialog(InFoActivity3.this);
         jiaZaiDialog.setCanceledOnTouchOutside(false);// 设置点击屏幕Dialog不消失
+        if (!InFoActivity3.this.isFinishing())
         jiaZaiDialog.show();
 
     }
@@ -1465,6 +1466,7 @@ public class InFoActivity3 extends Activity {
                 jiaZaiDialog=new JiaZaiDialog(InFoActivity3.this);
                 jiaZaiDialog.setCanceledOnTouchOutside(false);// 设置点击屏幕Dialog不消失
                 jiaZaiDialog.setText("上传图片中...");
+                if (!InFoActivity3.this.isFinishing())
                 jiaZaiDialog.show();
             }
         });
@@ -1749,6 +1751,7 @@ public class InFoActivity3 extends Activity {
             public void run() {
                 if (tiJIaoDialog==null && !InFoActivity3.this.isFinishing()){
                     tiJIaoDialog=new TiJIaoDialog(InFoActivity3.this);
+                    if (!InFoActivity3.this.isFinishing())
                     tiJIaoDialog.show();
                 }
             }

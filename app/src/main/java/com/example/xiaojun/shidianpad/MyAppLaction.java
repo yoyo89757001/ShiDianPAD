@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.anupcowkur.reservoir.Reservoir;
 import com.example.xiaojun.shidianpad.utils.LibVLCUtil;
+import com.tencent.bugly.Bugly;
 import com.tencent.smtt.sdk.QbSdk;
 import com.tzutalin.dlib.Constants;
 import com.tzutalin.dlib.FaceDet;
@@ -41,6 +42,7 @@ public class MyAppLaction extends Application{
         mFaceDet = new FaceDet(Constants.getFaceShapeModelPath());
 
         try {
+            Bugly.init(getApplicationContext(), "8f8769dbf4", false);
             Reservoir.init(this, 900*1024); //in bytes 1M
 
             //搜集本地tbs内核信息并上报服务器，服务器返回结果决定使用哪个内核。

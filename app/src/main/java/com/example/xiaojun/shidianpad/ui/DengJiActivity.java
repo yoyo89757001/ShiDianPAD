@@ -115,9 +115,6 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
                         Toast tastyToast= TastyToast.makeText(DengJiActivity.this,"获取本地ip异常",TastyToast.LENGTH_LONG,TastyToast.ERROR);
                         tastyToast.setGravity(Gravity.CENTER,0,0);
                         tastyToast.show();
-                        Toast tastyToast2= TastyToast.makeText(DengJiActivity.this,"获取本地ip异常",TastyToast.LENGTH_LONG,TastyToast.ERROR);
-                        tastyToast2.setGravity(Gravity.CENTER,0,0);
-                        tastyToast2.show();
                     }
                 });
 
@@ -353,6 +350,7 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
 
         if (tiJIaoDialog==null){
             tiJIaoDialog=new TiJIaoDialog(DengJiActivity.this);
+            if (!DengJiActivity.this.isFinishing())
             tiJIaoDialog.show();
         }
 
