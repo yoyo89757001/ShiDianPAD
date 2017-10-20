@@ -176,7 +176,7 @@ public class InFoActivity3 extends Activity {
         setContentView(R.layout.zhujiemian4);
 
         mFaceDet= MyAppLaction.mFaceDet;
-        libvlc=MyAppLaction.libvlc;
+        libvlc=new LibVLC(InFoActivity3.this);
 
         Type resultType2 = new TypeToken<String>() {
         }.getType();
@@ -320,10 +320,6 @@ public class InFoActivity3 extends Activity {
         });
 
                 callback=new IVLCVout.Callback() {
-                    @Override
-                    public void onNewLayout(IVLCVout vlcVout, int width, int height, int visibleWidth, int visibleHeight, int sarNum, int sarDen) {
-
-                    }
 
                     @Override
                     public void onSurfacesCreated(IVLCVout vlcVout) {
@@ -343,10 +339,6 @@ public class InFoActivity3 extends Activity {
                         vlcVout.removeCallback(callback);
                     }
 
-                    @Override
-                    public void onHardwareAccelerationError(IVLCVout vlcVout) {
-
-                    }
                 };
 
 
@@ -579,7 +571,7 @@ public class InFoActivity3 extends Activity {
                 saveBitmap2File(zhengjianBitmap.copy(Bitmap.Config.ARGB_8888,false), FileUtil.SDPATH+ File.separator+FileUtil.PATH+File.separator+fn,100);
 
                 userInfoBena = new UserInfoBena(info.getName(), info.getSex().equals("男") ? 1 + "" : 2 + "", info.getNation(), time, info.getAddress(), info.getNo(), info.getApartment(), time2, time3, null, null, null);
-
+                IdCard.close();
 
             } else {
                 isTrue2 = true;
@@ -945,25 +937,6 @@ public class InFoActivity3 extends Activity {
     protected void onPause() {
         super.onPause();
 
-
-        if (vlcVout!=null){
-            vlcVout.removeCallback(callback);
-            callback=null;
-            vlcVout=null;
-        }
-        if(media!=null){
-            media.release();
-            media=null;
-        }
-        if (mediaPlayer!=null){
-
-            mediaPlayer=null;
-        }
-        if (libvlc!=null){
-            libvlc.release();
-            libvlc=null;
-        }
-
         isTrue4=false;
         isTrue3=false;
         count=1;
@@ -977,14 +950,28 @@ public class InFoActivity3 extends Activity {
     @Override
     protected void onDestroy() {
 
-
-        IdCard.close();
+        if (vlcVout!=null){
+            vlcVout.removeCallback(callback);
+            callback=null;
+            vlcVout=null;
+        }
+        if(media!=null){
+            media.release();
+            media=null;
+        }
+        if (mediaPlayer!=null){
+            mediaPlayer.release();
+            mediaPlayer=null;
+        }
+        if (libvlc!=null){
+            libvlc.release();
+            libvlc=null;
+        }
 
         if (async!=null){
             async.cancel(true);
             async=null;
         }
-
 
         if (jiaZaiDialog!=null && jiaZaiDialog.isShowing()){
             jiaZaiDialog.dismiss();

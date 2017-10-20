@@ -35,7 +35,9 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':vlc-android-sdk-master')
+   // compile project(':vlc-android-sdk-master')
+   // compile 'de.mrmaffen:libvlc-android:2.1.12@aar'
+    compile project(':libvlc-android')
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
     compile 'com.sdsmdg.tastytoast:tastytoast:0.1.1'
     compile 'com.github.bumptech.glide:glide:3.7.0'

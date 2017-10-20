@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@drawable/listviewbg"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:textSize="16sp"
+        android:textColor="@color/blake"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:id="@+id/name"
+        android:layout_marginBottom="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:textSize="16sp"
+        android:textColor="@color/textcolor"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="16dp"
+        android:layout_alignParentRight="true"
+        android:id="@+id/dianhua"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <View
+        android:layout_below="@+id/name"
+        android:background="@color/write"
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"/>
+
+</RelativeLayout>

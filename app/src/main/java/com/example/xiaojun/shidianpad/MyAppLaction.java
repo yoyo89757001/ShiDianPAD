@@ -5,7 +5,6 @@ import android.app.Application;
 import android.util.Log;
 
 import com.anupcowkur.reservoir.Reservoir;
-import com.example.xiaojun.shidianpad.utils.LibVLCUtil;
 import com.tencent.bugly.Bugly;
 import com.tencent.smtt.sdk.QbSdk;
 import com.tzutalin.dlib.Constants;
@@ -25,7 +24,7 @@ import java.io.IOException;
 public class MyAppLaction extends Application{
     private File mCascadeFile;
     public static FaceDet mFaceDet;
-    public static LibVLC libvlc;
+
 
    // public static CascadeClassifier mJavaDetector;
 
@@ -46,29 +45,26 @@ public class MyAppLaction extends Application{
             Reservoir.init(this, 900*1024); //in bytes 1M
 
             //搜集本地tbs内核信息并上报服务器，服务器返回结果决定使用哪个内核。
-            QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
-
-                @Override
-                public void onViewInitFinished(boolean arg0) {
-
-                    //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
-                    Log.d("app", " onViewInitFinished is " + arg0);
-                }
-
-                @Override
-                public void onCoreInitFinished() {
-                    QbSdk.reset(getApplicationContext());
-                }
-            };
-            //x5内核初始化接口
-            QbSdk.initX5Environment(getApplicationContext(),  cb);
+//            QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
+//
+//                @Override
+//                public void onViewInitFinished(boolean arg0) {
+//
+//                    //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
+//                    Log.d("app", " onViewInitFinished is " + arg0);
+//                }
+//
+//                @Override
+//                public void onCoreInitFinished() {
+//                    QbSdk.reset(getApplicationContext());
+//                }
+//            };
+//            //x5内核初始化接口
+//            QbSdk.initX5Environment(getApplicationContext(),  cb);
         } catch (IOException e) {
             Log.d("gggg", e.getMessage());
 
         }
-        libvlc = LibVLCUtil.getLibVLC(getApplicationContext());
-
-
 
 //        Log.d("MainActivity", "OpenCVLoader.initDebug():" + OpenCVLoader.initDebug());
         // Example of a call to a native method

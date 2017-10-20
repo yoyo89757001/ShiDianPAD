@@ -7,16 +7,24 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.SurfaceTexture;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.TextureView;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,16 +35,16 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.xiaojun.shidianpad.MyAppLaction;
 import com.example.xiaojun.shidianpad.R;
+import com.example.xiaojun.shidianpad.beans.ChaXunBean;
+import com.example.xiaojun.shidianpad.beans.MyAdapter;
 import com.example.xiaojun.shidianpad.beans.Photos;
 import com.example.xiaojun.shidianpad.beans.ShouFangBean;
-import com.example.xiaojun.shidianpad.dialog.JiaZaiDialog;
 import com.example.xiaojun.shidianpad.dialog.QueRenDialog;
 import com.example.xiaojun.shidianpad.dialog.TiJIaoDialog;
 import com.example.xiaojun.shidianpad.dialog.YuYueDialog;
 import com.example.xiaojun.shidianpad.utils.DateUtils;
 import com.example.xiaojun.shidianpad.utils.FileUtil;
 import com.example.xiaojun.shidianpad.utils.GsonUtil;
-import com.example.xiaojun.shidianpad.utils.LibVLCUtil;
 import com.example.xiaojun.shidianpad.view.AutoFitTextureView;
 import com.example.xiaojun.shidianpad.view.GlideCircleTransform;
 import com.google.gson.Gson;
@@ -56,6 +64,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -83,9 +92,9 @@ public class RenGongFuWuActivity extends Activity {
     private LibVLC libvlc;
     private Media media;
     private FaceDet mFaceDet;
-    private RelativeLayout ggg,shiping;
+    private RelativeLayout ggg;
     private  String ip=null;
-    private JiaZaiDialog jiaZaiDialog=null;
+   // private JiaZaiDialog jiaZaiDialog=null;
     private Bitmap bitmap2=null;
     private String shengfenzhengPath=null;
     private LinearLayout riqill;
@@ -94,12 +103,29 @@ public class RenGongFuWuActivity extends Activity {
     private boolean isA=false;
     private String touxiangPath=null;
     private boolean isTiJiao=false;
+    private List<ChaXunBean.ObjectsBean> objectsBeanList=new ArrayList<>();
+    private MyAdapter myAdapter=null;
+    private ListView listView;
+    private RelativeLayout rl;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ren_gong_fu_wu);
+
+        listView= (ListView) findViewById(R.id.lsvMore);
+        rl= (RelativeLayout) findViewById(R.id.tttttt);
+        rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listView.setVisibility(View.GONE);
+                if (objectsBeanList.size()!=0){
+                    objectsBeanList.clear();
+                    myAdapter.notifyDataSetChanged();
+                }
+            }
+        });
 
         Type resultType2 = new TypeToken<String>() {
         }.getType();
@@ -150,7 +176,7 @@ public class RenGongFuWuActivity extends Activity {
             }
         });
 
-        libvlc = LibVLCUtil.getLibVLC(RenGongFuWuActivity.this);
+        libvlc = new LibVLC(RenGongFuWuActivity.this);
         mediaPlayer = new MediaPlayer(libvlc);
         vlcVout = mediaPlayer.getVLCVout();
         name = (EditText) findViewById(R.id.name);
@@ -307,7 +333,7 @@ public class RenGongFuWuActivity extends Activity {
 
             }
         });
-        shiping = (RelativeLayout) findViewById(R.id.shiping_rl);
+        //shiping = (RelativeLayout) findViewById(R.id.shiping_rl);
         ggg = (RelativeLayout) findViewById(R.id.ggg);
         shouji = (EditText) findViewById(R.id.shoujihao);
         beifangrenshouji = (EditText) findViewById(R.id.gonghao);
@@ -322,6 +348,7 @@ public class RenGongFuWuActivity extends Activity {
         });
         riqi.setText(DateUtils.timet2(System.currentTimeMillis() + ""));
         ren = (EditText) findViewById(R.id.yuyueren);
+        ren.addTextChangedListener(textWatcher);
         renshu = (EditText) findViewById(R.id.yuyuerenshu);
         touxiang = (ImageView) findViewById(R.id.touxiang);
         touxiang.setOnClickListener(new View.OnClickListener() {
@@ -375,10 +402,6 @@ public class RenGongFuWuActivity extends Activity {
             public void onSuccess(final String i) {
                 ip=i;
                 callback=new IVLCVout.Callback() {
-                    @Override
-                    public void onNewLayout(IVLCVout vlcVout, int width, int height, int visibleWidth, int visibleHeight, int sarNum, int sarDen) {
-
-                    }
 
                     @Override
                     public void onSurfacesCreated(IVLCVout vlcVout) {
@@ -402,24 +425,8 @@ public class RenGongFuWuActivity extends Activity {
 
                     }
 
-                    @Override
-                    public void onHardwareAccelerationError(IVLCVout vlcVout) {
-
-                        if (mediaPlayer != null && ip !=null) {
-                            final Uri uri=Uri.parse("rtsp://"+ip+"/user=admin&password=&channel=1&stream=0.sdp");
-                            media = new Media(libvlc, uri);
-                            mediaPlayer.setMedia(media);
-                            videoView.setKeepScreenOn(true);
-                            mediaPlayer.play();
-
-                        }else {
-                            Toast tastyToast= TastyToast.makeText(RenGongFuWuActivity.this,"请先设置摄像头IP",TastyToast.LENGTH_LONG,TastyToast.ERROR);
-                            tastyToast.setGravity(Gravity.CENTER,0,0);
-                            tastyToast.show();
-                        }
-
-                    }
                 };
+
                 videoView.setSurfaceTextureListener(new TextureView.SurfaceTextureListener() {
                     @Override
                     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
@@ -466,7 +473,49 @@ public class RenGongFuWuActivity extends Activity {
 
         });
 
+        myAdapter=new MyAdapter(RenGongFuWuActivity.this,objectsBeanList);
+        listView.setAdapter(myAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                beifangrenshouji.setText(objectsBeanList.get(position).getPhone()+"");
+                ren.setText(objectsBeanList.get(position).getName()+"");
+                if (objectsBeanList.size()!=0){
+                    objectsBeanList.clear();
+                    myAdapter.notifyDataSetChanged();
+
+                }
+                listView.setVisibility(View.GONE);
+            }
+        });
+
+
     }
+
+
+    private TextWatcher textWatcher = new TextWatcher() {
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before,
+                                  int count) {
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (!s.toString().equals("")){
+                link_chaxun(s.toString());
+                listView.setVisibility(View.VISIBLE);
+
+
+            }
+
+        }
+    };
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -484,25 +533,35 @@ public class RenGongFuWuActivity extends Activity {
     protected void onPause() {
         super.onPause();
 
+    }
 
-        if (mediaPlayer!=null){
-            mediaPlayer=null;
-            media=null;
-        }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+
         if (vlcVout!=null){
-            vlcVout.detachViews();
             vlcVout.removeCallback(callback);
             callback=null;
             vlcVout=null;
         }
-        if (videoView!=null){
-            videoView.setSurfaceTextureListener(null);
+        if(media!=null){
+            media.release();
+            media=null;
+        }
+        if (mediaPlayer!=null){
+            mediaPlayer.release();
+            mediaPlayer=null;
         }
         if (libvlc!=null){
             libvlc.release();
+            libvlc=null;
         }
-
-
+        super.onDestroy();
     }
 
     /***
@@ -881,5 +940,135 @@ public class RenGongFuWuActivity extends Activity {
                 }
             }
         });
+    }
+
+
+    private void link_chaxun(String names) {
+        //final MediaType JSON=MediaType.parse("application/json; charset=utf-8");
+        //http://192.168.2.4:8080/sign?cmd=getUnSignList&subjectId=jfgsdf
+        OkHttpClient okHttpClient= new OkHttpClient.Builder()
+                .writeTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                .connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                .readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                .retryOnConnectionFailure(true)
+                .build();
+
+
+//    /* form的分割线,自己定义 */
+//        String boundary = "xx--------------------------------------------------------------xx";
+        RequestBody body = new FormBody.Builder()
+                .add("visitPerson",names)
+                .build();
+
+        Log.d("DengJiActivity", riqi.getText().toString().trim());
+        Request.Builder requestBuilder = new Request.Builder()
+                // .header("Content-Type", "application/json")
+                .post(body)
+                .url(zhuji + "/searchPhone.do");
+
+        // step 3：创建 Call 对象
+        Call call = okHttpClient.newCall(requestBuilder.build());
+
+        //step 4: 开始异步请求
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("AllConnects", "请求识别失败"+e.getMessage());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (tiJIaoDialog!=null){
+                            tiJIaoDialog.dismiss();
+                            tiJIaoDialog=null;
+                        }
+                    }
+                });
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (tiJIaoDialog!=null){
+                            tiJIaoDialog.dismiss();
+                            tiJIaoDialog=null;
+                        }
+                    }
+                });
+                Log.d("AllConnects", "请求识别成功"+call.request().toString());
+                //获得返回体
+                try {
+
+                    ResponseBody body = response.body();
+                    String ss=body.string().trim();
+                    Log.d("DengJiActivity", ss);
+
+                    JsonObject jsonObject= GsonUtil.parse(ss).getAsJsonObject();
+                    Gson gson=new Gson();
+                    final ChaXunBean zhaoPianBean=gson.fromJson(jsonObject,ChaXunBean.class);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (objectsBeanList.size()!=0){
+                                objectsBeanList.clear();
+                            }
+                            objectsBeanList.addAll(zhaoPianBean.getObjects()==null?new ArrayList<ChaXunBean.ObjectsBean>():zhaoPianBean.getObjects());
+
+                            myAdapter.notifyDataSetChanged();
+
+                            ListAdapter listAdapter = listView.getAdapter();
+                            if (listAdapter == null) {
+                                return;
+                            }
+                            View listItem = listAdapter.getView(0, null, listView);
+                            listItem.measure(0, 0);
+                          //  Log.d("RenGongFuWuActivity", "listItem.getMeasuredHeight():" + );
+                            if (objectsBeanList.size()<7){
+                                RelativeLayout.LayoutParams p= (RelativeLayout.LayoutParams) listView.getLayoutParams();
+                                int[] location = new int[2];
+                                ren.getLocationOnScreen(location);
+
+                                p.topMargin= (7-objectsBeanList.size())*listItem.getMeasuredHeight();
+                                p.bottomMargin= location[1]-216;
+                                listView.setLayoutParams(p);
+                                listView.invalidate();
+                                Log.d("RenGongFuWuActivity", "fdsfdfd");
+                            }else {
+                                RelativeLayout.LayoutParams p= (RelativeLayout.LayoutParams) listView.getLayoutParams();
+                                int[] location = new int[2];
+                                ren.getLocationOnScreen(location);
+                                p.topMargin= 76;
+                                p.bottomMargin= location[1]-216;
+                                listView.setLayoutParams(p);
+                                listView.invalidate();
+                                Log.d("RenGongFuWuActivity", "fdsfdfd222222");
+                            }
+
+
+                        }
+                    });
+
+
+
+
+                }catch (Exception e){
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (tiJIaoDialog!=null){
+                                tiJIaoDialog.dismiss();
+                                tiJIaoDialog=null;
+                            }
+                        }
+                    });
+                    Log.d("WebsocketPushMsg", e.getMessage());
+                }
+            }
+        });
+
+
     }
 }
