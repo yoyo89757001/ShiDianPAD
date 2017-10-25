@@ -67,9 +67,10 @@ public class MyAdapter extends BaseAdapter
         {
             holder = (ViewHolder)convertView.getTag();
         }
-
-        holder.name.setText(data.get(position).getName()+"");
-        holder.dianhua.setText(data.get(position).getPhone()+"");
+        if (data.size()>0){
+            holder.name.setText(data.get(position).getName()+"");
+            holder.dianhua.setText(data.get(position).getPhone()+"");
+        }
 
         return convertView;
     }

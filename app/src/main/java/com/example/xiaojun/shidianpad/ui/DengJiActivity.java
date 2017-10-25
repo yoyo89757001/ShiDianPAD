@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -14,11 +16,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,10 +33,11 @@ import com.anupcowkur.reservoir.ReservoirGetCallback;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.xiaojun.shidianpad.R;
+import com.example.xiaojun.shidianpad.beans.ChaXunBean;
+import com.example.xiaojun.shidianpad.beans.MyAdapter;
 import com.example.xiaojun.shidianpad.beans.ShouFangBean;
 import com.example.xiaojun.shidianpad.dialog.TiJIaoDialog;
 import com.example.xiaojun.shidianpad.dialog.YuYueDialog;
-import com.example.xiaojun.shidianpad.utils.Constant;
 import com.example.xiaojun.shidianpad.utils.DateUtils;
 import com.example.xiaojun.shidianpad.utils.FileUtil;
 import com.example.xiaojun.shidianpad.utils.GsonUtil;
@@ -42,6 +49,7 @@ import com.sdsmdg.tastytoast.TastyToast;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import okhttp3.Call;
@@ -56,7 +64,7 @@ import okhttp3.ResponseBody;
 public class DengJiActivity extends Activity implements View.OnClickListener {
     private ImageView riqi_im,touxiang;
     private TextView riqi_tv,name,bidui_tv;
-    private EditText shoufangren,shoufangrenshu,bumen_ET;
+    private EditText shoufangren,shoufangrenshu,bumen_ET,bfr_dianhua;
 //    private Myadapter myadapter;
     private List<String> stringList;
    // private String[] datas = {"后勤", "人事部", "生产部", "部门4", "部门666"};
@@ -72,6 +80,10 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
     private String id;
     private String shiyou;
     private String zhuji=null;
+    private MyAdapter myAdapter=null;
+    private ListView listView;
+    private RelativeLayout rl;
+    private List<ChaXunBean.ObjectsBean> objectsBeanList=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,13 +138,28 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
         intentFilter1.addAction("guanbi2");
         sensorInfoReceiver = new SensorInfoReceiver();
         registerReceiver(sensorInfoReceiver, intentFilter1);
+        listView= (ListView) findViewById(R.id.lsvMore);
+        rl= (RelativeLayout) findViewById(R.id.dddd);
+        rl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listView.setVisibility(View.GONE);
+                if (objectsBeanList.size()!=0){
+                    objectsBeanList.clear();
+                    myAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+        myAdapter=new MyAdapter(DengJiActivity.this,objectsBeanList);
 
         touxiang= (ImageView) findViewById(R.id.touxiang);
         bidui_tv= (TextView) findViewById(R.id.bidui_tv);
         name= (TextView) findViewById(R.id.editText);
+        bfr_dianhua= (EditText) findViewById(R.id.beifangrendianhua);
         bumen_ET= (EditText) findViewById(R.id.bumen);
         riqi_tv= (TextView) findViewById(R.id.riqi);
         shoufangren= (EditText) findViewById(R.id.shoufang);
+        shoufangren.addTextChangedListener(textWatcher);
         shoufangrenshu= (EditText) findViewById(R.id.renshu);
         shoufangrenshu.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -172,6 +199,22 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .transform(new GlideCircleTransform(DengJiActivity.this,2,Color.parseColor("#ffffffff")))
                 .into(touxiang);
+
+        listView.setAdapter(myAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                bfr_dianhua.setText(objectsBeanList.get(position).getPhone()+"");
+                shoufangren.setText(objectsBeanList.get(position).getName()+"");
+                if (objectsBeanList.size()!=0){
+                    objectsBeanList.clear();
+                    myAdapter.notifyDataSetChanged();
+
+                }
+                listView.setVisibility(View.GONE);
+            }
+        });
+
 
     }
 
@@ -224,6 +267,31 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
         }
 
     }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before,
+                                  int count) {
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (!s.toString().equals("")){
+                link_chaxun(s.toString());
+                listView.setVisibility(View.VISIBLE);
+            }else {
+                listView.setVisibility(View.GONE);
+            }
+
+        }
+    };
+
 
     private class Myadapter extends BaseAdapter{
         Context mContext;
@@ -335,7 +403,7 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
                 .add("id",id)
                 .add("visitIncident",shiyou)
                 .add("visitDate2",riqi_tv.getText().toString().trim())
-                .add("visitDepartment",bumen_ET.getText().toString().trim()+"")
+                .add("visitDepartment",bumen_ET.getText().toString().trim()+"-"+bfr_dianhua.getText().toString().trim())
                 .add("visitPerson",shoufangren.getText().toString().trim()+"")
                 .add("visitNum",shoufangrenshu.getText().toString().trim()+"")
                 .build();
@@ -427,6 +495,132 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
                         tiJIaoDialog.dismiss();
                         tiJIaoDialog=null;
                     }
+                    Log.d("WebsocketPushMsg", e.getMessage());
+                }
+            }
+        });
+    }
+
+    private void link_chaxun(String names) {
+        //final MediaType JSON=MediaType.parse("application/json; charset=utf-8");
+        //http://192.168.2.4:8080/sign?cmd=getUnSignList&subjectId=jfgsdf
+        OkHttpClient okHttpClient= new OkHttpClient.Builder()
+                .writeTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                .connectTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                .readTimeout(TIMEOUT, TimeUnit.MILLISECONDS)
+                .retryOnConnectionFailure(true)
+                .build();
+
+
+//    /* form的分割线,自己定义 */
+//        String boundary = "xx--------------------------------------------------------------xx";
+        RequestBody body = new FormBody.Builder()
+                .add("visitPerson",names)
+                .build();
+
+        Request.Builder requestBuilder = new Request.Builder()
+                // .header("Content-Type", "application/json")
+                .post(body)
+                .url(zhuji + "/searchPhone.do");
+
+        // step 3：创建 Call 对象
+        Call call = okHttpClient.newCall(requestBuilder.build());
+
+        //step 4: 开始异步请求
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("AllConnects", "请求识别失败"+e.getMessage());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (tiJIaoDialog!=null){
+                            tiJIaoDialog.dismiss();
+                            tiJIaoDialog=null;
+                        }
+                    }
+                });
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (tiJIaoDialog!=null){
+                            tiJIaoDialog.dismiss();
+                            tiJIaoDialog=null;
+                        }
+                    }
+                });
+                Log.d("AllConnects", "请求识别成功"+call.request().toString());
+                //获得返回体
+                try {
+
+                    ResponseBody body = response.body();
+                    String ss=body.string().trim();
+                    Log.d("DengJiActivity", ss);
+
+                    JsonObject jsonObject= GsonUtil.parse(ss).getAsJsonObject();
+                    Gson gson=new Gson();
+                    final ChaXunBean zhaoPianBean=gson.fromJson(jsonObject,ChaXunBean.class);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (objectsBeanList.size()!=0){
+                                objectsBeanList.clear();
+                            }
+                            objectsBeanList.addAll(zhaoPianBean.getObjects()==null?new ArrayList<ChaXunBean.ObjectsBean>():zhaoPianBean.getObjects());
+
+                            myAdapter.notifyDataSetChanged();
+
+                            ListAdapter listAdapter = listView.getAdapter();
+                            if (listAdapter == null) {
+                                return;
+                            }
+                            View listItem = listAdapter.getView(0, null, listView);
+                            listItem.measure(0, 0);
+                            //  Log.d("RenGongFuWuActivity", "listItem.getMeasuredHeight():" + );
+                            if (objectsBeanList.size()<7){
+                                RelativeLayout.LayoutParams p= (RelativeLayout.LayoutParams) listView.getLayoutParams();
+                                int[] location = new int[2];
+                                shoufangren.getLocationOnScreen(location);
+
+                                p.topMargin= (7-objectsBeanList.size())*listItem.getMeasuredHeight();
+                                p.bottomMargin= location[1]-220;
+                                listView.setLayoutParams(p);
+                                listView.invalidate();
+                                //  Log.d("RenGongFuWuActivity", "fdsfdfd");
+                            }else {
+                                RelativeLayout.LayoutParams p= (RelativeLayout.LayoutParams) listView.getLayoutParams();
+                                int[] location = new int[2];
+                                shoufangren.getLocationOnScreen(location);
+                                p.topMargin= 120;
+                                p.bottomMargin= location[1]-220;
+                                listView.setLayoutParams(p);
+                                listView.invalidate();
+                                // Log.d("RenGongFuWuActivity", "fdsfdfd222222");
+                            }
+
+
+                        }
+                    });
+
+
+
+
+                }catch (Exception e){
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (tiJIaoDialog!=null){
+                                tiJIaoDialog.dismiss();
+                                tiJIaoDialog=null;
+                            }
+                        }
+                    });
                     Log.d("WebsocketPushMsg", e.getMessage());
                 }
             }

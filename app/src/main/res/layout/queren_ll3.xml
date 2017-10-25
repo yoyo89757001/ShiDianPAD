@@ -21,7 +21,7 @@
             android:textColor="@color/write"
             android:layout_marginTop="10dp"
             android:background="@color/lanse33"
-            android:text="提交数据中...请稍后"
+            android:text="提交数据中,请稍后..."
             android:textSize="24sp"
             android:gravity="center"
             android:id="@+id/a1"

@@ -19,8 +19,9 @@
         android:textSize="16sp"
         android:textColor="@color/textcolor"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginRight="26dp"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:id="@+id/dianhua"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="10dp"
@@ -30,7 +31,8 @@
     <View
         android:layout_below="@+id/name"
         android:background="@color/write"
+        android:paddingBottom="1dp"
         android:layout_width="match_parent"
-        android:layout_height="0.8dp"/>
+        android:layout_height="1.6dp"/>
 
 </RelativeLayout>

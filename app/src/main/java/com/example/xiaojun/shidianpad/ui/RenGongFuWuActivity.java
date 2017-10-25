@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.SurfaceTexture;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,14 +16,12 @@ import android.view.Gravity;
 import android.view.TextureView;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -151,7 +148,7 @@ public class RenGongFuWuActivity extends Activity {
 
 
         videoView = (AutoFitTextureView) findViewById(R.id.fff);
-        videoView.setAspectRatio(5, 3);
+        videoView.setAspectRatio(4, 3);
         baocun = (Button) findViewById(R.id.baocun);
         baocun.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -404,6 +401,11 @@ public class RenGongFuWuActivity extends Activity {
                 callback=new IVLCVout.Callback() {
 
                     @Override
+                    public void onNewLayout(IVLCVout vlcVout, int width, int height, int visibleWidth, int visibleHeight, int sarNum, int sarDen) {
+
+                    }
+
+                    @Override
                     public void onSurfacesCreated(IVLCVout vlcVout) {
                         if (mediaPlayer != null && ip !=null) {
                             final Uri uri=Uri.parse("rtsp://"+ip+"/user=admin&password=&channel=1&stream=0.sdp");
@@ -422,6 +424,11 @@ public class RenGongFuWuActivity extends Activity {
 
                     @Override
                     public void onSurfacesDestroyed(IVLCVout vlcVout) {
+
+                    }
+
+                    @Override
+                    public void onHardwareAccelerationError(IVLCVout vlcVout) {
 
                     }
 
@@ -510,8 +517,8 @@ public class RenGongFuWuActivity extends Activity {
             if (!s.toString().equals("")){
                 link_chaxun(s.toString());
                 listView.setVisibility(View.VISIBLE);
-
-
+            }else {
+                listView.setVisibility(View.GONE);
             }
 
         }
@@ -554,7 +561,7 @@ public class RenGongFuWuActivity extends Activity {
             media=null;
         }
         if (mediaPlayer!=null){
-            mediaPlayer.release();
+           // mediaPlayer.release();
             mediaPlayer=null;
         }
         if (libvlc!=null){
@@ -639,7 +646,7 @@ public class RenGongFuWuActivity extends Activity {
                 .add("source","1")
                 .build();
 
-        Log.d("DengJiActivity", riqi.getText().toString().trim());
+      //  Log.d("DengJiActivity", riqi.getText().toString().trim());
         Request.Builder requestBuilder = new Request.Builder()
                 // .header("Content-Type", "application/json")
                 .post(body)
@@ -1034,16 +1041,16 @@ public class RenGongFuWuActivity extends Activity {
                                 p.bottomMargin= location[1]-216;
                                 listView.setLayoutParams(p);
                                 listView.invalidate();
-                                Log.d("RenGongFuWuActivity", "fdsfdfd");
+                              //  Log.d("RenGongFuWuActivity", "fdsfdfd");
                             }else {
                                 RelativeLayout.LayoutParams p= (RelativeLayout.LayoutParams) listView.getLayoutParams();
                                 int[] location = new int[2];
                                 ren.getLocationOnScreen(location);
-                                p.topMargin= 76;
+                                p.topMargin= 92;
                                 p.bottomMargin= location[1]-216;
                                 listView.setLayoutParams(p);
                                 listView.invalidate();
-                                Log.d("RenGongFuWuActivity", "fdsfdfd222222");
+                               // Log.d("RenGongFuWuActivity", "fdsfdfd222222");
                             }
 
 

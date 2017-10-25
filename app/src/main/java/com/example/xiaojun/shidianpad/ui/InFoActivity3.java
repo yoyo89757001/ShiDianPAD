@@ -322,6 +322,11 @@ public class InFoActivity3 extends Activity {
                 callback=new IVLCVout.Callback() {
 
                     @Override
+                    public void onNewLayout(IVLCVout vlcVout, int width, int height, int visibleWidth, int visibleHeight, int sarNum, int sarDen) {
+
+                    }
+
+                    @Override
                     public void onSurfacesCreated(IVLCVout vlcVout) {
 
 
@@ -337,6 +342,11 @@ public class InFoActivity3 extends Activity {
                     @Override
                     public void onSurfacesDestroyed(IVLCVout vlcVout) {
                         vlcVout.removeCallback(callback);
+                    }
+
+                    @Override
+                    public void onHardwareAccelerationError(IVLCVout vlcVout) {
+
                     }
 
                 };
@@ -960,7 +970,7 @@ public class InFoActivity3 extends Activity {
             media=null;
         }
         if (mediaPlayer!=null){
-            mediaPlayer.release();
+           // mediaPlayer.release();
             mediaPlayer=null;
         }
         if (libvlc!=null){
