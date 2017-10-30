@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.xiaojun.shidianpad.R;
@@ -60,6 +59,7 @@ public class MyAdapter extends BaseAdapter
             //根据自定义的Item布局加载布局
             convertView = mInflater.inflate(R.layout.list_item, null);
             holder.name = (TextView)convertView.findViewById(R.id.name);
+            holder.bumen = (TextView)convertView.findViewById(R.id.bumen);
             holder.dianhua = (TextView)convertView.findViewById(R.id.dianhua);
             //将设置好的布局保存到缓存中，并将其设置在Tag里，以便后面方便取出Tag
             convertView.setTag(holder);
@@ -70,6 +70,13 @@ public class MyAdapter extends BaseAdapter
         if (data.size()>0){
             holder.name.setText(data.get(position).getName()+"");
             holder.dianhua.setText(data.get(position).getPhone()+"");
+            if (data.get(position).getDepartment().equals("")){
+                holder.bumen.setText("");
+            }else {
+                holder.bumen.setText("("+data.get(position).getDepartment()+")");
+            }
+
+
         }
 
         return convertView;
@@ -77,7 +84,7 @@ public class MyAdapter extends BaseAdapter
     //ViewHolder静态类
   private  class ViewHolder
     {
-        private TextView name;
+        private TextView name,bumen;
         private TextView dianhua;
     }
         }

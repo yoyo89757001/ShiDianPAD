@@ -965,6 +965,7 @@ public class RenGongFuWuActivity extends Activity {
 //        String boundary = "xx--------------------------------------------------------------xx";
         RequestBody body = new FormBody.Builder()
                 .add("visitPerson",names)
+                .add("visitDepartment","")
                 .build();
 
         Log.d("DengJiActivity", riqi.getText().toString().trim());

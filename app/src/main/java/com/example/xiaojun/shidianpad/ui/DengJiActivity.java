@@ -23,7 +23,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -68,8 +67,8 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
 //    private Myadapter myadapter;
     private List<String> stringList;
    // private String[] datas = {"后勤", "人事部", "生产部", "部门4", "部门666"};
-    private int xuanzhong;
-    private  PopupWindow window;
+ //   private int xuanzhong;
+  //  private  PopupWindow window;
     private Button wancheng;
     private String nameS;
     private int type;
@@ -516,6 +515,7 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
 //        String boundary = "xx--------------------------------------------------------------xx";
         RequestBody body = new FormBody.Builder()
                 .add("visitPerson",names)
+                .add("visitDepartment","")
                 .build();
 
         Request.Builder requestBuilder = new Request.Builder()
