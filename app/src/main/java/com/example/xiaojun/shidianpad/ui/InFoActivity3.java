@@ -494,7 +494,7 @@ public class InFoActivity3 extends Activity {
 
                 Bitmap bitmap= BitmapFactory.decodeFile(FileUtil.SDPATH+ File.separator+FileUtil.PATH+File.separator+"bbbb.jpg");
                 xianchengzhao.setImageBitmap(bitmap);
-                link_zhiliang();
+                //link_zhiliang();
             }
             if (action.equals("guanbi2")){
                 finish();
@@ -765,18 +765,18 @@ public class InFoActivity3 extends Activity {
                                         int yy2 = 0;
                                         int ww = bitmapBig.getWidth();
                                         int hh = bitmapBig.getHeight();
-                                        if (face.getRight() - 260 >= 0) {
-                                            xx = face.getRight() - 260;
+                                        if (face.getRight() - 270 >= 0) {
+                                            xx = face.getRight() - 270;
                                         } else {
                                             xx = 0;
                                         }
-                                        if (face.getTop() - 220 >= 0) {
-                                            yy = face.getTop() - 220;
+                                        if (face.getTop() - 230 >= 0) {
+                                            yy = face.getTop() - 230;
                                         } else {
                                             yy = 0;
                                         }
-                                        if (xx + 450 <= ww) {
-                                            xx2 = 450;
+                                        if (xx + 480 <= ww) {
+                                            xx2 = 480;
                                         } else {
                                             xx2 = ww - xx ;
                                         }
@@ -922,8 +922,9 @@ public class InFoActivity3 extends Activity {
                 @Override
                 public void run() {
                     tishi.setVisibility(View.VISIBLE);
-                    tishi.setText("上传图片中。。。");
-                    link_P1(shengfenzhengPath,filePath2);
+                    tishi.setText("检测人脸质量中...");
+                    link_P2(filePath2);
+                   // link_P1(shengfenzhengPath,filePath2);
                 }
             });
 
@@ -1343,12 +1344,18 @@ public class InFoActivity3 extends Activity {
 
 
     private void link_P1(String filename1, final String fileName2) {
-        jiaZaiDialog=new JiaZaiDialog(InFoActivity3.this);
-        jiaZaiDialog.setCanceledOnTouchOutside(false);// 设置点击屏幕Dialog不消失
-        jiaZaiDialog.setText("上传图片中...");
-        if (!InFoActivity3.this.isFinishing()){
-            jiaZaiDialog.show();
-        }
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                jiaZaiDialog=new JiaZaiDialog(InFoActivity3.this);
+                jiaZaiDialog.setCanceledOnTouchOutside(false);// 设置点击屏幕Dialog不消失
+                jiaZaiDialog.setText("上传图片中...");
+                if (!InFoActivity3.this.isFinishing()){
+                    jiaZaiDialog.show();
+                }
+            }
+        });
+
 
 
         //final MediaType JSON=MediaType.parse("application/json; charset=utf-8");
@@ -1427,14 +1434,14 @@ public class InFoActivity3 extends Activity {
                     ResponseBody body = response.body();
                     String ss=body.string();
 
-                  //  Log.d("AllConnects", "aa   "+ss);
+                    Log.d("AllConnects", "aa   "+ss);
 
                     JsonObject jsonObject= GsonUtil.parse(ss).getAsJsonObject();
                     Gson gson=new Gson();
                     Photos zhaoPianBean=gson.fromJson(jsonObject,Photos.class);
                     userInfoBena.setCardPhoto(zhaoPianBean.getExDesc());
-                    link_P2(fileName2);
 
+                    link_tianqi3();
 
                 }catch (Exception e){
                     runOnUiThread(new Runnable() {
@@ -1462,7 +1469,7 @@ public class InFoActivity3 extends Activity {
             public void run() {
                 jiaZaiDialog=new JiaZaiDialog(InFoActivity3.this);
                 jiaZaiDialog.setCanceledOnTouchOutside(false);// 设置点击屏幕Dialog不消失
-                jiaZaiDialog.setText("上传图片中...");
+                jiaZaiDialog.setText("检查人脸质量中...");
                 if (!InFoActivity3.this.isFinishing())
                 jiaZaiDialog.show();
             }
@@ -1483,9 +1490,9 @@ public class InFoActivity3 extends Activity {
 //        final String file1Name = System.currentTimeMillis()+"testFile1.jpg";
 
     /* 第二个要上传的文件,*/
-        //file2 = new File(fileName2);
+        File file2 = new File(fileName2);
 
-        RequestBody fileBody2 = RequestBody.create(MediaType.parse("application/octet-stream") , mSavePhotoFile);
+        RequestBody fileBody2 = RequestBody.create(MediaType.parse("application/octet-stream") , file2);
         String file2Name =System.currentTimeMillis()+"testFile2.jpg";
 
 
@@ -1523,6 +1530,7 @@ public class InFoActivity3 extends Activity {
                         Toast tastyToast= TastyToast.makeText(InFoActivity3.this,"上传图片出错，请返回后重试！",TastyToast.LENGTH_LONG,TastyToast.ERROR);
                         tastyToast.setGravity(Gravity.CENTER,0,0);
                         tastyToast.show();
+
                     }
                 });
             }
@@ -1544,15 +1552,13 @@ public class InFoActivity3 extends Activity {
                 try {
 
                     ResponseBody body = response.body();
-                    // Log.d("AllConnects", "aa   "+response.body().string());
-
-                    JsonObject jsonObject= GsonUtil.parse(body.string()).getAsJsonObject();
+                    String ss=body.string();
+                     Log.d("AllConnects", "aa   "+ss);
+                    JsonObject jsonObject= GsonUtil.parse(ss).getAsJsonObject();
                     Gson gson=new Gson();
                     Photos zhaoPianBean=gson.fromJson(jsonObject,Photos.class);
                     userInfoBena.setScanPhoto(zhaoPianBean.getExDesc());
-
-                    link_tianqi3();
-
+                    link_zhiliang();
 
                 }catch (Exception e){
                     runOnUiThread(new Runnable() {
@@ -1619,7 +1625,7 @@ public class InFoActivity3 extends Activity {
                 Log.d("AllConnects", "请求识别成功"+call.request().toString());
                 //获得返回体
                 try {
-                    count++;
+                   // count++;
 
                     ResponseBody body = response.body();
                     // Log.d("AllConnects", "识别结果返回"+response.body().string());
@@ -1635,23 +1641,23 @@ public class InFoActivity3 extends Activity {
                         sendBroadcast(new Intent("guanbi").putExtra("biduijieguo",true)
                                 .putExtra("xiangsidu",(zhaoPianBean.getScore()+"").substring(0,5))
                                 .putExtra("cardPath",userInfoBena.getCardPhoto()).putExtra("saomiaoPath",userInfoBena.getScanPhoto()));
-                        count=1;
+                      //  count=1;
 
                         qiehuan();
 
                     }else {
 
 
-                        if (count<=3){
-
-                            Message message=Message.obtain();
-                            message.what=22;
-                            mHandler2.sendMessage(message);
-
-                            isTrue4=true;
-
-
-                        }else {
+//                        if (count<=3){
+//
+//                            Message message=Message.obtain();
+//                            message.what=22;
+//                            mHandler2.sendMessage(message);
+//
+//                            isTrue4=true;
+//
+//
+//                        }else {
 
                             sendBroadcast(new Intent("guanbi").putExtra("biduijieguo",false)
                                     .putExtra("xiangsidu",(zhaoPianBean.getScore()+"").substring(0,5))
@@ -1659,23 +1665,23 @@ public class InFoActivity3 extends Activity {
                             count=1;
 
                             qiehuan();
-                        }
+                      //  }
 
                     }
 
 
                 }catch (Exception e){
 
-                    if (count<=3){
-
-                        Message message=Message.obtain();
-                        message.what=22;
-                        mHandler2.sendMessage(message);
-
-                        isTrue4=true;
-
-
-                    }else {
+//                    if (count<=3){
+//
+//                        Message message=Message.obtain();
+//                        message.what=22;
+//                        mHandler2.sendMessage(message);
+//
+//                        isTrue4=true;
+//
+//
+//                    }else {
 
                         sendBroadcast(new Intent("guanbi").putExtra("biduijieguo",false).putExtra("xiangsidu","43.21")
                                 .putExtra("cardPath",userInfoBena.getCardPhoto()).putExtra("saomiaoPath",userInfoBena.getScanPhoto()));
@@ -1683,7 +1689,7 @@ public class InFoActivity3 extends Activity {
 
                         qiehuan();
 
-                    }
+                 //   }
 
                     Log.d("WebsocketPushMsg", e.getMessage());
                 }
@@ -1816,24 +1822,26 @@ public class InFoActivity3 extends Activity {
                     ShouFangBean zhaoPianBean=gson.fromJson(jsonObject,ShouFangBean.class);
 
                     if (zhaoPianBean.getDtoResult()!=0){
+                        isTrue4=true;
 
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-
-                                if (!InFoActivity3.this.isFinishing()){
-                                    Toast tastyToast= TastyToast.makeText(InFoActivity3.this,"照片质量不符合入库要求,请拍正面照!",TastyToast.LENGTH_LONG,TastyToast.ERROR);
-                                    tastyToast.setGravity(Gravity.CENTER,0,0);
-                                    tastyToast.show();
-                                }
-
-
-                            }
-                        });
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//
+//                                if (!InFoActivity3.this.isFinishing()){
+//                                    Toast tastyToast= TastyToast.makeText(InFoActivity3.this,"照片质量不符合入库要求,请拍正面照!",TastyToast.LENGTH_LONG,TastyToast.ERROR);
+//                                    tastyToast.setGravity(Gravity.CENTER,0,0);
+//                                    tastyToast.show();
+//                                }
+//
+//
+//                            }
+//                        });
 
                     }else {
-
+                        isTrue3=false;
                         isTiJiao=true;
+                        link_P1(shengfenzhengPath,filePath2);
                     }
 
                 }catch (Exception e){

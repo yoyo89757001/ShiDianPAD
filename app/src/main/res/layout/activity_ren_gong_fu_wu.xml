@@ -18,17 +18,18 @@
             android:layout_centerInParent="true"
             android:layout_height="match_parent" />
 
-        <Button
-            android:layout_width="116dp"
-            android:background="@drawable/jiaohu"
-            android:textSize="16sp"
-            android:id="@+id/paizhao"
-            android:textColor="@color/white"
-            android:layout_centerHorizontal="true"
-            android:text="拍 照"
-            android:layout_marginBottom="80dp"
-            android:layout_alignParentBottom="true"
-            android:layout_height="54sp" />
+        <!--<Button-->
+            <!--android:layout_width="116dp"-->
+            <!--android:background="@drawable/jiaohu"-->
+            <!--android:textSize="16sp"-->
+            <!--android:id="@+id/paizhao"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:text="拍 照"-->
+            <!--android:visibility="gone"-->
+            <!--android:layout_marginBottom="80dp"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:layout_height="54sp" />-->
 
     </RelativeLayout>
 

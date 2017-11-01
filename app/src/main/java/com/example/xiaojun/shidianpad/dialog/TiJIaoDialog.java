@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.TextView;
 
 import com.example.xiaojun.shidianpad.R;
 
@@ -15,7 +16,7 @@ import com.example.xiaojun.shidianpad.R;
  * @author Tom.Cai
  */
 public class TiJIaoDialog extends Dialog {
-
+    private TextView t1;
 
     public TiJIaoDialog(Context context) {
         super(context, R.style.dialog_style);
@@ -24,12 +25,15 @@ public class TiJIaoDialog extends Dialog {
 
     private void setCustomDialog() {
         View mView = LayoutInflater.from(getContext()).inflate(R.layout.queren_ll3, null);
-
+        t1= (TextView) mView.findViewById(R.id.a1);
         super.setContentView(mView);
 
 
     }
 
+    public void setT1(String s){
+        t1.setText(s);
+    }
 
 
     @Override

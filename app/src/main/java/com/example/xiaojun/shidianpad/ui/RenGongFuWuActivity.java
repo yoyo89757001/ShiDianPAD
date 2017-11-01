@@ -80,7 +80,7 @@ public class RenGongFuWuActivity extends Activity {
     private EditText name,shouji,beifangrenshouji,ren,renshu;
     private ImageView touxiang,jiahao;
     private TextView riqi;
-    private Button baocun,paizhao;
+    private Button baocun;
     private  String zhuji=null;
     private AutoFitTextureView videoView;
     private MediaPlayer mediaPlayer=null;
@@ -104,12 +104,13 @@ public class RenGongFuWuActivity extends Activity {
     private MyAdapter myAdapter=null;
     private ListView listView;
     private RelativeLayout rl;
-
+    public static boolean isT1=true,isT2=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ren_gong_fu_wu);
+
 
         listView= (ListView) findViewById(R.id.lsvMore);
         rl= (RelativeLayout) findViewById(R.id.tttttt);
@@ -153,17 +154,19 @@ public class RenGongFuWuActivity extends Activity {
         baocun.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                baocun.setEnabled(false);
                 if (name.getText().toString().trim().equals("") ) {
                     Toast tastyToast = TastyToast.makeText(RenGongFuWuActivity.this, "请填完整信息!", TastyToast.LENGTH_LONG, TastyToast.ERROR);
                     tastyToast.setGravity(Gravity.CENTER, 0, 0);
                     tastyToast.show();
-
+                    baocun.setEnabled(true);
                 }else{
-                    if (isA){
+                    if (isA && isTiJiao){
 
-                        link_P1(shengfenzhengPath);
+                        link_save();
 
                     }else {
+                        baocun.setEnabled(true);
                         Toast tastyToast = TastyToast.makeText(RenGongFuWuActivity.this, "还没有拍照,请拍照!", TastyToast.LENGTH_LONG, TastyToast.ERROR);
                         tastyToast.setGravity(Gravity.CENTER, 0, 0);
                         tastyToast.show();
@@ -177,159 +180,7 @@ public class RenGongFuWuActivity extends Activity {
         mediaPlayer = new MediaPlayer(libvlc);
         vlcVout = mediaPlayer.getVLCVout();
         name = (EditText) findViewById(R.id.name);
-        paizhao= (Button) findViewById(R.id.paizhao);
-        paizhao.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                paizhao.setClickable(false);
-
-                bitmap2=videoView.getBitmap();
-                if (bitmap2!=null){
-                    List<VisionDetRet> results = mFaceDet.detect(bitmap2);
-
-                    if (results != null) {
-                        int s = results.size();
-                        VisionDetRet face;
-                        if (s>0){
-                            face = results.get(0);
-                            paizhao.setClickable(true);
-                            ggg.setVisibility(View.VISIBLE);
-                            int xx = 0;
-                            int yy = 0;
-                            int xx2 = 0;
-                            int yy2 = 0;
-                            int ww = bitmap2.getWidth();
-                            int hh = bitmap2.getHeight();
-                            if (face.getRight() - 300 >= 0) {
-                                xx = face.getRight() - 300;
-                            } else {
-                                xx = 0;
-                            }
-                            if (face.getTop() - 220 >= 0) {
-                                yy = face.getTop() - 220;
-                            } else {
-                                yy = 0;
-                            }
-                            if (xx + 430 <= ww) {
-                                xx2 = 430;
-                            } else {
-                                xx2 = ww - xx - 1;
-                            }
-                            if (yy + 430 <= hh) {
-                                yy2 = 430;
-                            } else {
-                                yy2 = hh - yy - 1;
-                            }
-
-//                                               Bitmap bmpf = bitmapBig.copy(Bitmap.Config.RGB_565, true);
-//
-//                                               //返回识别的人脸数
-//                                               //	int faceCount = new FaceDetector(bmpf.getWidth(), bmpf.getHeight(), 1).findFaces(bmpf, facess);
-//                                               //	FaceDetector faceCount2 = new FaceDetector(bmpf.getWidth(), bmpf.getHeight(), 2);
-//
-//                                               myFace = new FaceDetector.Face[numberOfFace];       //分配人脸数组空间
-//                                               myFaceDetect = new FaceDetector(bmpf.getWidth(), bmpf.getHeight(), numberOfFace);
-//                                               numberOfFaceDetected = myFaceDetect.findFaces(bmpf, myFace);    //FaceDetector 构造实例并解析人脸
-//
-//                                               if (numberOfFaceDetected > 0) {
-//
-//                                                   FaceDetector.Face face;
-//                                                   if (numberOfFaceDetected>count-1){
-//                                                       face = myFace[count-1];
-//
-//                                                   }else {
-//                                                       face = myFace[0];
-//
-//                                                   }
-//
-//                                                   PointF pointF = new PointF();
-//                                                   face.getMidPoint(pointF);
-//
-//
-//                                                 //  myEyesDistance = (int)face.eyesDistance();
-//
-//                                                   int xx=0;
-//                                                   int yy=0;
-//                                                   int xx2=0;
-//                                                   int yy2=0;
-//
-//                                                   if ((int)pointF.x-200>=0){
-//                                                       xx=(int)pointF.x-200;
-//                                                   }else {
-//                                                       xx=0;
-//                                                   }
-//                                                   if ((int)pointF.y-320>=0){
-//                                                       yy=(int)pointF.y-320;
-//                                                   }else {
-//                                                       yy=0;
-//                                                   }
-//                                                   if (xx+350 >=bitmapBig.getWidth()){
-//                                                       xx2=bitmapBig.getWidth()-xx;
-//
-//                                                   }else {
-//                                                       xx2=350;
-//                                                   }
-//                                                   if (yy+500>=bitmapBig.getHeight()){
-//                                                       yy2=bitmapBig.getHeight()-yy;
-//
-//                                                   }else {
-//                                                       yy2=500;
-//                                                   }
-
-                            Bitmap bitmap = Bitmap.createBitmap(bitmap2, xx, yy, xx2, yy2);
-
-                            String fn="ccc.jpg";
-                            FileUtil.isExists(FileUtil.PATH,fn);
-                            saveBitmap2File(bitmap, FileUtil.SDPATH+ File.separator+FileUtil.PATH+File.separator+fn,100);
-
-                            ObjectAnimator animator2 = ObjectAnimator.ofFloat(ggg, "scaleY", 0f, 1f);
-                            animator2.setDuration(600);//时间1s
-                            animator2.start();
-                            //起始为1，结束时为0
-                            ObjectAnimator animator = ObjectAnimator.ofFloat(ggg, "scaleX", 0f, 1f);
-                            animator.setDuration(600);//时间1s
-                            animator.addListener(new Animator.AnimatorListener() {
-                                @Override
-                                public void onAnimationStart(Animator animation) {
-
-                                }
-
-                                @Override
-                                public void onAnimationEnd(Animator animation) {
-
-                                }
-
-                                @Override
-                                public void onAnimationCancel(Animator animation) {
-
-                                }
-
-                                @Override
-                                public void onAnimationRepeat(Animator animation) {
-
-                                }
-                            });
-                            animator.start();
-
-
-                        }else {
-                            final QueRenDialog dialog=new QueRenDialog(RenGongFuWuActivity.this,"没有检测到人脸,请重新拍摄!");
-                            dialog.setCanceledOnTouchOutside(false);// 设置点击屏幕Dialog不消失
-                            dialog.setOnPositiveListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    paizhao.setClickable(true);
-                                    dialog.dismiss();
-                                }
-                            });
-                            dialog.show();
-                        }
-
-                    }
-                }
-
-            }
-        });
+     //   paizhao= (Button) findViewById(R.id.paizhao);
         //shiping = (RelativeLayout) findViewById(R.id.shiping_rl);
         ggg = (RelativeLayout) findViewById(R.id.ggg);
         shouji = (EditText) findViewById(R.id.shoujihao);
@@ -357,7 +208,9 @@ public class RenGongFuWuActivity extends Activity {
 //                    jiaZaiDialog.setCanceledOnTouchOutside(false);// 设置点击屏幕Dialog不消失
 //                    jiaZaiDialog.show();
 //                }
-
+                isT1=true;
+                isT2=true;
+                touxiang.setEnabled(false);
                 ObjectAnimator animator2 = ObjectAnimator.ofFloat(ggg, "scaleY", 1f, 0f);
                 animator2.setDuration(600);//时间1s
                 animator2.start();
@@ -386,6 +239,78 @@ public class RenGongFuWuActivity extends Activity {
                     }
                 });
                 animator.start();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        while (isT1){
+                            if (isT2){
+                                isT2=false;
+                                bitmap2=videoView.getBitmap();
+                                if (bitmap2!=null){
+                                    List<VisionDetRet> results = mFaceDet.detect(bitmap2);
+
+                                    if (results != null) {
+                                        int s = results.size();
+                                        VisionDetRet face;
+                                        if (s>0){
+                                            face = results.get(0);
+                                            int xx = 0;
+                                            int yy = 0;
+                                            int xx2 = 0;
+                                            int yy2 = 0;
+                                            int ww = bitmap2.getWidth();
+                                            int hh = bitmap2.getHeight();
+                                            if (face.getRight() - 320 >= 0) {
+                                                xx = face.getRight() - 320;
+                                            } else {
+                                                xx = 0;
+                                            }
+                                            if (face.getTop() - 240 >= 0) {
+                                                yy = face.getTop() - 240;
+                                            } else {
+                                                yy = 0;
+                                            }
+                                            if (xx + 470 <= ww) {
+                                                xx2 = 470;
+                                            } else {
+                                                xx2 = ww - xx - 1;
+                                            }
+                                            if (yy + 470 <= hh) {
+                                                yy2 = 470;
+                                            } else {
+                                                yy2 = hh - yy - 1;
+                                            }
+
+
+                                            Bitmap bitmap = Bitmap.createBitmap(bitmap2, xx, yy, xx2, yy2);
+
+                                            String fn="ccc.jpg";
+                                            FileUtil.isExists(FileUtil.PATH,fn);
+                                            saveBitmap2File(bitmap, FileUtil.SDPATH+ File.separator+FileUtil.PATH+File.separator+fn,100);
+
+
+                                        }else {
+                                            isT2=true;
+                                           // Log.d("RenGongFuWuActivity", "继续抓拍1");
+                                        }
+                                    }else {
+                                        isT2=true;
+                                       // Log.d("RenGongFuWuActivity", "继续抓拍2");
+                                    }
+                                }else {
+                                    isT2=true;
+                                   // Log.d("RenGongFuWuActivity", "继续抓拍3");
+                                }
+
+
+                            }
+
+                        }
+
+
+
+                    }
+                }).start();
 
             }
         });
@@ -538,6 +463,8 @@ public class RenGongFuWuActivity extends Activity {
 
     @Override
     protected void onPause() {
+        isT2=false;
+        isT1=false;
         super.onPause();
 
     }
@@ -594,16 +521,12 @@ public class RenGongFuWuActivity extends Activity {
             bos.flush();
             bos.close();
             shengfenzhengPath=path;
+            link_P1(shengfenzhengPath);
 
-            Glide.with(RenGongFuWuActivity.this)
-                    .load(shengfenzhengPath)
-                    .skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                     .transform(new GlideCircleTransform(RenGongFuWuActivity.this,1, Color.parseColor("#ffffffff")))
-                    .into(touxiang);
-
-            jiahao.setVisibility(View.GONE);
             isA=true;
+
+
+
 
 
         } catch (Exception e) {
@@ -620,6 +543,13 @@ public class RenGongFuWuActivity extends Activity {
 
 
     private void link_save() {
+
+        if (tiJIaoDialog==null){
+            tiJIaoDialog=new TiJIaoDialog(RenGongFuWuActivity.this);
+            if (!RenGongFuWuActivity.this.isFinishing())
+                tiJIaoDialog.show();
+        }
+
         //final MediaType JSON=MediaType.parse("application/json; charset=utf-8");
         //http://192.168.2.4:8080/sign?cmd=getUnSignList&subjectId=jfgsdf
         OkHttpClient okHttpClient= new OkHttpClient.Builder()
@@ -747,15 +677,31 @@ public class RenGongFuWuActivity extends Activity {
         });
 
 
+        baocun.setEnabled(true);
+
     }
 
     private void link_P1(String filename1) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                touxiang.setEnabled(true);
+                Glide.with(RenGongFuWuActivity.this)
+                        .load(shengfenzhengPath)
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .transform(new GlideCircleTransform(RenGongFuWuActivity.this,1, Color.parseColor("#ffffffff")))
+                        .into(touxiang);
+                jiahao.setVisibility(View.GONE);
+                if (tiJIaoDialog==null){
+                    tiJIaoDialog=new TiJIaoDialog(RenGongFuWuActivity.this);
+                    tiJIaoDialog.setT1("检测人脸质量中,请稍后...");
+                    if (!RenGongFuWuActivity.this.isFinishing())
+                        tiJIaoDialog.show();
+                }
+            }
+        });
 
-        if (tiJIaoDialog==null){
-            tiJIaoDialog=new TiJIaoDialog(RenGongFuWuActivity.this);
-            if (!RenGongFuWuActivity.this.isFinishing())
-            tiJIaoDialog.show();
-        }
         //final MediaType JSON=MediaType.parse("application/json; charset=utf-8");
         //http://192.168.2.4:8080/sign?cmd=getUnSignList&subjectId=jfgsdf
         OkHttpClient okHttpClient= new OkHttpClient.Builder()
@@ -898,29 +844,67 @@ public class RenGongFuWuActivity extends Activity {
                     Log.d("DengJiActivity", ss);
 
                     JsonObject jsonObject= GsonUtil.parse(ss).getAsJsonObject();
-                    Gson gson=new Gson();
+                    final Gson gson=new Gson();
                     ShouFangBean zhaoPianBean=gson.fromJson(jsonObject,ShouFangBean.class);
 
                     if (zhaoPianBean.getDtoResult()!=0){
+                        isT2=true;
+                        Log.d("RenGongFuWuActivity", "继续抓拍4");
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//
+//                                if (!RenGongFuWuActivity.this.isFinishing()){
+//                                    Toast tastyToast= TastyToast.makeText(RenGongFuWuActivity.this,"照片质量不符合入库要求,请拍正面照!",TastyToast.LENGTH_LONG,TastyToast.ERROR);
+//                                    tastyToast.setGravity(Gravity.CENTER,0,0);
+//                                    tastyToast.show();
+//                                }
+//
+//
+//                            }
+//                        });
+
+                    }else {
+                        //link_save();
+                        isTiJiao=true;
+                        isT1=false;
 
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                ggg.setVisibility(View.VISIBLE);
+                                ObjectAnimator animator2 = ObjectAnimator.ofFloat(ggg, "scaleY", 0f, 1f);
+                                animator2.setDuration(600);//时间1s
+                                animator2.start();
+                                //起始为1，结束时为0
+                                ObjectAnimator animator = ObjectAnimator.ofFloat(ggg, "scaleX", 0f, 1f);
+                                animator.setDuration(600);//时间1s
+                                animator.addListener(new Animator.AnimatorListener() {
+                                    @Override
+                                    public void onAnimationStart(Animator animation) {
 
-                                if (!RenGongFuWuActivity.this.isFinishing()){
-                                    Toast tastyToast= TastyToast.makeText(RenGongFuWuActivity.this,"照片质量不符合入库要求,请拍正面照!",TastyToast.LENGTH_LONG,TastyToast.ERROR);
-                                    tastyToast.setGravity(Gravity.CENTER,0,0);
-                                    tastyToast.show();
-                                }
+                                    }
 
+                                    @Override
+                                    public void onAnimationEnd(Animator animation) {
 
+                                    }
+
+                                    @Override
+                                    public void onAnimationCancel(Animator animation) {
+
+                                    }
+
+                                    @Override
+                                    public void onAnimationRepeat(Animator animation) {
+
+                                    }
+                                });
+                                animator.start();
                             }
                         });
-
-                    }else {
-                        link_save();
-                        isTiJiao=true;
                     }
+
 
                 }catch (Exception e){
 
@@ -948,6 +932,7 @@ public class RenGongFuWuActivity extends Activity {
             }
         });
     }
+
 
 
     private void link_chaxun(String names) {
