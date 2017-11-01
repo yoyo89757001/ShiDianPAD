@@ -6,12 +6,13 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:layout_width="500dp"
-        android:layout_height="300dp">
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:layout_height="200dp">
         <TextView
             android:textColor="@color/lanse33"
             android:text="温馨提示"
-            android:textSize="26sp"
+            android:textSize="24sp"
             android:gravity="center"
             android:layout_marginTop="20dp"
             android:id="@+id/a1"
@@ -32,12 +33,12 @@
         <TextView
             android:layout_below="@+id/a2"
             android:id="@+id/a3"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textColor="@color/lanse33"
             android:gravity="center"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="10dp"
             android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
 
@@ -47,30 +48,30 @@
             android:layout_width="match_parent"
             android:gravity="center_horizontal"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="16dp"
             android:layout_height="wrap_content">
 
             <Button
-                android:layout_width="120dp"
+                android:layout_width="100dp"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:layout_marginRight="20dp"
                 android:id="@+id/a5"
                 android:background="@drawable/jiaohu3"
-                android:text="确 定"
+                android:text="确定"
                 android:gravity="center"
-                android:layout_height="50dp" />
+                android:layout_height="46dp" />
 
             <Button
-                android:layout_width="120dp"
+                android:layout_width="100dp"
                 android:textColor="@color/white"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:id="@+id/a6"
                 android:layout_marginLeft="20dp"
                 android:background="@drawable/jiaohu3"
                 android:text="取消"
                 android:gravity="center"
-                android:layout_height="50dp" />
+                android:layout_height="46dp" />
 
         </LinearLayout>
 

@@ -36,7 +36,9 @@ import com.example.xiaojun.shidianpad.beans.ShiBieBean;
 import com.example.xiaojun.shidianpad.beans.ShouFangBean;
 import com.example.xiaojun.shidianpad.beans.UserInfoBena;
 import com.example.xiaojun.shidianpad.dialog.JiaZaiDialog;
+import com.example.xiaojun.shidianpad.dialog.QueRenDialog;
 import com.example.xiaojun.shidianpad.dialog.TiJIaoDialog;
+import com.example.xiaojun.shidianpad.dialog.XuanZeDialog;
 import com.example.xiaojun.shidianpad.utils.FileUtil;
 import com.example.xiaojun.shidianpad.utils.GsonUtil;
 import com.example.xiaojun.shidianpad.view.AutoFitTextureView;
@@ -437,10 +439,28 @@ public class InFoActivity3 extends Activity {
                                 tastyToast.show();
                             }
 
+
                         }else {
-                            Toast tastyToast= TastyToast.makeText(InFoActivity3.this,"比对未通过,请重新验证!",TastyToast.LENGTH_LONG,TastyToast.ERROR);
-                            tastyToast.setGravity(Gravity.CENTER,0,0);
-                            tastyToast.show();
+
+                            final XuanZeDialog dialog=new XuanZeDialog(InFoActivity3.this,"比对未通过,你确定要进行下一步吗");
+                            dialog.setOnPositiveListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    link_save();
+                                    dialog.dismiss();
+                                }
+                            });
+                            dialog.setOnQuXiaoListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            dialog.show();
+
+//                            Toast tastyToast= TastyToast.makeText(InFoActivity3.this,"比对未通过,请重新验证!",TastyToast.LENGTH_LONG,TastyToast.ERROR);
+//                            tastyToast.setGravity(Gravity.CENTER,0,0);
+//                            tastyToast.show();
 
                         }
 
@@ -765,23 +785,23 @@ public class InFoActivity3 extends Activity {
                                         int yy2 = 0;
                                         int ww = bitmapBig.getWidth();
                                         int hh = bitmapBig.getHeight();
-                                        if (face.getRight() - 270 >= 0) {
-                                            xx = face.getRight() - 270;
+                                        if (face.getRight() - 220 >= 0) {
+                                            xx = face.getRight() - 220;
                                         } else {
                                             xx = 0;
                                         }
-                                        if (face.getTop() - 230 >= 0) {
-                                            yy = face.getTop() - 230;
+                                        if (face.getTop() - 210 >= 0) {
+                                            yy = face.getTop() - 210;
                                         } else {
                                             yy = 0;
                                         }
-                                        if (xx + 480 <= ww) {
-                                            xx2 = 480;
+                                        if (xx + 420 <= ww) {
+                                            xx2 = 420;
                                         } else {
                                             xx2 = ww - xx ;
                                         }
-                                        if (yy + 500 <= hh) {
-                                            yy2 = 500;
+                                        if (yy + 430 <= hh) {
+                                            yy2 = 430;
                                         } else {
                                             yy2 = hh - yy ;
                                         }
@@ -1434,7 +1454,7 @@ public class InFoActivity3 extends Activity {
                     ResponseBody body = response.body();
                     String ss=body.string();
 
-                    Log.d("AllConnects", "aa   "+ss);
+                  //  Log.d("AllConnects", "aa   "+ss);
 
                     JsonObject jsonObject= GsonUtil.parse(ss).getAsJsonObject();
                     Gson gson=new Gson();
@@ -1553,7 +1573,7 @@ public class InFoActivity3 extends Activity {
 
                     ResponseBody body = response.body();
                     String ss=body.string();
-                     Log.d("AllConnects", "aa   "+ss);
+                   //  Log.d("AllConnects", "aa   "+ss);
                     JsonObject jsonObject= GsonUtil.parse(ss).getAsJsonObject();
                     Gson gson=new Gson();
                     Photos zhaoPianBean=gson.fromJson(jsonObject,Photos.class);
@@ -1630,7 +1650,7 @@ public class InFoActivity3 extends Activity {
                     ResponseBody body = response.body();
                     // Log.d("AllConnects", "识别结果返回"+response.body().string());
                     String ss=body.string();
-                    Log.d("InFoActivity", ss);
+                  //  Log.d("InFoActivity", ss);
                     JsonObject jsonObject= GsonUtil.parse(ss).getAsJsonObject();
                     Gson gson=new Gson();
                     final ShiBieBean zhaoPianBean=gson.fromJson(jsonObject,ShiBieBean.class);

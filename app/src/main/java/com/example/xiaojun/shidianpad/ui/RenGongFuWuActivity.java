@@ -260,25 +260,25 @@ public class RenGongFuWuActivity extends Activity {
                                             int yy2 = 0;
                                             int ww = bitmap2.getWidth();
                                             int hh = bitmap2.getHeight();
-                                            if (face.getRight() - 320 >= 0) {
-                                                xx = face.getRight() - 320;
+                                            if (face.getRight() - 220 >= 0) {
+                                                xx = face.getRight() - 220;
                                             } else {
                                                 xx = 0;
                                             }
-                                            if (face.getTop() - 240 >= 0) {
-                                                yy = face.getTop() - 240;
+                                            if (face.getTop() - 210 >= 0) {
+                                                yy = face.getTop() - 210;
                                             } else {
                                                 yy = 0;
                                             }
-                                            if (xx + 470 <= ww) {
-                                                xx2 = 470;
+                                            if (xx + 420 <= ww) {
+                                                xx2 = 420;
                                             } else {
-                                                xx2 = ww - xx - 1;
+                                                xx2 = ww - xx ;
                                             }
-                                            if (yy + 470 <= hh) {
-                                                yy2 = 470;
+                                            if (yy + 420 <= hh) {
+                                                yy2 = 420;
                                             } else {
-                                                yy2 = hh - yy - 1;
+                                                yy2 = hh - yy ;
                                             }
 
 
@@ -758,7 +758,7 @@ public class RenGongFuWuActivity extends Activity {
                     ResponseBody body = response.body();
                     String ss=body.string();
 
-                    Log.d("AllConnects", "aa   "+ss);
+                  //  Log.d("AllConnects", "aa   "+ss);
 
                     JsonObject jsonObject= GsonUtil.parse(ss).getAsJsonObject();
                     Gson gson=new Gson();
@@ -841,7 +841,7 @@ public class RenGongFuWuActivity extends Activity {
 
                     ResponseBody body = response.body();
                     String ss=body.string().trim();
-                    Log.d("DengJiActivity", ss);
+                 //   Log.d("DengJiActivity", ss);
 
                     JsonObject jsonObject= GsonUtil.parse(ss).getAsJsonObject();
                     final Gson gson=new Gson();
@@ -996,7 +996,7 @@ public class RenGongFuWuActivity extends Activity {
 
                     ResponseBody body = response.body();
                     String ss=body.string().trim();
-                    Log.d("DengJiActivity", ss);
+                  //  Log.d("DengJiActivity", ss);
 
                     JsonObject jsonObject= GsonUtil.parse(ss).getAsJsonObject();
                     Gson gson=new Gson();
