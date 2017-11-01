@@ -260,8 +260,8 @@ public class RenGongFuWuActivity extends Activity {
                                             int yy2 = 0;
                                             int ww = bitmap2.getWidth();
                                             int hh = bitmap2.getHeight();
-                                            if (face.getRight() - 220 >= 0) {
-                                                xx = face.getRight() - 220;
+                                            if (face.getRight() - 240 >= 0) {
+                                                xx = face.getRight() - 240;
                                             } else {
                                                 xx = 0;
                                             }
