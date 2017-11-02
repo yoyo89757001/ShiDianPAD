@@ -205,6 +205,8 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 bfr_dianhua.setText(objectsBeanList.get(position).getPhone()+"");
                 shoufangren.setText(objectsBeanList.get(position).getName()+"");
+                bumen_ET.setText(objectsBeanList.get(position).getDepartment()+"");
+
                 if (objectsBeanList.size()!=0){
                     objectsBeanList.clear();
                     myAdapter.notifyDataSetChanged();
