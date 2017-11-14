@@ -1,105 +1,43 @@
 package com.example.xiaojun.shidianpad.ui;
-
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.anupcowkur.reservoir.Reservoir;
-import com.anupcowkur.reservoir.ReservoirGetCallback;
-import com.anupcowkur.reservoir.ReservoirPutCallback;
+
+import com.example.xiaojun.shidianpad.MyAppLaction;
 import com.example.xiaojun.shidianpad.R;
-import com.example.xiaojun.shidianpad.dialog.XiuGaiXinXiDialog;
-import com.google.gson.reflect.TypeToken;
+import com.example.xiaojun.shidianpad.beans.BaoCunBean;
+import com.example.xiaojun.shidianpad.beans.BaoCunBeanDao;
+import com.example.xiaojun.shidianpad.dialog.XiuGaiJiuDianDialog;
 import com.sdsmdg.tastytoast.TastyToast;
-import java.lang.reflect.Type;
+
 
 public class SheZhiActivity extends Activity {
-    private Button ipDiZHI,gengxin,chaxun,zhuji2;
+    private Button gengxin,chaxun,jiudian,chaxun2;
     private TextView title;
     private ImageView famhui;
-    private String ip=null;
-    private String zhuji=null;
+    private BaoCunBeanDao baoCunBeanDao=null;
+    private BaoCunBean baoCunBean=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_she_zhi);
-        Type resultType = new TypeToken<String>() {
-        }.getType();
-        Reservoir.getAsync("ipipip", resultType, new ReservoirGetCallback<String>() {
-            @Override
-            public void onSuccess(final String i) {
-                ip=i;
 
-             }
+        baoCunBeanDao= MyAppLaction.myAppLaction.getDaoSession().getBaoCunBeanDao();
+        baoCunBean=baoCunBeanDao.load(123456L);
 
-        @Override
-        public void onFailure(Exception e) {
 
-        }
 
-     });
-        Type resultType2 = new TypeToken<String>() {
-        }.getType();
-        Reservoir.getAsync("zhuji", resultType2, new ReservoirGetCallback<String>() {
-            @Override
-            public void onSuccess(final String i) {
-                zhuji=i;
-
-            }
-
-            @Override
-            public void onFailure(Exception e) {
-                zhuji="http://183.63.123.53:8090";
-            }
-
-        });
-
-        ipDiZHI= (Button) findViewById(R.id.shezhiip);
         gengxin= (Button) findViewById(R.id.jiancha);
         title= (TextView) findViewById(R.id.title);
-        zhuji2= (Button) findViewById(R.id.zhuji);
-        zhuji2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final XiuGaiXinXiDialog dialog=new XiuGaiXinXiDialog(SheZhiActivity.this);
-                dialog.setOnQueRenListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        Reservoir.putAsync("zhuji",dialog.getContents(), new ReservoirPutCallback() {
-                            @Override
-                            public void onSuccess() {
-                                TastyToast.makeText(SheZhiActivity.this,"保存成功",TastyToast.LENGTH_LONG,TastyToast.INFO).show();
-                                dialog.dismiss();
-                            }
-
-                            @Override
-                            public void onFailure(Exception e) {
-                                TastyToast.makeText(SheZhiActivity.this,"保存失败",TastyToast.LENGTH_LONG,TastyToast.INFO).show();
-                                dialog.dismiss();
-                            }
-                        });
-
-                    }
-
-
-                });
-                dialog.setQuXiaoListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-                if (zhuji!=null){
-                    dialog.setContents("设置主机地址",zhuji);
-                }
-                dialog.show();
-            }
-        });
         title.setText("系统设置");
         famhui= (ImageView) findViewById(R.id.leftim);
         famhui.setVisibility(View.VISIBLE);
@@ -109,44 +47,7 @@ public class SheZhiActivity extends Activity {
                 finish();
             }
         });
-        ipDiZHI.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final XiuGaiXinXiDialog dialog=new XiuGaiXinXiDialog(SheZhiActivity.this);
-                dialog.setOnQueRenListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
 
-                                Reservoir.putAsync("ipipip",dialog.getContents(), new ReservoirPutCallback() {
-                                    @Override
-                                    public void onSuccess() {
-                                        TastyToast.makeText(SheZhiActivity.this,"保存成功",TastyToast.LENGTH_LONG,TastyToast.INFO).show();
-                                        dialog.dismiss();
-                                    }
-
-                                    @Override
-                                    public void onFailure(Exception e) {
-                                        TastyToast.makeText(SheZhiActivity.this,"保存失败",TastyToast.LENGTH_LONG,TastyToast.INFO).show();
-                                        dialog.dismiss();
-                                    }
-                                });
-
-                            }
-
-
-                });
-                dialog.setQuXiaoListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-                if (ip!=null){
-                    dialog.setContents("设置IP摄像头地址",ip);
-                }
-                dialog.show();
-            }
-        });
         gengxin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -162,6 +63,77 @@ public class SheZhiActivity extends Activity {
 
             }
         });
+//        chaxun2= (Button) findViewById(R.id.chaxun2);
+//        chaxun2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(SheZhiActivity.this,ChaXunHuZhaoActivity.class));
+//            }
+//        });
+        jiudian= (Button) findViewById(R.id.jiudian);
+        jiudian.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final XiuGaiJiuDianDialog dianDialog=new XiuGaiJiuDianDialog(SheZhiActivity.this);
+                dianDialog.setOnQueRenListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (baoCunBean==null){
+                            BaoCunBean baoCunBean2=new BaoCunBean();
+                            baoCunBean2.setId(123456L);
+                            baoCunBean2.setJiudianID(dianDialog.getJiuDianBean().getId());
+                            baoCunBean2.setCameraIP(dianDialog.getJiuDianBean().getIp());
+                            baoCunBean2.setZhuji(dianDialog.getJiuDianBean().getZhuji());
+                            baoCunBeanDao.insert(baoCunBean2);
+                            TastyToast.makeText(SheZhiActivity.this,"保存成功",TastyToast.LENGTH_LONG,TastyToast.INFO).show();
+                            baoCunBean=baoCunBeanDao.load(123456L);
+                            dianDialog.dismiss();
+                        }else {
+                            baoCunBean.setJiudianID(dianDialog.getJiuDianBean().getId());
+                            baoCunBean.setCameraIP(dianDialog.getJiuDianBean().getIp());
+                            baoCunBean.setZhuji(dianDialog.getJiuDianBean().getZhuji());
+                            baoCunBeanDao.update(baoCunBean);
+                            TastyToast.makeText(SheZhiActivity.this,"更新成功",TastyToast.LENGTH_LONG,TastyToast.INFO).show();
+                            baoCunBean=baoCunBeanDao.load(123456L);
+                            dianDialog.dismiss();
+                        }
 
+                    }
+                });
+                dianDialog.setQuXiaoListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dianDialog.dismiss();
+                    }
+                });
+                if (baoCunBean!=null && baoCunBean.getCameraIP()!=null && baoCunBean.getJiudianID()!=null && baoCunBean.getZhuji()!=null){
+                    dianDialog.setContents(baoCunBean.getJiudianID(),baoCunBean.getCameraIP(),baoCunBean.getZhuji());
+                }
+                dianDialog.show();
+            }
+        });
+        TextView banben= (TextView) findViewById(R.id.banben);
+        banben.setText("V"+getVersionName(SheZhiActivity.this));
+
+    }
+
+    /**
+     * 获取版本号
+     * @param context 上下文
+     * @return 版本号
+     */
+    public  String getVersionName(Context context){
+        //获取包管理器
+        PackageManager pm = context.getPackageManager();
+        //获取包信息
+        try {
+            PackageInfo packageInfo = pm.getPackageInfo(context.getPackageName(),0);
+            return  packageInfo.versionName;
+            //返回版本号
+            //  return packageInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return "1.0.0";
     }
 }

@@ -12,24 +12,35 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.example.xiaojun.shidianpad.view.AutoFitTextureView
+        <SurfaceView
             android:layout_width="match_parent"
             android:id="@+id/fff"
-            android:layout_centerInParent="true"
             android:layout_height="match_parent" />
 
-        <!--<Button-->
-            <!--android:layout_width="116dp"-->
-            <!--android:background="@drawable/jiaohu"-->
-            <!--android:textSize="16sp"-->
-            <!--android:id="@+id/paizhao"-->
-            <!--android:textColor="@color/white"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:text="拍 照"-->
-            <!--android:visibility="gone"-->
-            <!--android:layout_marginBottom="80dp"-->
-            <!--android:layout_alignParentBottom="true"-->
-            <!--android:layout_height="54sp" />-->
+       <ImageView
+           android:id="@+id/image"
+           android:layout_alignParentEnd="true"
+           android:layout_marginRight="16dp"
+           android:layout_marginTop="20dp"
+           android:scaleType="fitXY"
+           android:layout_alignParentRight="true"
+           android:layout_width="180dp"
+           android:layout_height="180dp" />
+
+        <TextView
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:id="@+id/tishi"
+            android:layout_below="@+id/image"
+            android:visibility="gone"
+            android:layout_alignParentRight="true"
+            android:background="@color/black"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="10dp"
+            android:padding="6dp"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
     </RelativeLayout>
 
@@ -37,9 +48,7 @@
         android:id="@+id/ggg"
         android:background="#eeeeee"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:layout_height="match_parent">
 
    <RelativeLayout
        android:id="@+id/ff"
@@ -81,6 +90,8 @@
         android:id="@+id/ff2"
         android:layout_below="@+id/ff"
         android:orientation="vertical"
+        android:layout_marginLeft="200dp"
+        android:layout_marginRight="200dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -95,7 +106,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="52dp"
             android:gravity="center_vertical"
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
@@ -134,7 +145,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:layout_marginRight="32dp"
-            android:layout_height="48dp">
+            android:layout_height="52dp">
 
             <TextView
                 android:text="来访人手机:"
@@ -169,7 +180,7 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_marginRight="32dp"
-            android:layout_height="48dp">
+            android:layout_height="52dp">
             <TextView
                 android:text="预约来访日期:"
                 android:textSize="14sp"
@@ -186,15 +197,15 @@
                 android:gravity="center_vertical"
                 android:id="@+id/riqi"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="48dp"
+                android:layout_marginRight="52dp"
                 android:layout_height="match_parent" />
 
             <ImageView
                 android:id="@+id/imageView2"
-                android:layout_width="48dp"
+                android:layout_width="52dp"
                 android:focusable="false"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="-48dp"
+                android:layout_marginLeft="-52dp"
                 android:padding="16dp"
                 android:src="@drawable/xjt" />
 
@@ -208,7 +219,7 @@
             android:layout_marginLeft="32dp"
             android:orientation="horizontal"
             android:layout_marginRight="32dp"
-            android:layout_height="48dp">
+            android:layout_height="52dp">
             <TextView
                 android:text="被访人:"
                 android:textSize="14sp"
@@ -238,7 +249,7 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_marginRight="32dp"
-            android:layout_height="48dp">
+            android:layout_height="52dp">
             <TextView
                 android:text="被访人手机:"
                 android:textSize="14sp"
@@ -269,7 +280,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:layout_marginRight="32dp"
-            android:layout_height="48dp">
+            android:layout_height="52dp">
             <TextView
                 android:text="来访人数:"
                 android:textSize="14sp"
@@ -298,7 +309,7 @@
             android:text="确认登记"
             android:id="@+id/baocun"
             android:gravity="center"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="26dp"
             android:layout_gravity="center_horizontal"
             android:textColor="@color/white"
             android:background="@drawable/jiaohu"
@@ -312,8 +323,8 @@
 
     <ListView
         android:id="@+id/lsvMore"
-        android:layout_marginLeft="32dp"
-        android:layout_marginRight="32dp"
+        android:layout_marginLeft="200dp"
+        android:layout_marginRight="200dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="@null"

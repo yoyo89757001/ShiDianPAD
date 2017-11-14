@@ -21,7 +21,7 @@ public class ShouYeActivity extends Activity {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ShouYeActivity.this,InFoActivity3.class));
+                startActivity(new Intent(ShouYeActivity.this,InFoActivity5.class));
             }
         });
 
@@ -29,7 +29,7 @@ public class ShouYeActivity extends Activity {
         imageView22.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ShouYeActivity.this,RenGongFuWuActivity.class));
+                startActivity(new Intent(ShouYeActivity.this,RenGongFuWuActivity4.class));
             }
         });
 
@@ -51,7 +51,7 @@ public class ShouYeActivity extends Activity {
 
         if (resultCode == Activity.RESULT_OK ) {
             // 选择预约时间的页面被关闭
-            startActivity(new Intent(ShouYeActivity.this,InFoActivity3.class));
+            startActivity(new Intent(ShouYeActivity.this,InFoActivity5.class));
 
         }
 

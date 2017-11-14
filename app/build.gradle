@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'org.greenrobot.greendao' // apply plugin
 android {
     compileSdkVersion 25
     buildToolsVersion "26.0.2"
@@ -7,7 +7,7 @@ android {
         applicationId "com.example.xiaojun.shidianpad"
         minSdkVersion 20
         targetSdkVersion 22
-        versionCode 7
+        versionCode 8
         versionName "1.0.6"
 
 //        externalNativeBuild {
@@ -26,18 +26,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-//    externalNativeBuild {
-//        cmake {
-//            path "CMakeLists.txt"
-//        }
-//    }
+    greendao {
+        schemaVersion 1
+        targetGenDir 'src/main/java'
+    }
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':vlc-android-sdk-master')
+    compile project(':libijkplayer')
    // compile 'de.mrmaffen:libvlc-android:2.1.12@aar'
- //   compile project(':libvlc-android')
+   // compile project(':libvlc-android')
     compile 'com.squareup.okhttp3:okhttp:3.9.0'
     compile 'com.sdsmdg.tastytoast:tastytoast:0.1.1'
     compile 'com.github.bumptech.glide:glide:3.7.0'
@@ -45,6 +44,8 @@ dependencies {
     compile 'com.anupcowkur:reservoir:3.1.0'
     compile 'com.tzutalin.dlib-android-app:dlib:1.0.4'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.tencent.bugly:crashreport_upgrade:1.3.1'
+    compile 'com.tencent.bugly:crashreport_upgrade:1.3.3'
     compile 'com.tencent.bugly:nativecrashreport:3.3.1'
+    compile 'org.greenrobot:greendao:3.2.2'
+    compile 'org.parceler:parceler-api:1.1.9'
 }

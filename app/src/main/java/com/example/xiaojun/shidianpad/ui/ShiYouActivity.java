@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.xiaojun.shidianpad.R;
+import com.example.xiaojun.shidianpad.beans.ChuanSongBean;
 
 public class ShiYouActivity extends Activity implements View.OnClickListener {
    private LinearLayout l1,l2,l3,l4;
@@ -17,6 +18,7 @@ public class ShiYouActivity extends Activity implements View.OnClickListener {
     private SensorInfoReceiver sensorInfoReceiver;
     private boolean bidui;
     private String id;
+    private ChuanSongBean chuanSongBean=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

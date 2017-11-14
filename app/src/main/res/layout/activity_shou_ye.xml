@@ -28,20 +28,19 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_centerInParent="true"
+        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <TextView
             android:background="@drawable/jiaohu7"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:text="来访登记"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:gravity="center"
             android:textSize="22sp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_height="80dp"
+            android:layout_height="100dp"
             android:id="@+id/dengji"
             android:src="@drawable/anniu"
             />
@@ -49,16 +48,14 @@
 
         <TextView
             android:background="@drawable/jiaohu7"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:text="人工服务"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="60dp"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:gravity="center"
             android:textSize="22sp"
-            android:layout_height="80dp"
+            android:layout_height="100dp"
             android:id="@+id/fuwu"
             android:src="@drawable/anniu"/>
 

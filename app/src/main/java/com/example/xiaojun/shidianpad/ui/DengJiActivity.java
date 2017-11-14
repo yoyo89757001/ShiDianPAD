@@ -31,7 +31,10 @@ import com.anupcowkur.reservoir.Reservoir;
 import com.anupcowkur.reservoir.ReservoirGetCallback;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.xiaojun.shidianpad.MyAppLaction;
 import com.example.xiaojun.shidianpad.R;
+import com.example.xiaojun.shidianpad.beans.BaoCunBean;
+import com.example.xiaojun.shidianpad.beans.BaoCunBeanDao;
 import com.example.xiaojun.shidianpad.beans.ChaXunBean;
 import com.example.xiaojun.shidianpad.beans.MyAdapter;
 import com.example.xiaojun.shidianpad.beans.ShouFangBean;
@@ -81,12 +84,19 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
     private String zhuji=null;
     private MyAdapter myAdapter=null;
     private ListView listView;
-    private RelativeLayout rl;
+    private RelativeLayout rl,fffff;
     private List<ChaXunBean.ObjectsBean> objectsBeanList=new ArrayList<>();
+    private BaoCunBeanDao baoCunBeanDao=null;
+    private BaoCunBean baoCunBean=null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        baoCunBeanDao= MyAppLaction.myAppLaction.getDaoSession().getBaoCunBeanDao();
+        baoCunBean=baoCunBeanDao.load(123456L);
+        zhuji=baoCunBean.getZhuji();
         setContentView(R.layout.activity_deng_ji);
         nameS=getIntent().getStringExtra("name");
         type=getIntent().getIntExtra("type",0);
@@ -105,33 +115,8 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
             case 4:
                 shiyou="其它";
                 break;
-
         }
-        Type resultType2 = new TypeToken<String>() {
-        }.getType();
-        Reservoir.getAsync("zhuji", resultType2, new ReservoirGetCallback<String>() {
-            @Override
-            public void onSuccess(final String i) {
-                zhuji=i;
 
-            }
-
-            @Override
-            public void onFailure(Exception e) {
-                Log.d("InFoActivity", "获取本地异常ip:"+e.getMessage());
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast tastyToast= TastyToast.makeText(DengJiActivity.this,"获取本地ip异常",TastyToast.LENGTH_LONG,TastyToast.ERROR);
-                        tastyToast.setGravity(Gravity.CENTER,0,0);
-                        tastyToast.show();
-                    }
-                });
-
-
-            }
-
-        });
 
         IntentFilter intentFilter1 = new IntentFilter();
         intentFilter1.addAction("guanbi2");
@@ -150,7 +135,8 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
             }
         });
         myAdapter=new MyAdapter(DengJiActivity.this,objectsBeanList);
-
+        fffff= (RelativeLayout) findViewById(R.id.juju);
+        fffff.setOnClickListener(this);
         touxiang= (ImageView) findViewById(R.id.touxiang);
         bidui_tv= (TextView) findViewById(R.id.bidui_tv);
         name= (TextView) findViewById(R.id.editText);
@@ -171,8 +157,8 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
                 return false;
             }
         });
-        riqi_im= (ImageView) findViewById(R.id.imageView);
-        riqi_im.setOnClickListener(this);
+      //  riqi_im= (ImageView) findViewById(R.id.imageView);
+       // riqi_im.setOnClickListener(this);
         //bumen_im= (ImageView) findViewById(R.id.imageView2);
       //  bumen_im.setOnClickListener(this);
         wancheng= (Button) findViewById(R.id.queren2);
@@ -222,9 +208,9 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.imageView: //日期
+            case R.id.juju: //日期
 
-                Intent intent = new Intent(DengJiActivity.this, DatePickActivity.class);
+                Intent intent = new Intent(DengJiActivity.this, DatePickActivity2.class);
                 startActivityForResult(intent,2);
 
                 break;
@@ -455,7 +441,7 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
                     ShouFangBean zhaoPianBean=gson.fromJson(jsonObject,ShouFangBean.class);
 
                     if (zhaoPianBean.getDtoResult()==0){
-                        Log.d("DengJiActivity", "dddd");
+                       // Log.d("DengJiActivity", "dddd");
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -469,6 +455,7 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
                                         sendBroadcast(intent);
                                     }
                                 });
+                                if (!DengJiActivity.this.isFinishing())
                                 dialog.show();
                             }
                         });
@@ -608,9 +595,6 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
 
                         }
                     });
-
-
-
 
                 }catch (Exception e){
 

@@ -10,6 +10,7 @@
 //import android.content.IntentFilter;
 //import android.graphics.Bitmap;
 //import android.graphics.BitmapFactory;
+//import android.graphics.Matrix;
 //import android.graphics.SurfaceTexture;
 //import android.net.Uri;
 //import android.os.AsyncTask;
@@ -29,14 +30,19 @@
 //
 //import com.anupcowkur.reservoir.Reservoir;
 //import com.anupcowkur.reservoir.ReservoirGetCallback;
+//import com.bumptech.glide.Glide;
+//import com.bumptech.glide.load.engine.DiskCacheStrategy;
+//import com.dftc.libijkplayer.PlayerManager;
+//import com.dftc.libijkplayer.widget.media.IjkVideoView;
 //import com.example.xiaojun.shidianpad.MyAppLaction;
 //import com.example.xiaojun.shidianpad.R;
+//import com.example.xiaojun.shidianpad.beans.BaoCunBean;
+//import com.example.xiaojun.shidianpad.beans.BaoCunBeanDao;
 //import com.example.xiaojun.shidianpad.beans.Photos;
 //import com.example.xiaojun.shidianpad.beans.ShiBieBean;
 //import com.example.xiaojun.shidianpad.beans.ShouFangBean;
 //import com.example.xiaojun.shidianpad.beans.UserInfoBena;
 //import com.example.xiaojun.shidianpad.dialog.JiaZaiDialog;
-//import com.example.xiaojun.shidianpad.dialog.QueRenDialog;
 //import com.example.xiaojun.shidianpad.dialog.TiJIaoDialog;
 //import com.example.xiaojun.shidianpad.dialog.XuanZeDialog;
 //import com.example.xiaojun.shidianpad.utils.FileUtil;
@@ -51,10 +57,7 @@
 //import com.telpo.tps550.api.idcard.IdentityInfo;
 //import com.tzutalin.dlib.FaceDet;
 //import com.tzutalin.dlib.VisionDetRet;
-//import org.videolan.libvlc.IVLCVout;
-//import org.videolan.libvlc.LibVLC;
-//import org.videolan.libvlc.Media;
-//import org.videolan.libvlc.MediaPlayer;
+//
 //
 //import java.io.BufferedOutputStream;
 //import java.io.File;
@@ -76,7 +79,7 @@
 //import okhttp3.ResponseBody;
 //
 //
-//public class InFoActivity3 extends Activity {
+//public class InFoActivity4 extends Activity {
 //    private EditText shenfengzheng,xingbie,mingzu,chusheng,dianhua,fazhengjiguan,
 //            youxiaoqixian,zhuzhi,fanghao,chepaihao,shibiejieguo,xiangsifdu;
 //    private ImageView zhengjianzhao,xianchengzhao;
@@ -120,19 +123,19 @@
 //    private static boolean isTrue3=true;
 //    private static boolean isTrue4=true;
 //    private FaceDet mFaceDet=null;
-//    private AutoFitTextureView videoView;
+//   // private AutoFitTextureView videoView;
 //    private ImageView imageView;
-//    private MediaPlayer mediaPlayer=null;
-//    private IVLCVout vlcVout=null;
-//    private IVLCVout.Callback callback;
-//    private Media media;
 //    private TextView tishi;
 //    private LinearLayout jiemian;
 //    private static int count=1;
 //    private static final int MESSAGE_QR_SUCCESS = 1;
-//    private LibVLC libvlc;
 //    private boolean isTiJiao=false;
 //
+//    private BaoCunBeanDao baoCunBeanDao=null;
+//    private BaoCunBean baoCunBean=null;
+//
+//    private IjkVideoView ijkVideoView;
+//    private PlayerManager playerManager;
 //
 //
 //    Handler mHandler2 = new Handler() {
@@ -162,7 +165,7 @@
 //        public void handleMessage(Message msg) {
 //             if (msg.what == 300) {
 //
-//                 Toast tastyToast= TastyToast.makeText(InFoActivity3.this,"开启读卡失败",TastyToast.LENGTH_LONG,TastyToast.ERROR);
+//                 Toast tastyToast= TastyToast.makeText(InFoActivity4.this,"开启读卡失败",TastyToast.LENGTH_LONG,TastyToast.ERROR);
 //                 tastyToast.setGravity(Gravity.CENTER,0,0);
 //                 tastyToast.show();
 //
@@ -175,38 +178,19 @@
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.zhujiemian4);
 //
 //        mFaceDet= MyAppLaction.mFaceDet;
-//        libvlc=new LibVLC(InFoActivity3.this);
+//        baoCunBeanDao= MyAppLaction.myAppLaction.getDaoSession().getBaoCunBeanDao();
+//        baoCunBean=baoCunBeanDao.load(123456L);
 //
-//        Type resultType2 = new TypeToken<String>() {
-//        }.getType();
-//        Reservoir.getAsync("zhuji", resultType2, new ReservoirGetCallback<String>() {
-//            @Override
-//            public void onSuccess(final String i) {
-//                zhuji=i;
-//
-//            }
-//
-//            @Override
-//            public void onFailure(Exception e) {
-//                Log.d("InFoActivity", "获取本地异常ip:"+e.getMessage());
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Toast tastyToast= TastyToast.makeText(InFoActivity3.this,"请先设置主机地址",TastyToast.LENGTH_LONG,TastyToast.ERROR);
-//                        tastyToast.setGravity(Gravity.CENTER,0,0);
-//                        tastyToast.show();
-//
-//                    }
-//                });
-//
-//
-//            }
-//
-//        });
-//
+//        setContentView(R.layout.zhujiemian4);
+//        if (baoCunBean==null){
+//            Toast tastyToast= TastyToast.makeText(InFoActivity4.this,"请先设置主机地址和摄像头IP",TastyToast.LENGTH_LONG,TastyToast.ERROR);
+//            tastyToast.setGravity(Gravity.CENTER,0,0);
+//            tastyToast.show();
+//        }else {
+//            zhuji=baoCunBean.getZhuji();
+//        }
 //
 //        isTrue3=true;
 //        isTrue4=true;
@@ -224,7 +208,7 @@
 //            public void run() {
 //                try {
 //
-//                   IdCard.open(InFoActivity3.this);
+//                   IdCard.open(InFoActivity4.this);
 //
 //                    startReadCard();
 //
@@ -233,7 +217,7 @@
 //                    runOnUiThread(new Runnable() {
 //                        @Override
 //                        public void run() {
-//                            Toast tastyToast= TastyToast.makeText(InFoActivity3.this,"无法连接读卡器",TastyToast.LENGTH_LONG,TastyToast.ERROR);
+//                            Toast tastyToast= TastyToast.makeText(InFoActivity4.this,"无法连接读卡器",TastyToast.LENGTH_LONG,TastyToast.ERROR);
 //                            tastyToast.setGravity(Gravity.CENTER,0,0);
 //                            tastyToast.show();
 //                        }
@@ -264,101 +248,67 @@
 //        });
 //
 //        initView();
-//        Type resultType = new TypeToken<String>() {
-//        }.getType();
-//        Reservoir.getAsync("ipipip", resultType, new ReservoirGetCallback<String>() {
-//            @Override
-//            public void onSuccess(final String i) {
+//        if (baoCunBean!=null && baoCunBean.getCameraIP()!=null)
+//            plays();
 //
-//                bofang(i);
-//            }
-//
-//            @Override
-//            public void onFailure(Exception e) {
-//                Toast tastyToast = TastyToast.makeText(InFoActivity3.this, "请先设置摄像头IP地址", TastyToast.LENGTH_LONG, TastyToast.ERROR);
-//                tastyToast.setGravity(Gravity.CENTER, 0, 0);
-//                tastyToast.show();
-//            }
-//
-//        });
-//
-//
-//        jiaZaiDialog=new JiaZaiDialog(InFoActivity3.this);
+//        jiaZaiDialog=new JiaZaiDialog(InFoActivity4.this);
 //        jiaZaiDialog.setCanceledOnTouchOutside(false);// 设置点击屏幕Dialog不消失
-//        if (!InFoActivity3.this.isFinishing())
+//        if (!InFoActivity4.this.isFinishing())
 //        jiaZaiDialog.show();
 //
 //    }
 //
-//    private void bofang(final String i) {
-//        videoView.setSurfaceTextureListener(new TextureView.SurfaceTextureListener() {
+//
+//    public void plays(){
+//
+//         String uri="rtsp://"+baoCunBean.getCameraIP()+"/user=admin_password=tlJwpbo6_channel=1_stream=0.sdp?real_stream";
+//        Log.d("dddddd", "播放");
+//
+//        playerManager = new PlayerManager(ijkVideoView);
+//
+//        playerManager.play(uri, new PlayerManager.PlayerStateListener() {
 //            @Override
-//            public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
+//            public void onStart(boolean isStart, long currentTime,long videoTotalDuration) {
+//                Log.e("dddddd", "onStart: " + isStart + "  //beginTime： "  + currentTime + "  //videoDuration：" + videoTotalDuration);
+//            }
 //
-//             ///   Log.d("InFoActivity3", "改222222"+width+"   "+height);
+//            @Override
+//            public void onComplete(boolean isFinish, long currentTime) {
 //
-//                vlcVout.attachViews();
+//                Log.e("ddddddd", "onStart: " + isFinish + "  //overTime： "  + currentTime);
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        try {
+//                            Thread.sleep(1500);
+//                            runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    plays();
+//                                }
+//                            });
+//
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                    }
+//                }).start();
 //
 //            }
 //
 //            @Override
-//            public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
-//
-//              //  Log.d("InFoActivity3", "改222222变");
-//            }
-//
-//            @Override
-//            public boolean onSurfaceTextureDestroyed(SurfaceTexture surface) {
-//
-//
-//                return true;
-//            }
-//
-//            @Override
-//            public void onSurfaceTextureUpdated(SurfaceTexture surface) {
-//
-//
+//            public void onError(Object info, Object result) {
+//                Log.e("dddddd", "onError: " + info + "==" + result );
 //            }
 //        });
+//    }
 //
-//                callback=new IVLCVout.Callback() {
-//
-//
-//                    @Override
-//                    public void onNewLayout(IVLCVout vlcVout, int width, int height, int visibleWidth, int visibleHeight, int sarNum, int sarDen) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onSurfacesCreated(IVLCVout vlcVout) {
-//
-//
-//                                if (mediaPlayer != null) {
-//                                    final Uri uri=Uri.parse("rtsp://"+i+"/user=admin&password=&channel=1&stream=0.sdp");
-//                                    media = new Media(libvlc, uri);
-//                                    mediaPlayer.setMedia(media);
-//                                    mediaPlayer.play();
-//                                }
-//
-//                    }
-//
-//                    @Override
-//                    public void onSurfacesDestroyed(IVLCVout vlcVout) {
-//                        vlcVout.removeCallback(callback);
-//                    }
-//
-//                    @Override
-//                    public void onHardwareAccelerationError(IVLCVout vlcVout) {
-//
-//                    }
-//
-//                };
-//
-//
-//                if (vlcVout!=null){
-//                    vlcVout.setVideoView(videoView);
-//                    vlcVout.addCallback(callback);
-//                }
+//    @Override
+//    protected void onStop() {
+//        if (ijkVideoView!=null)
+//        ijkVideoView.stop();
+//        super.onStop();
 //
 //    }
 //
@@ -402,12 +352,11 @@
 //
 //    private void initView() {
 //
-//        videoView= (AutoFitTextureView) findViewById(R.id.fff);
-//        videoView.setAspectRatio(4,3);
+//        ijkVideoView = (IjkVideoView) findViewById(R.id.test_video_view);
+//        ijkVideoView.setAspectRatio(5);
 //        imageView= (ImageView) findViewById(R.id.ffff);
 //        jiemian= (LinearLayout) findViewById(R.id.jiemian);
 //        tishi= (TextView) findViewById(R.id.tishi);
-//
 //        name= (TextView) findViewById(R.id.name);
 //        shenfengzheng= (EditText) findViewById(R.id.shenfenzheng);
 //        xingbie= (EditText) findViewById(R.id.xingbie);
@@ -435,7 +384,7 @@
 //                            if (isTiJiao){
 //                                link_save();
 //                            }else {
-//                                Toast tastyToast= TastyToast.makeText(InFoActivity3.this,"照片入库质量未达到要求,请拍正面照,并注意光线!",TastyToast.LENGTH_LONG,TastyToast.ERROR);
+//                                Toast tastyToast= TastyToast.makeText(InFoActivity4.this,"照片入库质量未达到要求,请拍正面照,并注意光线!",TastyToast.LENGTH_LONG,TastyToast.ERROR);
 //                                tastyToast.setGravity(Gravity.CENTER,0,0);
 //                                tastyToast.show();
 //                            }
@@ -443,7 +392,7 @@
 //
 //                        }else {
 //
-//                            final XuanZeDialog dialog=new XuanZeDialog(InFoActivity3.this,"比对未通过,你确定要进行下一步吗");
+//                            final XuanZeDialog dialog=new XuanZeDialog(InFoActivity4.this,"比对未通过,你确定要进行下一步吗");
 //                            dialog.setOnPositiveListener(new View.OnClickListener() {
 //                                @Override
 //                                public void onClick(View v) {
@@ -467,14 +416,14 @@
 //
 //
 //                    }catch (Exception e){
-//                        Toast tastyToast= TastyToast.makeText(InFoActivity3.this,"数据异常,请返回后重试",TastyToast.LENGTH_LONG,TastyToast.ERROR);
+//                        Toast tastyToast= TastyToast.makeText(InFoActivity4.this,"数据异常,请返回后重试",TastyToast.LENGTH_LONG,TastyToast.ERROR);
 //                        tastyToast.setGravity(Gravity.CENTER,0,0);
 //                        tastyToast.show();
 //                        Log.d("InFoActivity", e.getMessage());
 //                    }
 //
 //                }else {
-//                    Toast tastyToast= TastyToast.makeText(InFoActivity3.this,"请先读取身份证信息",TastyToast.LENGTH_LONG,TastyToast.ERROR);
+//                    Toast tastyToast= TastyToast.makeText(InFoActivity4.this,"请先读取身份证信息",TastyToast.LENGTH_LONG,TastyToast.ERROR);
 //                    tastyToast.setGravity(Gravity.CENTER,0,0);
 //                    tastyToast.show();
 //                }
@@ -484,8 +433,7 @@
 //
 //        //progressBarWithNumber= (HorizontalProgressBarWithNumber) findViewById(R.id.id_progressbar01);
 //
-//        mediaPlayer=new MediaPlayer(libvlc);
-//        vlcVout = mediaPlayer.getVLCVout();
+//
 //
 //    }
 //
@@ -515,6 +463,7 @@
 //
 //                Bitmap bitmap= BitmapFactory.decodeFile(FileUtil.SDPATH+ File.separator+FileUtil.PATH+File.separator+"bbbb.jpg");
 //                xianchengzhao.setImageBitmap(bitmap);
+//                ijkVideoView.setSurfaceViewGone();
 //                //link_zhiliang();
 //            }
 //            if (action.equals("guanbi2")){
@@ -656,57 +605,7 @@
 //    }
 //
 //    private void kaishiPaiZhao(){
-//        if (mediaPlayer==null){
-//            finish();
-//            Toast tastyToast= TastyToast.makeText(InFoActivity3.this,"开启摄像头失败,请重新读卡",TastyToast.LENGTH_LONG,TastyToast.ERROR);
-//            tastyToast.setGravity(Gravity.CENTER,0,0);
-//            tastyToast.show();
-//            return;
-//        }
-//
-//        if (mediaPlayer.isPlaying()){
-//
-//            videoView.invalidate();
-//
-//            startThread();
-//
-//        }else {
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//
-//                    try {
-//                        Thread.sleep(6000);
-//                        if (mediaPlayer.isPlaying()) {
-//
-//                            startThread();
-//
-//                        } else {
-//
-//                           runOnUiThread(new Runnable() {
-//                               @Override
-//                               public void run() {
-//                                   Toast tastyToast= TastyToast.makeText(InFoActivity3.this,"当前网络不稳定,需要重新读卡开启摄像头,请稍候",TastyToast.LENGTH_LONG,TastyToast.INFO);
-//                                   tastyToast.setGravity(Gravity.CENTER,0,0);
-//                                   tastyToast.show();
-//                               }
-//                           });
-//
-//                            Intent intent=new Intent();
-//                            intent.putExtra("date", "11");
-//                            setResult(Activity.RESULT_OK, intent);
-//
-//                            finish();
-//
-//                        }
-//
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                }
-//            }).start();
-//        }
+//        startThread();
 //    }
 //
 //    private void startThread(){
@@ -756,125 +655,127 @@
 //                        isTrue4=false;
 //
 //                        try {
-//                           bitmapBig=videoView.getBitmap();
+//                        //   bitmapBig=ijkVideoView.getBitmap();
 //
+//                            bitmapBig=ijkVideoView.getBitmap();
 //
 //                            if (bitmapBig!=null){
+//                                Bitmap bb= cropBitmap(scaleBitmap(bitmapBig,0.7f));
 //
-//                                List<VisionDetRet> results = mFaceDet.detect(bitmapBig);
+//                                List<VisionDetRet> results = mFaceDet.detect(bb);
 //
 //                                if (results != null) {
 //
 //                                    int s = results.size();
 //
-//                                    VisionDetRet face;
+//                                  //  VisionDetRet face;
 //                                    if (s > 0) {
 //
-//                                        if (s > count - 1) {
-//
-//                                            face = results.get(count - 1);
-//
-//                                        } else {
-//
-//                                            face = results.get(0);
-//
-//                                        }
-//
-//                                        int xx = 0;
-//                                        int yy = 0;
-//                                        int xx2 = 0;
-//                                        int yy2 = 0;
-//                                        int ww = bitmapBig.getWidth();
-//                                        int hh = bitmapBig.getHeight();
-//                                        if (face.getRight() - 240 >= 0) {
-//                                            xx = face.getRight() - 240;
-//                                        } else {
-//                                            xx = 0;
-//                                        }
-//                                        if (face.getTop() - 210 >= 0) {
-//                                            yy = face.getTop() - 210;
-//                                        } else {
-//                                            yy = 0;
-//                                        }
-//                                        if (xx + 420 <= ww) {
-//                                            xx2 = 420;
-//                                        } else {
-//                                            xx2 = ww - xx ;
-//                                        }
-//                                        if (yy + 430 <= hh) {
-//                                            yy2 = 430;
-//                                        } else {
-//                                            yy2 = hh - yy ;
-//                                        }
-//
-//                                        //     Bitmap bmpf = bitmapBig.copy(Bitmap.Config.RGB_565, true);
+////                                        if (s > count - 1) {
 ////
-////                                               //返回识别的人脸数
-////                                               //	int faceCount = new FaceDetector(bmpf.getWidth(), bmpf.getHeight(), 1).findFaces(bmpf, facess);
-////                                               //	FaceDetector faceCount2 = new FaceDetector(bmpf.getWidth(), bmpf.getHeight(), 2);
+////                                            face = results.get(count - 1);
 ////
-////                                               myFace = new FaceDetector.Face[numberOfFace];       //分配人脸数组空间
-////                                               myFaceDetect = new FaceDetector(bmpf.getWidth(), bmpf.getHeight(), numberOfFace);
-////                                               numberOfFaceDetected = myFaceDetect.findFaces(bmpf, myFace);    //FaceDetector 构造实例并解析人脸
+////                                        } else {
 ////
-////                                               if (numberOfFaceDetected > 0) {
+////                                            face = results.get(0);
 ////
-////                                                   FaceDetector.Face face;
-////                                                   if (numberOfFaceDetected>count-1){
-////                                                       face = myFace[count-1];
+////                                        }
 ////
-////                                                   }else {
-////                                                       face = myFace[0];
+////                                        int xx = 0;
+////                                        int yy = 0;
+////                                        int xx2 = 0;
+////                                        int yy2 = 0;
+////                                        int ww = bitmapBig.getWidth();
+////                                        int hh = bitmapBig.getHeight();
+////                                        if (face.getRight() - 240 >= 0) {
+////                                            xx = face.getRight() - 240;
+////                                        } else {
+////                                            xx = 0;
+////                                        }
+////                                        if (face.getTop() - 210 >= 0) {
+////                                            yy = face.getTop() - 210;
+////                                        } else {
+////                                            yy = 0;
+////                                        }
+////                                        if (xx + 420 <= ww) {
+////                                            xx2 = 420;
+////                                        } else {
+////                                            xx2 = ww - xx ;
+////                                        }
+////                                        if (yy + 430 <= hh) {
+////                                            yy2 = 430;
+////                                        } else {
+////                                            yy2 = hh - yy ;
+////                                        }
 ////
-////                                                   }
+////                                        //     Bitmap bmpf = bitmapBig.copy(Bitmap.Config.RGB_565, true);
+//////
+//////                                               //返回识别的人脸数
+//////                                               //	int faceCount = new FaceDetector(bmpf.getWidth(), bmpf.getHeight(), 1).findFaces(bmpf, facess);
+//////                                               //	FaceDetector faceCount2 = new FaceDetector(bmpf.getWidth(), bmpf.getHeight(), 2);
+//////
+//////                                               myFace = new FaceDetector.Face[numberOfFace];       //分配人脸数组空间
+//////                                               myFaceDetect = new FaceDetector(bmpf.getWidth(), bmpf.getHeight(), numberOfFace);
+//////                                               numberOfFaceDetected = myFaceDetect.findFaces(bmpf, myFace);    //FaceDetector 构造实例并解析人脸
+//////
+//////                                               if (numberOfFaceDetected > 0) {
+//////
+//////                                                   FaceDetector.Face face;
+//////                                                   if (numberOfFaceDetected>count-1){
+//////                                                       face = myFace[count-1];
+//////
+//////                                                   }else {
+//////                                                       face = myFace[0];
+//////
+//////                                                   }
+//////
+//////                                                   PointF pointF = new PointF();
+//////                                                   face.getMidPoint(pointF);
+//////
+//////
+//////                                                 //  myEyesDistance = (int)face.eyesDistance();
+//////
+//////                                                   int xx=0;
+//////                                                   int yy=0;
+//////                                                   int xx2=0;
+//////                                                   int yy2=0;
+//////
+//////                                                   if ((int)pointF.x-200>=0){
+//////                                                       xx=(int)pointF.x-200;
+//////                                                   }else {
+//////                                                       xx=0;
+//////                                                   }
+//////                                                   if ((int)pointF.y-320>=0){
+//////                                                       yy=(int)pointF.y-320;
+//////                                                   }else {
+//////                                                       yy=0;
+//////                                                   }
+//////                                                   if (xx+350 >=bitmapBig.getWidth()){
+//////                                                       xx2=bitmapBig.getWidth()-xx;
+//////
+//////                                                   }else {
+//////                                                       xx2=350;
+//////                                                   }
+//////                                                   if (yy+500>=bitmapBig.getHeight()){
+//////                                                       yy2=bitmapBig.getHeight()-yy;
+//////
+//////                                                   }else {
+//////                                                       yy2=500;
+//////                                                   }
 ////
-////                                                   PointF pointF = new PointF();
-////                                                   face.getMidPoint(pointF);
-////
-////
-////                                                 //  myEyesDistance = (int)face.eyesDistance();
-////
-////                                                   int xx=0;
-////                                                   int yy=0;
-////                                                   int xx2=0;
-////                                                   int yy2=0;
-////
-////                                                   if ((int)pointF.x-200>=0){
-////                                                       xx=(int)pointF.x-200;
-////                                                   }else {
-////                                                       xx=0;
-////                                                   }
-////                                                   if ((int)pointF.y-320>=0){
-////                                                       yy=(int)pointF.y-320;
-////                                                   }else {
-////                                                       yy=0;
-////                                                   }
-////                                                   if (xx+350 >=bitmapBig.getWidth()){
-////                                                       xx2=bitmapBig.getWidth()-xx;
-////
-////                                                   }else {
-////                                                       xx2=350;
-////                                                   }
-////                                                   if (yy+500>=bitmapBig.getHeight()){
-////                                                       yy2=bitmapBig.getHeight()-yy;
-////
-////                                                   }else {
-////                                                       yy2=500;
-////                                                   }
-//
-//                                        Bitmap bitmap = Bitmap.createBitmap(bitmapBig, xx, yy, xx2, yy2);
+////                                        Bitmap bitmap = Bitmap.createBitmap(bitmapBig, xx, yy, xx2, yy2);
 //
 //                                        // Bitmap bitmap = Bitmap.createBitmap(bitmapBig,0,0,bitmapBig.getWidth(),bitmapBig.getHeight());
 //
-//                                        Message message3 = Message.obtain();
-//                                        message3.what = MESSAGE_QR_SUCCESS;
-//                                        message3.obj = bitmap;
-//                                        mHandler2.sendMessage(message3);
+////                                        Message message3 = Message.obtain();
+////                                        message3.what = MESSAGE_QR_SUCCESS;
+////                                        message3.obj = bb;
+////                                        mHandler2.sendMessage(message3);
 //
 //
 //                                        String fn = "bbbb.jpg";
 //                                        FileUtil.isExists(FileUtil.PATH, fn);
-//                                        saveBitmap2File2(bitmap.copy(Bitmap.Config.ARGB_8888,false), FileUtil.SDPATH + File.separator + FileUtil.PATH + File.separator + fn, 100);
+//                                        saveBitmap2File2(bb, FileUtil.SDPATH + File.separator + FileUtil.PATH + File.separator + fn, 100);
 //                                        bitmapBig.recycle();
 //                                        bitmapBig=null;
 //
@@ -896,14 +797,14 @@
 //
 //                        }catch (Exception e){
 //                            Log.d("InFoActivity3", e.getMessage()+"");
-//                            runOnUiThread(new Runnable() {
-//                                @Override
-//                                public void run() {
-//                                    Toast tastyToast = TastyToast.makeText(InFoActivity3.this, "截图时发生未知错误,请关闭后重试", TastyToast.LENGTH_LONG, TastyToast.ERROR);
-//                                     tastyToast.setGravity(Gravity.CENTER, 0, 0);
-//                                      tastyToast.show();
-//                                }
-//                            });
+////                            runOnUiThread(new Runnable() {
+////                                @Override
+////                                public void run() {
+////                                    Toast tastyToast = TastyToast.makeText(InFoActivity4.this, "截图时发生未知错误,请关闭后重试", TastyToast.LENGTH_LONG, TastyToast.ERROR);
+////                                     tastyToast.setGravity(Gravity.CENTER, 0, 0);
+////                                      tastyToast.show();
+////                                }
+////                            });
 //                        }
 //
 //
@@ -919,6 +820,46 @@
 //        thread.start();
 //
 //    }
+//
+//
+//    /**
+//     * 裁剪
+//     *
+//     * @param bitmap 原图
+//     * @return 裁剪后的图像
+//     */
+//    private Bitmap cropBitmap(Bitmap bitmap) {
+//        int w = bitmap.getWidth(); // 得到图片的宽，高
+//        int h = bitmap.getHeight();
+////        int cropWidth = w >= h ? h : w;// 裁切后所取的正方形区域边长
+////        cropWidth /= 2;
+////        int cropHeight = (int) (cropWidth / 1.2);
+//        return Bitmap.createBitmap(bitmap, w / 5, 0, (w*3)/5, h, null, false);
+//    }
+//
+//    /**
+//     * 按比例缩放图片
+//     *
+//     * @param origin 原图
+//     * @param ratio  比例
+//     * @return 新的bitmap
+//     */
+//    private Bitmap scaleBitmap(Bitmap origin, float ratio) {
+//        if (origin == null) {
+//            return null;
+//        }
+//        int width = origin.getWidth();
+//        int height = origin.getHeight();
+//        Matrix matrix = new Matrix();
+//        matrix.preScale(ratio, ratio,width/2,height/2);
+//        Bitmap newBM = Bitmap.createBitmap(origin, 0, 0, width, height, matrix, false);
+//        if (newBM.equals(origin)) {
+//            return newBM;
+//        }
+//        origin.recycle();
+//        return newBM;
+//    }
+//
 //
 //    public  void saveBitmap2File2(Bitmap bm, final String path, int quality) {
 //        try {
@@ -938,17 +879,26 @@
 //            bos.flush();
 //            bos.close();
 //
+//            if (!InFoActivity4.this.isFinishing()){
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        tishi.setVisibility(View.VISIBLE);
+//                        tishi.setText("检测人脸质量中...");
+//                        if (!InFoActivity4.this.isFinishing()){
+//                            Glide.with(InFoActivity4.this)
+//                                    .load(filePath2)
+//                                    .skipMemoryCache(true)
+//                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                                    // .transform(new GlideCircleTransform(RenGongFuWuActivity4.this,1, Color.parseColor("#ffffffff")))
+//                                    .into(imageView);
+//                        }
 //
-//            runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    tishi.setVisibility(View.VISIBLE);
-//                    tishi.setText("检测人脸质量中...");
-//                    link_P2(filePath2);
-//                   // link_P1(shengfenzhengPath,filePath2);
-//                }
-//            });
-//
+//                        link_P2(filePath2);
+//                        // link_P1(shengfenzhengPath,filePath2);
+//                    }
+//                });
+//            }
 //
 //
 //
@@ -968,6 +918,9 @@
 //    @Override
 //    protected void onPause() {
 //        super.onPause();
+//        if (ijkVideoView!=null)
+//        ijkVideoView.pause();
+//       // ijkVideoView=null;
 //
 //        isTrue4=false;
 //        isTrue3=false;
@@ -976,29 +929,21 @@
 //        isTrue2=false;
 //        isTrue=false;
 //
+//    }
 //
+//    @Override
+//    protected void onResume() {
+//        if (ijkVideoView!=null)
+//        ijkVideoView.resume();
+//       // ijkVideoView=null;
+//        super.onResume();
 //    }
 //
 //    @Override
 //    protected void onDestroy() {
-//
-//        if (vlcVout!=null){
-//            vlcVout.removeCallback(callback);
-//            callback=null;
-//            vlcVout=null;
-//        }
-//        if(media!=null){
-//            media.release();
-//            media=null;
-//        }
-//        if (mediaPlayer!=null){
-//           // mediaPlayer.release();
-//            mediaPlayer=null;
-//        }
-//        if (libvlc!=null){
-//            libvlc.release();
-//            libvlc=null;
-//        }
+//        if (ijkVideoView!=null)
+//    ijkVideoView.release(true);
+//        ijkVideoView=null;
 //
 //        if (async!=null){
 //            async.cancel(true);
@@ -1014,40 +959,7 @@
 //
 //    }
 //
-////    @Override
-////    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-////        super.onActivityResult(requestCode, resultCode, data);
-////        if (resultCode == Activity.RESULT_OK) {
-////            switch (requestCode) {
-////                case REQUEST_TAKE_PHOTO:  //拍照
-////                    //注意，如果拍照的时候设置了MediaStore.EXTRA_OUTPUT，data.getData=null
-////                    xianchengzhao.setImageURI(Uri.fromFile(mSavePhotoFile));
-////
-////                    link_P1(shengfenzhengPath,filePath2);
-////
-////                    break;
-////
-////            }
-////        }
-////    }
 //
-////    /**
-////     * 启动拍照
-////     * @param
-////     */
-////    private void startCamera() {
-////
-////        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-////        // Ensure that there's a camera activity to handle the intent
-////        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-////            // Continue only if the File was successfully created
-////            if (mSavePhotoFile != null) {
-////                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
-////                        Uri.fromFile(mSavePhotoFile));//设置文件保存的URI
-////                startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-////            }
-////        }
-////    }
 //
 //    private void link_save() {
 //        //final MediaType JSON=MediaType.parse("application/json; charset=utf-8");
@@ -1087,7 +999,7 @@
 //                .url(zhuji + "/saveCompareResult.do");
 //
 //        if (tiJIaoDialog==null){
-//            tiJIaoDialog=new TiJIaoDialog(InFoActivity3.this);
+//            tiJIaoDialog=new TiJIaoDialog(InFoActivity4.this);
 //            tiJIaoDialog.show();
 //        }
 //
@@ -1120,7 +1032,7 @@
 //                    Log.d("InFoActivity2", ss);
 //                    if (Long.parseLong(ss)>0){
 //
-//                        startActivity(new Intent(InFoActivity3.this,ShiYouActivity.class)
+//                        startActivity(new Intent(InFoActivity4.this,ShiYouActivity.class)
 //                                .putExtra("name",name.getText().toString())
 //                                .putExtra("biduijieguo",bidui)
 //                                .putExtra("id",ss+""));
@@ -1131,7 +1043,7 @@
 //                            @Override
 //                            public void run() {
 //
-//                                Toast tastyToast= TastyToast.makeText(InFoActivity3.this,"保存失败",TastyToast.LENGTH_LONG,TastyToast.ERROR);
+//                                Toast tastyToast= TastyToast.makeText(InFoActivity4.this,"保存失败",TastyToast.LENGTH_LONG,TastyToast.ERROR);
 //                                tastyToast.setGravity(Gravity.CENTER,0,0);
 //                                tastyToast.show();
 //
@@ -1368,10 +1280,10 @@
 //        runOnUiThread(new Runnable() {
 //            @Override
 //            public void run() {
-//                jiaZaiDialog=new JiaZaiDialog(InFoActivity3.this);
+//                jiaZaiDialog=new JiaZaiDialog(InFoActivity4.this);
 //                jiaZaiDialog.setCanceledOnTouchOutside(false);// 设置点击屏幕Dialog不消失
 //                jiaZaiDialog.setText("上传图片中...");
-//                if (!InFoActivity3.this.isFinishing()){
+//                if (!InFoActivity4.this.isFinishing()){
 //                    jiaZaiDialog.show();
 //                }
 //            }
@@ -1428,7 +1340,7 @@
 //                            jiaZaiDialog.dismiss();
 //                            jiaZaiDialog=null;
 //                        }
-//                        Toast tastyToast= TastyToast.makeText(InFoActivity3.this,"上传图片出错，请返回后重试！",TastyToast.LENGTH_LONG,TastyToast.ERROR);
+//                        Toast tastyToast= TastyToast.makeText(InFoActivity4.this,"上传图片出错，请返回后重试！",TastyToast.LENGTH_LONG,TastyToast.ERROR);
 //                        tastyToast.setGravity(Gravity.CENTER,0,0);
 //                        tastyToast.show();
 //
@@ -1472,7 +1384,7 @@
 //                                jiaZaiDialog.dismiss();
 //                                jiaZaiDialog=null;
 //                            }
-//                            Toast tastyToast= TastyToast.makeText(InFoActivity3.this,"上传图片出错，请返回后重试！",TastyToast.LENGTH_LONG,TastyToast.ERROR);
+//                            Toast tastyToast= TastyToast.makeText(InFoActivity4.this,"上传图片出错，请返回后重试！",TastyToast.LENGTH_LONG,TastyToast.ERROR);
 //                            tastyToast.setGravity(Gravity.CENTER,0,0);
 //                            tastyToast.show();
 //                        }
@@ -1488,10 +1400,10 @@
 //        runOnUiThread(new Runnable() {
 //            @Override
 //            public void run() {
-//                jiaZaiDialog=new JiaZaiDialog(InFoActivity3.this);
+//                jiaZaiDialog=new JiaZaiDialog(InFoActivity4.this);
 //                jiaZaiDialog.setCanceledOnTouchOutside(false);// 设置点击屏幕Dialog不消失
 //                jiaZaiDialog.setText("检查人脸质量中...");
-//                if (!InFoActivity3.this.isFinishing())
+//                if (!InFoActivity4.this.isFinishing())
 //                jiaZaiDialog.show();
 //            }
 //        });
@@ -1548,7 +1460,7 @@
 //                            jiaZaiDialog.dismiss();
 //                            jiaZaiDialog=null;
 //                        }
-//                        Toast tastyToast= TastyToast.makeText(InFoActivity3.this,"上传图片出错，请返回后重试！",TastyToast.LENGTH_LONG,TastyToast.ERROR);
+//                        Toast tastyToast= TastyToast.makeText(InFoActivity4.this,"上传图片出错，请返回后重试！",TastyToast.LENGTH_LONG,TastyToast.ERROR);
 //                        tastyToast.setGravity(Gravity.CENTER,0,0);
 //                        tastyToast.show();
 //
@@ -1589,7 +1501,7 @@
 //                                jiaZaiDialog.dismiss();
 //                                jiaZaiDialog=null;
 //                            }
-//                            Toast tastyToast= TastyToast.makeText(InFoActivity3.this,"上传图片出错，请返回后重试！",TastyToast.LENGTH_LONG,TastyToast.ERROR);
+//                            Toast tastyToast= TastyToast.makeText(InFoActivity4.this,"上传图片出错，请返回后重试！",TastyToast.LENGTH_LONG,TastyToast.ERROR);
 //                            tastyToast.setGravity(Gravity.CENTER,0,0);
 //                            tastyToast.show();
 //                        }
@@ -1751,19 +1663,22 @@
 //        runOnUiThread(new Runnable() {
 //            @Override
 //            public void run() {
-//
-//                videoView.setVisibility(View.GONE);
-//                jiemian.setVisibility(View.VISIBLE);
 //                isTrue4=false;
 //                isTrue3=false;
 //
-//                ObjectAnimator animator2 = ObjectAnimator.ofFloat(jiemian, "scaleY", 0f, 1f);
-//                animator2.setDuration(600);//时间1s
-//                animator2.start();
-//                //起始为1，结束时为0
-//                ObjectAnimator animator = ObjectAnimator.ofFloat(jiemian, "scaleX", 0f, 1f);
-//                animator.setDuration(600);//时间1s
-//                animator.start();
+//                if (!InFoActivity4.this.isFinishing()){
+//                    ijkVideoView.setVisibility(View.GONE);
+//                    jiemian.setVisibility(View.VISIBLE);
+//
+//                    ObjectAnimator animator2 = ObjectAnimator.ofFloat(jiemian, "scaleY", 0f, 1f);
+//                    animator2.setDuration(600);//时间1s
+//                    animator2.start();
+//                    //起始为1，结束时为0
+//                    ObjectAnimator animator = ObjectAnimator.ofFloat(jiemian, "scaleX", 0f, 1f);
+//                    animator.setDuration(600);//时间1s
+//                    animator.start();
+//                }
+//
 //            }
 //        });
 //
@@ -1773,9 +1688,9 @@
 //        runOnUiThread(new Runnable() {
 //            @Override
 //            public void run() {
-//                if (tiJIaoDialog==null && !InFoActivity3.this.isFinishing()){
-//                    tiJIaoDialog=new TiJIaoDialog(InFoActivity3.this);
-//                    if (!InFoActivity3.this.isFinishing())
+//                if (tiJIaoDialog==null && !InFoActivity4.this.isFinishing()){
+//                    tiJIaoDialog=new TiJIaoDialog(InFoActivity4.this);
+//                    if (!InFoActivity4.this.isFinishing())
 //                    tiJIaoDialog.show();
 //                }
 //            }
@@ -1880,7 +1795,7 @@
 //                        @Override
 //                        public void run() {
 //
-//                            Toast tastyToast= TastyToast.makeText(InFoActivity3.this,"提交失败,请检查网络",TastyToast.LENGTH_LONG,TastyToast.ERROR);
+//                            Toast tastyToast= TastyToast.makeText(InFoActivity4.this,"提交失败,请检查网络",TastyToast.LENGTH_LONG,TastyToast.ERROR);
 //                            tastyToast.setGravity(Gravity.CENTER,0,0);
 //                            tastyToast.show();
 //

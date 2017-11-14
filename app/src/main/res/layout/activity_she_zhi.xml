@@ -9,29 +9,29 @@
         android:id="@+id/op"
         layout="@layout/base_title"/>
 
-    <LinearLayout
-        android:gravity="center"
-        android:visibility="visible"
-        android:layout_width="match_parent"
-        android:layout_height="65dp">
+    <!--<LinearLayout-->
+    <!--android:gravity="center"-->
+    <!--android:visibility="visible"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="65dp">-->
 
-        <Button
-            android:text="设置IP摄像头地址"
-            android:textSize="14sp"
-            android:textColor="@color/write"
-            android:layout_width="wrap_content"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:id="@+id/shezhiip"
-            android:background="@drawable/jiaohu3"
-            android:layout_height="38dp" />
+    <!--<Button-->
+    <!--android:text="设置IP摄像头地址"-->
+    <!--android:textSize="14sp"-->
+    <!--android:textColor="@color/write"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_marginLeft="6dp"-->
+    <!--android:layout_marginRight="6dp"-->
+    <!--android:id="@+id/shezhiip"-->
+    <!--android:background="@drawable/jiaohu3"-->
+    <!--android:layout_height="38dp" />-->
 
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
     <View
         android:background="@color/bg_color"
         android:layout_width="match_parent"
-        android:layout_height="0.8dp"/>
+        android:layout_height="0.5dp"/>
     <LinearLayout
         android:gravity="center"
         android:orientation="vertical"
@@ -48,35 +48,79 @@
             android:layout_height="36dp" />
 
     </LinearLayout>
+    <View
+        android:background="@color/bg_color"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
         android:gravity="center"
         android:visibility="gone"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="65dp">
 
         <Button
-            android:id="@+id/chaxun"
-            android:layout_width="120dp"
-            android:layout_height="36dp"
-            android:background="@drawable/jiaohu3"
             android:text="查询比对记录"
+            android:textSize="14sp"
             android:textColor="@color/write"
-            android:textSize="14sp" />
-
+            android:layout_width="120dp"
+            android:id="@+id/chaxun"
+            android:background="@drawable/jiaohu3"
+            android:layout_height="36dp" />
 
     </LinearLayout>
 
     <View
         android:background="@color/bg_color"
         android:layout_width="match_parent"
-        android:layout_height="0.8dp"/>
+        android:layout_height="0.5dp"/>
+
+    <LinearLayout
+        android:gravity="center"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="65dp">
+
+        <Button
+            android:text="查询护照记录"
+            android:textSize="14sp"
+            android:textColor="@color/write"
+            android:layout_width="120dp"
+            android:id="@+id/chaxun2"
+            android:background="@drawable/jiaohu3"
+            android:layout_height="36dp" />
+
+    </LinearLayout>
+    <!--<View-->
+    <!--android:background="@color/bg_color"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="0.5dp"/>-->
+
+    <!--<LinearLayout-->
+    <!--android:gravity="center"-->
+    <!--android:orientation="vertical"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="65dp">-->
+
+    <!--<Button-->
+    <!--android:text="设置主机地址"-->
+    <!--android:textSize="14sp"-->
+    <!--android:textColor="@color/write"-->
+    <!--android:layout_width="120dp"-->
+    <!--android:id="@+id/zhuji"-->
+    <!--android:background="@drawable/jiaohu3"-->
+    <!--android:layout_height="36dp" />-->
+
+
+    <!--</LinearLayout>-->
 
     <View
         android:background="@color/bg_color"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"/>
+
     <LinearLayout
         android:gravity="center"
         android:orientation="vertical"
@@ -84,11 +128,11 @@
         android:layout_height="65dp">
 
         <Button
-            android:text="设置主机地址"
+            android:text="设置设备信息"
             android:textSize="14sp"
             android:textColor="@color/write"
             android:layout_width="120dp"
-            android:id="@+id/zhuji"
+            android:id="@+id/jiudian"
             android:background="@drawable/jiaohu3"
             android:layout_height="36dp" />
 
@@ -98,29 +142,39 @@
     <View
         android:background="@color/bg_color"
         android:layout_width="match_parent"
-        android:layout_height="0.8dp"/>
+        android:layout_height="0.5dp"/>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="100dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="V1.1.0"
             android:textColor="@color/sbc_header_text"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:textSize="18sp"
             android:text="中国电信"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
             android:textColor="@color/sbc_header_text"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:id="@+id/banben"
+            android:text="V1.2.1"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:text="客服邮箱：ruitongai@189.cn"
+            android:textColor="@color/sbc_header_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 
 </LinearLayout>
