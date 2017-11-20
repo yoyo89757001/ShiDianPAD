@@ -34,10 +34,10 @@
         android:allowBackup="true"
         android:icon="@drawable/shidianlogo2"
         android:label="@string/app_name"
-        android:logo="@drawable/gonganlogo">
+        android:logo="@drawable/shidianlogo2">
         <activity
             android:name=".ui.ShouYeActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,8 +56,8 @@
             <!--android:windowSoftInputMode="stateHidden" />-->
 
         <activity
-            android:name=".ui.InFoActivity5"
-            android:screenOrientation="landscape"
+            android:name=".ui.InFoActivity3"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateHidden" />
         <!--<activity-->
@@ -66,24 +66,24 @@
             <!--android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />-->
         <activity
             android:name=".ui.SheZhiActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name=".ui.CameraActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name=".ui.ChaXunActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".ui.ShiYouActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name=".ui.DengJiActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateHidden" />
         <activity
@@ -98,11 +98,11 @@
             <!--android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />-->
         <activity
             android:name=".ui.DaYingActivity"
-            android:screenOrientation="landscape"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".ui.RenGongFuWuActivity4"
-            android:screenOrientation="landscape"
+        <activity android:name=".ui.RenGongFuWuActivity"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateHidden"
             />

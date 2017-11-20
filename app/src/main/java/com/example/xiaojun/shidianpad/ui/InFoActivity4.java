@@ -352,7 +352,7 @@
 //
 //    private void initView() {
 //
-//        ijkVideoView = (IjkVideoView) findViewById(R.id.test_video_view);
+//        ijkVideoView = (AutoFitTextureView) findViewById(R.id.test_video_view);
 //        ijkVideoView.setAspectRatio(5);
 //        imageView= (ImageView) findViewById(R.id.ffff);
 //        jiemian= (LinearLayout) findViewById(R.id.jiemian);

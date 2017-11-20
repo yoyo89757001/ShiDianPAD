@@ -34,13 +34,13 @@
 
         <TextView
             android:background="@drawable/jiaohu7"
-            android:layout_width="300dp"
+            android:layout_width="200dp"
             android:text="来访登记"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:gravity="center"
             android:textSize="22sp"
-            android:layout_height="100dp"
+            android:layout_height="70dp"
             android:id="@+id/dengji"
             android:src="@drawable/anniu"
             />
@@ -48,20 +48,18 @@
 
         <TextView
             android:background="@drawable/jiaohu7"
-            android:layout_width="300dp"
+            android:layout_width="200dp"
             android:text="人工服务"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="50dp"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:gravity="center"
             android:textSize="22sp"
-            android:layout_height="100dp"
+            android:layout_height="70dp"
             android:id="@+id/fuwu"
             android:src="@drawable/anniu"/>
 
     </LinearLayout>
-
-
 
 
     <ImageView
