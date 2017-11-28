@@ -135,9 +135,6 @@ public class InFoActivity3 extends Activity implements View.OnClickListener {
     private Button paizhao,baocun2;
 
 
-
-
-
     Handler mHandler2 = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -199,7 +196,6 @@ public class InFoActivity3 extends Activity implements View.OnClickListener {
         isTrue4=true;
 
 
-
         String fn = "bbbb.jpg";
         FileUtil.isExists(FileUtil.PATH, fn);
         //mSavePhotoFile=new File( FileUtil.SDPATH + File.separator + FileUtil.PATH + File.separator + fn);
@@ -230,7 +226,6 @@ public class InFoActivity3 extends Activity implements View.OnClickListener {
         }).start();
 
 
-
         IntentFilter intentFilter1 = new IntentFilter();
         intentFilter1.addAction("guanbi");
         intentFilter1.addAction("guanbi2");
@@ -246,7 +241,6 @@ public class InFoActivity3 extends Activity implements View.OnClickListener {
             @Override
             public void onClick(View v) {
                 finish();
-
             }
         });
 
@@ -403,7 +397,6 @@ public class InFoActivity3 extends Activity implements View.OnClickListener {
             @Override
             public void onClick(View v) {
 
-
                 if (!userInfoBena.getCertNumber().equals("")){
                     try {
                         if (bidui){
@@ -495,8 +488,8 @@ public class InFoActivity3 extends Activity implements View.OnClickListener {
                                     } else {
                                         xx = 0;
                                     }
-                                    if (face.getTop() - 210 >= 0) {
-                                        yy = face.getTop() - 210;
+                                    if (face.getTop() - 250 >= 0) {
+                                        yy = face.getTop() - 250;
                                     } else {
                                         yy = 0;
                                     }
@@ -505,8 +498,8 @@ public class InFoActivity3 extends Activity implements View.OnClickListener {
                                     } else {
                                         xx2 = ww - xx ;
                                     }
-                                    if (yy + 420 <= hh) {
-                                        yy2 = 420;
+                                    if (yy + 490 <= hh) {
+                                        yy2 = 490;
                                     } else {
                                         yy2 = hh - yy ;
                                     }
@@ -1782,7 +1775,7 @@ public class InFoActivity3 extends Activity implements View.OnClickListener {
                     ResponseBody body = response.body();
                     // Log.d("AllConnects", "识别结果返回"+response.body().string());
                     String ss=body.string();
-                  //  Log.d("InFoActivity", ss);
+                    Log.d("InFoActivity", ss);
                     JsonObject jsonObject= GsonUtil.parse(ss).getAsJsonObject();
                     Gson gson=new Gson();
                     final ShiBieBean zhaoPianBean=gson.fromJson(jsonObject,ShiBieBean.class);
