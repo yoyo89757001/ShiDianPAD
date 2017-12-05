@@ -53,25 +53,15 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:layout_width="100dp"
-                android:textSize="16sp"
+                android:layout_width="220dp"
+                android:textSize="28sp"
                 android:textColor="@color/white"
-                android:text="拍照"
+                android:text="拍 照"
                 android:id="@+id/paizhao1"
                 android:background="@drawable/jiaohu"
-                android:layout_height="50dp" />
+                android:layout_height="80dp" />
 
 
-            <Button
-                android:layout_width="100dp"
-                android:textSize="16sp"
-                android:textColor="@color/white"
-                android:text="保存"
-                android:layout_marginLeft="30dp"
-                android:visibility="gone"
-                android:id="@+id/queding"
-                android:background="@drawable/jiaohu"
-                android:layout_height="50dp" />
 
         </LinearLayout>
 

@@ -93,7 +93,7 @@ public class ShuangPingRenGongFuWuActivity extends Activity implements View.OnCl
     private ListView listView;
     private RelativeLayout rl;
     public static boolean isT1=true,isT2=false;
-    private Button paizhao,baocun2;
+    private Button paizhao;
     private BaoCunBeanDao baoCunBeanDao=null;
     private BaoCunBean baoCunBean=null;
     private ImageView  xianshi_im;
@@ -145,8 +145,6 @@ public class ShuangPingRenGongFuWuActivity extends Activity implements View.OnCl
         baocun = (Button) findViewById(R.id.baocun);
         paizhao = (Button) findViewById(R.id.paizhao1);
         paizhao.setOnClickListener(this);
-        baocun2 = (Button) findViewById(R.id.queding);
-        baocun2.setOnClickListener(this);
         xianshi_im= (ImageView) findViewById(R.id.image);
         baocun.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -901,9 +899,8 @@ public class ShuangPingRenGongFuWuActivity extends Activity implements View.OnCl
                             @Override
                             public void run() {
 
-                                baocun2.setVisibility(View.VISIBLE);
                                 tishi.setVisibility(View.GONE);
-
+                                ggg.setVisibility(View.VISIBLE);
                             }
                         });
                     }
@@ -1081,10 +1078,6 @@ public class ShuangPingRenGongFuWuActivity extends Activity implements View.OnCl
 
                 break;
 
-            case R.id.queding:
-                ggg.setVisibility(View.VISIBLE);
-
-                break;
 
         }
 

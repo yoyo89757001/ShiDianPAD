@@ -116,8 +116,7 @@ public class ShuangPingInFoActivity extends Activity implements View.OnClickList
     private boolean isTiJiao=false;
     private BaoCunBeanDao baoCunBeanDao=null;
     private BaoCunBean baoCunBean=null;
-    private  String ip=null;
-    private Button paizhao,baocun2;
+    private Button paizhao;
     private IDCardReader mReader;
     private Camera mCamera;
     private SurfaceHolder sh;
@@ -438,8 +437,6 @@ public class ShuangPingInFoActivity extends Activity implements View.OnClickList
     private void initView() {
         paizhao = (Button) findViewById(R.id.paizhao1);
         paizhao.setOnClickListener(this);
-        baocun2 = (Button) findViewById(R.id.queding);
-        baocun2.setOnClickListener(this);
         surfaceView= (SurfaceView) findViewById(R.id.fff);
         imageView= (ImageView) findViewById(R.id.image);
         jiemian= (LinearLayout) findViewById(R.id.jiemian);
@@ -457,6 +454,12 @@ public class ShuangPingInFoActivity extends Activity implements View.OnClickList
         shibiejieguo= (EditText) findViewById(R.id.jieguo);
         zhengjianzhao= (ImageView) findViewById(R.id.zhengjian);
         xianchengzhao= (ImageView) findViewById(R.id.paizhao);
+        xianchengzhao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                jiemian.setVisibility(View.GONE);
+            }
+        });
         button= (Button) findViewById(R.id.wancheng);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -531,9 +534,8 @@ public class ShuangPingInFoActivity extends Activity implements View.OnClickList
 
             case R.id.queding:
 
-                link_P1(shengfenzhengPath,filePath2);
 
-                jiemian.setVisibility(View.VISIBLE);
+
 //                ObjectAnimator animator2 = ObjectAnimator.ofFloat(jiemian, "scaleY", 0f, 1f);
 //                animator2.setDuration(600);//时间1s
 //                animator2.start();
@@ -595,7 +597,7 @@ public class ShuangPingInFoActivity extends Activity implements View.OnClickList
                 Bitmap bitmap= BitmapFactory.decodeFile(FileUtil.SDPATH+ File.separator+FileUtil.PATH+File.separator+"bbbb.jpg");
                 xianchengzhao.setImageBitmap(bitmap);
                 //link_zhiliang();
-                kill_camera();
+
             }
             if (action.equals("guanbi2")){
                 finish();
@@ -604,8 +606,11 @@ public class ShuangPingInFoActivity extends Activity implements View.OnClickList
     }
 
 
-
-
+    @Override
+    protected void onStop() {
+        kill_camera();
+        super.onStop();
+    }
 
     /***
      *保存bitmap对象到文件中
@@ -738,6 +743,7 @@ public class ShuangPingInFoActivity extends Activity implements View.OnClickList
         super.onPause();
 
         isTrue4=false;
+
         count=1;
 
         isTrue2=false;
@@ -1372,9 +1378,9 @@ public class ShuangPingInFoActivity extends Activity implements View.OnClickList
                             @Override
                             public void run() {
 
-                                baocun2.setVisibility(View.VISIBLE);
                                 tishi.setVisibility(View.GONE);
-
+                                jiemian.setVisibility(View.VISIBLE);
+                                link_P1(shengfenzhengPath,filePath2);
                             }
                         });
 
