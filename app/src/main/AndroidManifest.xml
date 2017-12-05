@@ -60,6 +60,11 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".ui.ShuangPingInFoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateHidden" />
         <!--<activity-->
             <!--android:name=".ui.VlcActivity"-->
             <!--android:screenOrientation="landscape"-->
@@ -102,6 +107,12 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".ui.RenGongFuWuActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateHidden"
+            />
+
+        <activity android:name=".ui.ShuangPingRenGongFuWuActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateHidden"

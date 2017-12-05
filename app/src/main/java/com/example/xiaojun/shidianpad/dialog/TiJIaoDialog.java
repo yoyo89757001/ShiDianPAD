@@ -1,9 +1,12 @@
 package com.example.xiaojun.shidianpad.dialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.example.xiaojun.shidianpad.R;
@@ -26,15 +29,27 @@ public class TiJIaoDialog extends Dialog {
     private void setCustomDialog() {
         View mView = LayoutInflater.from(getContext()).inflate(R.layout.queren_ll3, null);
         t1= (TextView) mView.findViewById(R.id.a1);
+        //获得当前窗体
+        Window window = TiJIaoDialog.this.getWindow();
+        //重新设置
+        WindowManager.LayoutParams lp =getWindow().getAttributes();
+        window .setGravity(Gravity.CENTER | Gravity.TOP);
+        // lp.x = 100; // 新位置X坐标
+        lp.y = 100; // 新位置Y坐标
+        lp.width = 300; // 宽度
+        lp.height = 300; // 高度
+        //   lp.alpha = 0.7f; // 透明度
+        // dialog.onWindowAttributesChanged(lp);
+        //(当Window的Attributes改变时系统会调用此函数)
+        window .setAttributes(lp);
         super.setContentView(mView);
 
 
     }
 
-    public void setT1(String s){
+    public void setT1(String s) {
         t1.setText(s);
     }
-
 
     @Override
     public void setContentView(int layoutResID) {

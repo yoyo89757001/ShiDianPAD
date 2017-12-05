@@ -232,7 +232,7 @@
 
     <color name="red">#ffff0000</color><!-- 红色 -->
     <color name="blue">#ff0288ce</color><!-- 红色 -->
-    <color name="igray_et">#ff999999</color><!-- 辅助文字-->
+    <color name="igray_et">#5b5a5a</color><!-- 辅助文字-->
     <color name="Orange">#F5A100</color><!-- 橙色 -->
     <color name="dark_grey">#D2D2D2</color><!-- 深灰 -->
     <color name="wxnavpage">#FFE1E8EB</color>

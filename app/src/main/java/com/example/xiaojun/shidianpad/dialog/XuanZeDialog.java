@@ -2,9 +2,12 @@ package com.example.xiaojun.shidianpad.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -32,9 +35,25 @@ public class XuanZeDialog extends Dialog {
         shuoming= (TextView) mView.findViewById(R.id.a3);
         positiveButton= (Button) mView.findViewById(R.id.a5);
         quxiao= (Button) mView.findViewById(R.id.a6);
+        shuoming.setText(ss);
+        //获得当前窗体
+        Window window = XuanZeDialog.this.getWindow();
+        //重新设置
+        WindowManager.LayoutParams lp =getWindow().getAttributes();
+        window .setGravity(Gravity.CENTER | Gravity.TOP);
+        // lp.x = 100; // 新位置X坐标
+        lp.y = 200; // 新位置Y坐标
+        lp.width = 400; // 宽度
+        lp.height = 400; // 高度
+        //   lp.alpha = 0.7f; // 透明度
+        // dialog.onWindowAttributesChanged(lp);
+        //(当Window的Attributes改变时系统会调用此函数)
+        window .setAttributes(lp);
+
         super.setContentView(mView);
 
-        shuoming.setText(ss);
+
+
     }
 
 

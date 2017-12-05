@@ -62,7 +62,7 @@ import okhttp3.ResponseBody;
 public class DengJiActivity extends Activity implements View.OnClickListener {
     private ImageView riqi_im,touxiang;
     private TextView riqi_tv,name,bidui_tv;
-    private EditText shoufangren,shoufangrenshu,bumen_ET,bfr_dianhua;
+    private EditText shoufangren,shoufangrenshu,bumen_ET,bfr_dianhua,laifangrenshouji;
 //    private Myadapter myadapter;
     private List<String> stringList;
    // private String[] datas = {"后勤", "人事部", "生产部", "部门4", "部门666"};
@@ -153,7 +153,7 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
                 return false;
             }
         });
-      //  riqi_im= (ImageView) findViewById(R.id.imageView);
+        laifangrenshouji= (EditText) findViewById(R.id.laifangrenshouji);
        // riqi_im.setOnClickListener(this);
         //bumen_im= (ImageView) findViewById(R.id.imageView2);
       //  bumen_im.setOnClickListener(this);
@@ -252,8 +252,16 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
                             tastyToast.show();
                         }
 
-                    }else {
+                    }else if (!laifangrenshouji.getText().toString().trim().equals("")){
+                        if (isMobile(laifangrenshouji.getText().toString().trim())){
+                            link_save();
+                        }else {
+                            Toast tastyToast= TastyToast.makeText(DengJiActivity.this,"手机号码格式不正确",TastyToast.LENGTH_LONG,TastyToast.ERROR);
+                            tastyToast.setGravity(Gravity.CENTER,0,0);
+                            tastyToast.show();
+                        }
 
+                    }else {
                         link_save();
                     }
 
@@ -419,8 +427,10 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
         RequestBody body = new FormBody.Builder()
                 .add("id",id)
                 .add("visitIncident",shiyou)
+                .add("phone",laifangrenshouji.getText().toString().trim())
                 .add("visitDate2",riqi_tv.getText().toString().trim())
-                .add("visitDepartment",bumen_ET.getText().toString().trim()+"-"+bfr_dianhua.getText().toString().trim())
+                .add("homeNumber",bfr_dianhua.getText().toString().trim())
+                .add("visitDepartment",bumen_ET.getText().toString().trim())
                 .add("visitPerson",shoufangren.getText().toString().trim()+"")
                 .add("visitNum",shoufangrenshu.getText().toString().trim()+"")
                 .build();

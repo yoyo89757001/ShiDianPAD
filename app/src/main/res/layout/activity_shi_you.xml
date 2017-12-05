@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/posbg">
+    android:background="@drawable/beijin">
 
     <TextView
         android:layout_width="wrap_content"
@@ -19,8 +19,8 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_below="@+id/dddd"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="140dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="120dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -28,6 +28,8 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:orientation="vertical"
+            android:layout_marginLeft="140dp"
+            android:layout_marginRight="30dp"
             android:layout_height="match_parent">
 
             <LinearLayout
@@ -77,6 +79,8 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_weight="1"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="140dp"
             android:orientation="vertical"
             android:layout_height="match_parent">
 

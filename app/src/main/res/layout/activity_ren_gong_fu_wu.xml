@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.example.xiaojun.shidianpad.view.AutoFitTextureView
+        <SurfaceView
             android:layout_width="match_parent"
             android:id="@+id/fff"
             android:layout_centerInParent="true"
@@ -29,7 +29,7 @@
            android:layout_height="160dp" />
 
         <TextView
-            android:textSize="14sp"
+            android:textSize="18sp"
             android:textColor="@color/white"
             android:id="@+id/tishi"
             android:layout_below="@+id/image"
@@ -125,6 +125,8 @@
         android:id="@+id/ff2"
         android:layout_below="@+id/ff"
         android:orientation="vertical"
+        android:layout_marginLeft="220dp"
+        android:layout_marginRight="220dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -274,6 +276,41 @@
                 android:layout_height="match_parent" />
         </LinearLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:background="@drawable/huiseyuanjiao"
+            android:layout_height="50dp">
+            <TextView
+                android:text="受访部门(或楼层)："
+                android:textColor="@color/igray_et"
+                android:textSize="14sp"
+                android:layout_marginLeft="16dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:id="@+id/bumen"
+                android:imeOptions="actionNext"
+                android:textSize="14sp"
+                android:maxLength="16"
+                android:singleLine="true"
+                android:inputType="text"
+                android:layout_toRightOf="@+id/textView2"
+                android:background="@null"
+                android:textColor="@color/igray_et"
+                android:gravity="center_vertical"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+
         <LinearLayout
             android:layout_marginTop="8dp"
             android:background="@drawable/zidonghuoqu10"
@@ -342,7 +379,7 @@
             android:text="确认登记"
             android:id="@+id/baocun"
             android:gravity="center"
-            android:layout_marginTop="18dp"
+            android:layout_marginTop="22dp"
             android:layout_gravity="center_horizontal"
             android:textColor="@color/white"
             android:background="@drawable/jiaohu"
@@ -356,8 +393,8 @@
 
     <ListView
         android:id="@+id/lsvMore"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="220dp"
+        android:layout_marginRight="220dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="@null"

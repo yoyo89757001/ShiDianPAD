@@ -45,6 +45,8 @@
             android:layout_weight="2.6"
             android:background="@drawable/baisetouming"
             android:layout_width="match_parent"
+            android:layout_marginLeft="200dp"
+            android:layout_marginRight="200dp"
             android:layout_marginBottom="16dp"
             android:orientation="vertical"
             android:layout_height="0dp">
@@ -84,11 +86,44 @@
                     android:layout_width="wrap_content"
                     android:textSize="14sp"
                     android:textColor="@color/blake2"
-                    android:layout_height="match_parent"
-                    />
+                    android:layout_height="match_parent"/>
+            </LinearLayout>
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:gravity="center_vertical"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal"
+                android:background="@drawable/huiseyuanjiao"
+                android:layout_height="48dp">
+                <TextView
+                    android:text="来访人手机："
+                    android:textColor="@color/blake"
+                    android:textSize="14sp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/laifangrenshouji"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLength="11"
+                    android:singleLine="true"
+                    android:textColor="@color/blake2"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
+
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -172,22 +207,6 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true" />
-
-                <!--<View-->
-                <!--android:layout_width="1dp"-->
-                <!--android:background="@color/tabtextcolo"-->
-                <!--android:layout_toLeftOf="@+id/imageView2"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:id="@+id/view2" />-->
-
-                <!--<ImageView-->
-                <!--android:src="@drawable/xjt"-->
-                <!--android:layout_width="70dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:padding="26dp"-->
-                <!--android:layout_centerVertical="true"-->
-                <!--android:layout_alignParentEnd="true"-->
-                <!--android:id="@+id/imageView2" />-->
 
 
             </RelativeLayout>
@@ -300,7 +319,7 @@
                 android:id="@+id/queren2"
                 android:gravity="center"
                 android:background="@drawable/jiaohu6"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="20dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_height="48dp" />
 
@@ -312,8 +331,8 @@
 
     <ListView
         android:id="@+id/lsvMore"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="200dp"
+        android:layout_marginRight="200dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:divider="@null"/>

@@ -9,7 +9,6 @@ import com.anupcowkur.reservoir.Reservoir;
 import com.example.xiaojun.shidianpad.beans.DaoMaster;
 import com.example.xiaojun.shidianpad.beans.DaoSession;
 import com.tencent.bugly.Bugly;
-import com.tencent.smtt.sdk.QbSdk;
 import com.tzutalin.dlib.Constants;
 import com.tzutalin.dlib.FaceDet;
 

@@ -427,9 +427,6 @@ public class InFoActivity3 extends Activity implements View.OnClickListener {
                             });
                             dialog.show();
 
-//                            Toast tastyToast= TastyToast.makeText(InFoActivity3.this,"比对未通过,请重新验证!",TastyToast.LENGTH_LONG,TastyToast.ERROR);
-//                            tastyToast.setGravity(Gravity.CENTER,0,0);
-//                            tastyToast.show();
 
                         }
 
