@@ -9,8 +9,8 @@ import android.graphics.Color;
 import android.graphics.ImageFormat;
 import android.graphics.YuvImage;
 import android.hardware.Camera;
-import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -1065,6 +1065,7 @@ public class ShuangPingRenGongFuWuActivity extends Activity implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.paizhao1:
+                paizhao.setEnabled(false);
 
                 if (tiJIaoDialog==null){
                     tiJIaoDialog=new TiJIaoDialog(ShuangPingRenGongFuWuActivity.this);
@@ -1072,10 +1073,20 @@ public class ShuangPingRenGongFuWuActivity extends Activity implements View.OnCl
                     if (!ShuangPingRenGongFuWuActivity.this.isFinishing())
                         tiJIaoDialog.show();
                 }
-
                 isTrue4=true;
 
-
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        SystemClock.sleep(1800);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                paizhao.setEnabled(true);
+                            }
+                        });
+                    }
+                }).start();
                 break;
 
 

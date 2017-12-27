@@ -15,6 +15,7 @@ import android.graphics.ImageFormat;
 import android.graphics.YuvImage;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.SurfaceHolder;
@@ -522,6 +523,7 @@ public class ShuangPingInFoActivity extends Activity implements View.OnClickList
 
         switch (v.getId()){
             case R.id.paizhao1:
+                paizhao.setEnabled(false);
 
                 jiaZaiDialog = new JiaZaiDialog(ShuangPingInFoActivity.this);
                 jiaZaiDialog.setText("检查人脸质量中,请稍后...");
@@ -529,6 +531,18 @@ public class ShuangPingInFoActivity extends Activity implements View.OnClickList
                     jiaZaiDialog.show();
                 isTrue4=true;
 
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        SystemClock.sleep(1800);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                paizhao.setEnabled(true);
+                            }
+                        });
+                    }
+                }).start();
 
                 break;
 
@@ -712,7 +726,7 @@ public class ShuangPingInFoActivity extends Activity implements View.OnClickList
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
 
-        Log.d("InFoActivity3", "surfaceView销毁");
+      //  Log.d("InFoActivity3", "surfaceView销毁");
 
         if (mCamera != null) {
             mCamera.setPreviewCallback(null) ;
@@ -938,12 +952,12 @@ public class ShuangPingInFoActivity extends Activity implements View.OnClickList
 
                     }
                 });
-               // Log.d("AllConnects", "请求识别失败"+e.getMessage());
+                Log.d("AllConnects", "请求识别失败"+e.getMessage());
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-              //  Log.d("AllConnects", "请求识别成功"+call.request().toString());
+                Log.d("AllConnects", "请求识别成功"+call.request().toString());
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -959,7 +973,7 @@ public class ShuangPingInFoActivity extends Activity implements View.OnClickList
                     ResponseBody body = response.body();
                     String ss=body.string();
 
-                  //  Log.d("AllConnects", "aa   "+ss);
+                    Log.d("AllConnects", "aa   "+ss);
 
                     JsonObject jsonObject= GsonUtil.parse(ss).getAsJsonObject();
                     Gson gson=new Gson();
@@ -1054,7 +1068,7 @@ public class ShuangPingInFoActivity extends Activity implements View.OnClickList
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-              //  Log.d("AllConnects", "请求识别失败"+e.getMessage());
+                Log.d("AllConnects", "请求识别失败"+e.getMessage());
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -1088,7 +1102,7 @@ public class ShuangPingInFoActivity extends Activity implements View.OnClickList
 
                     ResponseBody body = response.body();
                     String ss=body.string();
-                   //  Log.d("AllConnects", "aa   "+ss);
+                     Log.d("AllConnects", "aa   "+ss);
                     JsonObject jsonObject= GsonUtil.parse(ss).getAsJsonObject();
                     Gson gson=new Gson();
                     Photos zhaoPianBean=gson.fromJson(jsonObject,Photos.class);
@@ -1152,12 +1166,12 @@ public class ShuangPingInFoActivity extends Activity implements View.OnClickList
                         tishi.setText("上传图片出错，请返回后重试！");
                     }
                 });
-                Log.d("AllConnects", "请求识别失败"+e.getMessage());
+              //  Log.d("AllConnects", "请求识别失败"+e.getMessage());
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Log.d("AllConnects", "请求识别成功"+call.request().toString());
+              //  Log.d("AllConnects", "请求识别成功"+call.request().toString());
                 //获得返回体
                 try {
                    // count++;
