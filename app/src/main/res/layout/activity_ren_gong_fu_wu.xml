@@ -71,7 +71,7 @@
 
     <RelativeLayout
         android:id="@+id/ggg"
-        android:background="#eeeeee"
+        android:background="@color/write"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -120,14 +120,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:text="填写信息"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginTop="22dp"
+            android:background="@drawable/zidonghuoqu10"
+            android:orientation="horizontal">
+
+            <TextView
+                android:text="来访人企业:"
+                android:textSize="14sp"
+                android:layout_marginLeft="16dp"
+                android:textColor="@color/write"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:textColor="@color/write"
+                android:textSize="14sp"
+                android:id="@+id/qiye"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                android:inputType="text"
+                android:layout_marginLeft="10dp"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -135,7 +159,7 @@
             android:gravity="center_vertical"
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:background="@drawable/zidonghuoqu10"
             android:orientation="horizontal">
 
@@ -143,14 +167,14 @@
                 android:text="来访人:"
                 android:textSize="14sp"
                 android:layout_marginLeft="16dp"
-                android:textColor="@color/igray_et"
+                android:textColor="@color/write"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <EditText
                 android:background="@null"
                 android:layout_width="match_parent"
-                android:textColor="@color/igray_et"
+                android:textColor="@color/write"
                 android:textSize="14sp"
                 android:id="@+id/name"
                 android:imeOptions="actionNext"
@@ -176,7 +200,7 @@
                 android:text="来访人手机:"
                 android:textSize="14sp"
                 android:layout_marginLeft="16dp"
-                android:textColor="@color/igray_et"
+                android:textColor="@color/write"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -184,7 +208,7 @@
                 android:background="@null"
                 android:id="@+id/shoujihao"
                 android:layout_width="match_parent"
-                android:textColor="@color/igray_et"
+                android:textColor="@color/write"
                 android:textSize="14sp"
                 android:imeOptions="actionNext"
                 android:singleLine="true"
@@ -197,7 +221,6 @@
 
 
         <LinearLayout
-            android:id="@+id/riqill"
             android:layout_marginTop="8dp"
             android:background="@drawable/zidonghuoqu10"
             android:layout_width="match_parent"
@@ -206,33 +229,78 @@
             android:gravity="center_vertical"
             android:layout_marginRight="32dp"
             android:layout_height="50dp">
-            <TextView
-                android:text="预约来访日期:"
-                android:textSize="14sp"
-                android:layout_marginLeft="16dp"
-                android:textColor="@color/igray_et"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:id="@+id/riqill"
+                android:orientation="horizontal"
+                android:layout_height="match_parent">
+                <TextView
+                    android:text="来访开始时间:"
+                    android:textSize="14sp"
+                    android:layout_marginLeft="16dp"
+                    android:textColor="@color/write"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
-            <TextView
-                android:background="@null"
-                android:layout_width="match_parent"
-                android:textColor="@color/igray_et"
-                android:textSize="14sp"
-                android:gravity="center_vertical"
-                android:id="@+id/riqi"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="50dp"
-                android:layout_height="match_parent" />
+                <TextView
+                    android:background="@null"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/write"
+                    android:textSize="14sp"
+                    android:gravity="center_vertical"
+                    android:id="@+id/riqi"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_height="match_parent" />
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="50dp"
-                android:focusable="false"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="-50dp"
-                android:padding="16dp"
-                android:src="@drawable/xjt" />
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="50dp"
+                    android:focusable="false"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="-50dp"
+                    android:padding="16dp"
+                    android:src="@drawable/ic_back" />
+            </LinearLayout>
+            <View
+                android:layout_width="1dp"
+                android:background="@color/write"
+                android:layout_height="match_parent"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:id="@+id/riqi33"
+                android:orientation="horizontal"
+                android:layout_height="match_parent">
+                <TextView
+                    android:text="来访结束时间:"
+                    android:textSize="14sp"
+                    android:layout_marginLeft="16dp"
+                    android:textColor="@color/write"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:background="@null"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/write"
+                    android:textSize="14sp"
+                    android:gravity="center_vertical"
+                    android:id="@+id/riqi3"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="50dp"
+                    android:focusable="false"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="-50dp"
+                    android:padding="16dp"
+                    android:src="@drawable/ic_back" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -249,14 +317,14 @@
                 android:text="被访人:"
                 android:textSize="14sp"
                 android:layout_marginLeft="16dp"
-                android:textColor="@color/igray_et"
+                android:textColor="@color/write"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <EditText
                 android:background="@null"
                 android:layout_width="match_parent"
-                android:textColor="@color/igray_et"
+                android:textColor="@color/write"
                 android:textSize="14sp"
                 android:imeOptions="actionNext"
                 android:singleLine="true"
@@ -271,11 +339,11 @@
             android:layout_marginTop="8dp"
             android:layout_marginLeft="32dp"
             android:layout_marginRight="32dp"
-            android:background="@drawable/huiseyuanjiao"
+            android:background="@drawable/zidonghuoqu10"
             android:layout_height="50dp">
             <TextView
                 android:text="受访部门(或楼层)："
-                android:textColor="@color/igray_et"
+                android:textColor="@color/write"
                 android:textSize="14sp"
                 android:layout_marginLeft="16dp"
                 android:layout_width="wrap_content"
@@ -294,7 +362,7 @@
                 android:inputType="text"
                 android:layout_toRightOf="@+id/textView2"
                 android:background="@null"
-                android:textColor="@color/igray_et"
+                android:textColor="@color/write"
                 android:gravity="center_vertical"
                 android:layout_height="match_parent"
                 android:layout_alignParentTop="true"
@@ -314,14 +382,14 @@
                 android:text="被访人手机:"
                 android:textSize="14sp"
                 android:layout_marginLeft="16dp"
-                android:textColor="@color/igray_et"
+                android:textColor="@color/write"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <EditText
                 android:background="@null"
                 android:layout_width="match_parent"
-                android:textColor="@color/igray_et"
+                android:textColor="@color/write"
                 android:textSize="14sp"
                 android:maxLength="11"
                 android:imeOptions="actionNext"
@@ -337,31 +405,32 @@
             android:background="@drawable/zidonghuoqu10"
             android:layout_width="match_parent"
             android:layout_marginLeft="32dp"
+            android:id="@+id/shiyou"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:layout_marginRight="32dp"
             android:layout_height="50dp">
             <TextView
-                android:text="来访人数:"
+                android:text="来访事由:"
                 android:textSize="14sp"
                 android:layout_marginLeft="16dp"
-                android:textColor="@color/igray_et"
+                android:textColor="@color/write"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <EditText
+            <TextView
                 android:background="@null"
                 android:layout_width="match_parent"
-                android:textColor="@color/igray_et"
+                android:textColor="@color/write"
                 android:textSize="14sp"
-                android:inputType="number"
+                android:text="其它"
+                android:gravity="center_vertical"
                 android:id="@+id/yuyuerenshu"
-                android:textStyle="bold"
-                android:text="1"
                 android:imeOptions="actionDone"
                 android:singleLine="true"
                 android:layout_marginLeft="10dp"
                 android:layout_height="match_parent" />
+
         </LinearLayout>
 
         <Button

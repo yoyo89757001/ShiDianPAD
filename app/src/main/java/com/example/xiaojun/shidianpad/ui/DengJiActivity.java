@@ -61,7 +61,7 @@ import okhttp3.ResponseBody;
 
 public class DengJiActivity extends Activity implements View.OnClickListener {
     private ImageView riqi_im,touxiang;
-    private TextView riqi_tv,name,bidui_tv;
+    private TextView riqi_tv,name,bidui_tv,riqi_tv2;
     private EditText shoufangren,shoufangrenshu,bumen_ET,bfr_dianhua,laifangrenshouji;
 //    private Myadapter myadapter;
     private List<String> stringList;
@@ -80,7 +80,7 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
     private String zhuji=null;
     private MyAdapter myAdapter=null;
     private ListView listView;
-    private RelativeLayout rl,fffff;
+    private RelativeLayout rl,fffff,fff2;
     private List<ChaXunBean.ObjectsBean> objectsBeanList=new ArrayList<>();
     private BaoCunBeanDao baoCunBeanDao=null;
     private BaoCunBean baoCunBean=null;
@@ -133,12 +133,15 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
         myAdapter=new MyAdapter(DengJiActivity.this,objectsBeanList);
         fffff= (RelativeLayout) findViewById(R.id.juju);
         fffff.setOnClickListener(this);
+        fff2= (RelativeLayout) findViewById(R.id.juju2);
+        fff2.setOnClickListener(this);
         touxiang= (ImageView) findViewById(R.id.touxiang);
         bidui_tv= (TextView) findViewById(R.id.bidui_tv);
         name= (TextView) findViewById(R.id.editText);
         bfr_dianhua= (EditText) findViewById(R.id.beifangrendianhua);
         bumen_ET= (EditText) findViewById(R.id.bumen);
         riqi_tv= (TextView) findViewById(R.id.riqi);
+        riqi_tv2= (TextView) findViewById(R.id.riqi2);
         shoufangren= (EditText) findViewById(R.id.shoufang);
         shoufangren.addTextChangedListener(textWatcher);
         shoufangrenshu= (EditText) findViewById(R.id.renshu);
@@ -159,7 +162,7 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
       //  bumen_im.setOnClickListener(this);
         wancheng= (Button) findViewById(R.id.queren2);
         wancheng.setOnClickListener(this);
-
+        riqi_tv2.setText(DateUtils.timet2(System.currentTimeMillis()+"").substring(0,10)+" 18:00");
      //   stringList=new ArrayList<>();
 
 
@@ -208,6 +211,12 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
 
                 Intent intent = new Intent(DengJiActivity.this, DatePickActivity2.class);
                 startActivityForResult(intent,2);
+
+                break;
+            case R.id.juju2: //日期
+
+                Intent intent2 = new Intent(DengJiActivity.this, DatePickActivity2.class);
+                startActivityForResult(intent2,3);
 
                 break;
 //            case R.id.imageView2: //部门
@@ -284,7 +293,7 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
     电信：133、153、180、189、（1349卫通）
     总结起来就是第一位必定为1，第二位必定为3或5或8，其他位置的可以为0-9
     */
-        String num = "[1][3578]\\d{9}";//"[1]"代表第1位为数字1，"[358]"代表第二位可以为3、5、8中的一个，"\\d{9}"代表后面是可以是0～9的数字，有9位。
+        String num = "[1][35789]\\d{9}";//"[1]"代表第1位为数字1，"[358]"代表第二位可以为3、5、8中的一个，"\\d{9}"代表后面是可以是0～9的数字，有9位。
         if (TextUtils.isEmpty(number)) {
             return false;
         } else {
@@ -401,7 +410,11 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
             String date = data.getStringExtra("date");
             riqi_tv.setText(date);
         }
-
+        if (resultCode == Activity.RESULT_OK && requestCode == 3) {
+            // 选择预约时间的页面被关闭
+            String date = data.getStringExtra("date");
+            riqi_tv2.setText(date);
+        }
     }
 
     @Override
@@ -432,7 +445,9 @@ public class DengJiActivity extends Activity implements View.OnClickListener {
                 .add("homeNumber",bfr_dianhua.getText().toString().trim())
                 .add("visitDepartment",bumen_ET.getText().toString().trim())
                 .add("visitPerson",shoufangren.getText().toString().trim()+"")
-                .add("visitNum",shoufangrenshu.getText().toString().trim()+"")
+                .add("visitNum","1")
+                .add("visitEndDate2",riqi_tv2.getText().toString().trim())
+                .add("companyName",shoufangrenshu.getText().toString().trim())
                 .build();
 
       //  Log.d("DengJiActivity", DateUtils.dataOne(riqi_tv.getText().toString().trim()));

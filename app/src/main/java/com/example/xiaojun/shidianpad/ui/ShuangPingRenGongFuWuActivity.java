@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.ImageFormat;
 import android.graphics.YuvImage;
+import android.graphics.drawable.ColorDrawable;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -16,6 +17,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -26,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +42,7 @@ import com.example.xiaojun.shidianpad.beans.BaoCunBeanDao;
 import com.example.xiaojun.shidianpad.beans.ChaXunBean;
 import com.example.xiaojun.shidianpad.beans.MyAdapter;
 import com.example.xiaojun.shidianpad.beans.Photos;
+import com.example.xiaojun.shidianpad.beans.PopupWindowAdapter2;
 import com.example.xiaojun.shidianpad.beans.ShouFangBean;
 import com.example.xiaojun.shidianpad.dialog.TiJIaoDialog;
 import com.example.xiaojun.shidianpad.dialog.YuYueDialog;
@@ -72,9 +76,9 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class ShuangPingRenGongFuWuActivity extends Activity implements View.OnClickListener,SurfaceHolder.Callback {
-    private EditText name,shouji,beifangrenshouji,ren,renshu,bumen;
+    private EditText name,shouji,beifangrenshouji,ren,bumen,qiye;
     private ImageView touxiang,jiahao;
-    private TextView riqi;
+    private TextView riqi,riqi33,renshu;
     private Button baocun;
     private  String zhuji=null;
     private SurfaceView surfaceView;
@@ -82,7 +86,7 @@ public class ShuangPingRenGongFuWuActivity extends Activity implements View.OnCl
     private RelativeLayout ggg;
    // private JiaZaiDialog jiaZaiDialog=null;
     private String shengfenzhengPath=null;
-    private LinearLayout riqill;
+    private LinearLayout riqill,riqill_3,shiyou;
     public static final int TIMEOUT = 1000 * 60;
     private TiJIaoDialog tiJIaoDialog=null;
     private boolean isA=false;
@@ -104,6 +108,9 @@ public class ShuangPingRenGongFuWuActivity extends Activity implements View.OnCl
     private Bitmap bmp2=null;
     private static boolean isTrue4=false;
     private static int count=1;
+    private PopupWindow popupWindow=null;
+    private PopupWindowAdapter2 adapterss2;
+    private List<String> stringList2=new ArrayList<>();
 
 
 
@@ -121,7 +128,10 @@ public class ShuangPingRenGongFuWuActivity extends Activity implements View.OnCl
             tastyToast.show();
         }
 
-
+        stringList2.add("业务");
+        stringList2.add("合作");
+        stringList2.add("面试");
+        stringList2.add("其它");
         listView= (ListView) findViewById(R.id.lsvMore);
         rl= (RelativeLayout) findViewById(R.id.tttttt);
         rl.setOnClickListener(new View.OnClickListener() {
@@ -141,7 +151,30 @@ public class ShuangPingRenGongFuWuActivity extends Activity implements View.OnCl
         sh = surfaceView.getHolder();
         sh.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
         sh.addCallback(this);
+        shiyou= (LinearLayout) findViewById(R.id.shiyou);
+        shiyou.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View contentView = LayoutInflater.from(ShuangPingRenGongFuWuActivity.this).inflate(R.layout.xiangmu_po_item, null);
 
+                ListView listView= (ListView) contentView.findViewById(R.id.dddddd);
+                adapterss2=new PopupWindowAdapter2(ShuangPingRenGongFuWuActivity.this,stringList2);
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        renshu.setText(stringList2.get(position));
+                        popupWindow.dismiss();
+                    }
+                });
+                listView.setAdapter(adapterss2);
+                popupWindow=new PopupWindow(contentView,200, setListViewHeightBasedOnChildren(listView));
+                popupWindow.setFocusable(true);//获取焦点
+                popupWindow.setOutsideTouchable(true);//获取外部触摸事件
+                popupWindow.setTouchable(true);//能够响应触摸事件
+                popupWindow.setBackgroundDrawable(new ColorDrawable(0x00000000));//设置背景
+                popupWindow.showAsDropDown(renshu,renshu.getLeft()-100,0);
+            }
+        });
         baocun = (Button) findViewById(R.id.baocun);
         paizhao = (Button) findViewById(R.id.paizhao1);
         paizhao.setOnClickListener(this);
@@ -183,7 +216,7 @@ public class ShuangPingRenGongFuWuActivity extends Activity implements View.OnCl
             }
         });
 
-
+        qiye= (EditText) findViewById(R.id.qiye);
         tishi= (TextView) findViewById(R.id.tishi);
         name = (EditText) findViewById(R.id.name);
         bumen= (EditText) findViewById(R.id.bumen);
@@ -192,7 +225,9 @@ public class ShuangPingRenGongFuWuActivity extends Activity implements View.OnCl
         shouji = (EditText) findViewById(R.id.shoujihao);
         beifangrenshouji = (EditText) findViewById(R.id.gonghao);
         riqi = (TextView) findViewById(R.id.riqi);
+        riqi33 = (TextView) findViewById(R.id.riqi3);
         riqill= (LinearLayout) findViewById(R.id.riqill);
+        riqill_3= (LinearLayout) findViewById(R.id.riqi33);
         riqill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -200,10 +235,18 @@ public class ShuangPingRenGongFuWuActivity extends Activity implements View.OnCl
                 startActivityForResult(intent,2);
             }
         });
+        riqill_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ShuangPingRenGongFuWuActivity.this, DatePickActivity2.class);
+                startActivityForResult(intent,3);
+            }
+        });
         riqi.setText(DateUtils.timet2(System.currentTimeMillis() + ""));
+        riqi33.setText(DateUtils.timet2(System.currentTimeMillis()+"").substring(0,10)+" 18:00");
         ren = (EditText) findViewById(R.id.yuyueren);
         ren.addTextChangedListener(textWatcher);
-        renshu = (EditText) findViewById(R.id.yuyuerenshu);
+        renshu = (TextView) findViewById(R.id.yuyuerenshu);
         touxiang = (ImageView) findViewById(R.id.touxiang);
         touxiang.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -368,6 +411,29 @@ public class ShuangPingRenGongFuWuActivity extends Activity implements View.OnCl
         return null;
     }
 
+    public int setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return 0;
+        }
+
+        int totalHeight = 0;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            // listItem.measure(0, 0);
+            listItem.measure(
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+//        ViewGroup.LayoutParams params = listView.getLayoutParams();
+//        params.height = totalHeight
+//                + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+//        listView.setLayoutParams(params);
+        return totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+    }
 
     /**
      * 验证手机格式
@@ -379,7 +445,7 @@ public class ShuangPingRenGongFuWuActivity extends Activity implements View.OnCl
     电信：133、153、180、189、（1349卫通）
     总结起来就是第一位必定为1，第二位必定为3或5或8，其他位置的可以为0-9
     */
-        String num = "[1][3578]\\d{9}";//"[1]"代表第1位为数字1，"[358]"代表第二位可以为3、5、8中的一个，"\\d{9}"代表后面是可以是0～9的数字，有9位。
+        String num = "[1][35789]\\d{9}";//"[1]"代表第1位为数字1，"[358]"代表第二位可以为3、5、8中的一个，"\\d{9}"代表后面是可以是0～9的数字，有9位。
         if (TextUtils.isEmpty(number)) {
             return false;
         } else {
@@ -421,7 +487,11 @@ public class ShuangPingRenGongFuWuActivity extends Activity implements View.OnCl
             String date = data.getStringExtra("date");
             riqi.setText(date);
         }
-
+        if (resultCode == Activity.RESULT_OK && requestCode == 3) {
+            // 选择预约时间的页面被关闭
+            String date = data.getStringExtra("date");
+            riqi33.setText(date);
+        }
     }
 
     private void kill_camera() {
@@ -527,7 +597,7 @@ public class ShuangPingRenGongFuWuActivity extends Activity implements View.OnCl
 
     }
 
-    private Void SetAndStartPreview(SurfaceHolder holder) {
+    private void SetAndStartPreview(SurfaceHolder holder) {
         try {
             if (mCamera!=null){
                 mCamera.setPreviewDisplay(holder);
@@ -539,7 +609,7 @@ public class ShuangPingRenGongFuWuActivity extends Activity implements View.OnCl
             Log.d("InFoActivity2", e.getMessage()+"相机");
 
         }
-        return null;
+     //   return null;
     }
 
     @Override
@@ -569,16 +639,18 @@ public class ShuangPingRenGongFuWuActivity extends Activity implements View.OnCl
 //    /* form的分割线,自己定义 */
 //        String boundary = "xx--------------------------------------------------------------xx";
         RequestBody body = new FormBody.Builder()
-                .add("name",name.getText().toString().trim()+"")
-                .add("phone",shouji.getText().toString().trim()+"")
-                .add("visitDate2",riqi.getText().toString().trim()+"")
-                .add("visitPerson",ren.getText().toString().trim()+"")
-                .add("visitDepartment",bumen.getText().toString().trim()+"")
-                .add("homeNumber",beifangrenshouji.getText().toString().trim()+"")
-                .add("visitNum",renshu.getText().toString().trim()+"")
+                .add("name",name.getText().toString().trim())
+                .add("phone",shouji.getText().toString().trim())
+                .add("visitDate2",riqi.getText().toString().trim())
+                .add("visitPerson",ren.getText().toString().trim())
+                .add("visitDepartment",bumen.getText().toString().trim())
+                .add("homeNumber",beifangrenshouji.getText().toString().trim())
+                .add("visitNum","1")
+                .add("visitEndDate2",riqi33.getText().toString().trim())
+                .add("companyName",qiye.getText().toString().trim())
                 .add("accountId","1")
                 .add("scanPhoto",touxiangPath)
-                .add("visitIncident","1")
+                .add("visitIncident",renshu.getText().toString().trim())
                 .add("cardNumber","rt"+System.currentTimeMillis())
                 .add("source","1")
                 .build();
